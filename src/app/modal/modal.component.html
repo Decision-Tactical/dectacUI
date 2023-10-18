@@ -1,0 +1,46 @@
+<div class="modal-header">
+    <h3 class="modal-title" id="exampleModalLabel">MemberShip Type: {{membershipType}}</h3>
+    <!--<button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modalRef.close()"
+    ></button>-->
+  </div>
+  <div class="modal-body">
+    <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+    <p-table #myTab [value]="tableData" [scrollable]="true" scrollHeight="300px" [rowHover]="true" [rows]="5"
+          [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,15]" [paginator]="true"
+          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" sortMode="multiple">
+          <ng-template pTemplate="header">
+            <tr>
+              <th *ngFor="let col of cols" [pSortableColumn]="col.header">
+                {{ col.header }}
+                <p-sortIcon [field]="col.header"></p-sortIcon>
+              </th>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="body" let-people>
+            <tr>
+              <td>
+                {{ people.credittype }}
+              </td>
+              <td>
+                {{ people.creditquantity }}
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+  </div>
+  <div class="modal-footer row">
+    <div class="col-6"></div>
+    <div class="col-3">
+      <button type="button" class="btn btn--secondary btn--general-cta">Add Credits</button>
+    </div>
+    <!--<div class="col-3">
+      <button type="button" class="btn btn-secondary btn--general-cta" (click)="modalRef.close()">
+        Close
+      </button>
+    </div>-->       
+  </div>

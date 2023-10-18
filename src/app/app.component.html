@@ -1,0 +1,284 @@
+<div id="main_container">
+  <div class="main_content">
+    <!--<div class="header">
+      <div id="meta"><a href="index.htm" class="marr">Home</a> | <a href="News.html" class="marl marr">TBD1</a> | <a
+          href="Downloads.html" class="marl">TBD2</a> | <a href="Franchisees.html" class="marl">TBD3</a> |
+        <a href="Inaugural.html" class="marl">TBD4</a>
+      </div>
+    </div>-->
+    <header class="main-header" role="banner">
+      <div class="main-header__container main-header__container--fixed">
+          <div class="fw--top-bar">
+              <div class="cw">
+                  <div class="top-bar">
+                      <div class="top-bar__row">
+                          <div class="top-bar__col top-bar__col--content">
+                              <p class="top-bar__content">Open to Responsible Civilians</p>
+                          </div>
+                          <div class="top-bar__col top-bar__col--phone">
+                              <a href="tel:+14078780011" title="Click to Call"
+                                  class="click-to-call top-bar__click-to-call js-click-to-call phone-link-shortcode js-click-to-call"><span>407.878.0011</span></a>
+                          </div>
+                          <div class="top-bar__col top-bar__col--my-account">
+                              <a href="https://bookings.clubspeed.com/DT/DTBearLake" title="View Your Account"
+                                  target="_blank" class="top-bar__my-account"><span>My Account</span></a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="fw--main-header">
+              <div class="cw">
+                  <div class="main-header__row">
+
+                      <div class="main-header__col main-header__col--logo">
+                          <a href="" title="View Homepage"
+                              class="main-header__logo-link main-header__logo-link--icon">
+                              <svg class="icon-dtac-logo">
+                                  <use xlink:href="../assets/svg/dtac.svg#icon-dtac-logo"></use>
+                              </svg>
+                          </a>
+                      </div>
+
+
+                      <div class="main-header__col main-header__col--navigation">
+                          <nav id="main-navigation" class="main-header__navigation" role="navigation">
+                              <ul id="menu-main-menu" class="menu main-navigation" data-role="menubar">
+                                  <li id="menu-item-251"
+                                      class="menu-item menu-item-type-post_type menu-item-object-page menu-item-251">
+                                      <a
+                                          href="https://decisiontactical.com/firearms-simulator-training"><span>Train</span></a>
+                                  </li>
+                                  <li id="menu-item-252"
+                                      class="menu-item menu-item-type-post_type menu-item-object-page menu-item-252">
+                                      <a href="https://decisiontactical.com/virtual-shooting"><span>Play &amp;
+                                              Learn</span></a>
+                                  </li>
+                                  <li id="menu-item-253"
+                                      class="menu-item menu-item-type-post_type menu-item-object-page menu-item-253">
+                                      <a href="https://decisiontactical.com/virtual-shooting-simulator"><span>How It
+                                              Works</span></a>
+                                  </li>
+                                  <li id="menu-item-267"
+                                      class="menu-item menu-item-type-post_type menu-item-object-page menu-item-267">
+                                      <a href="https://decisiontactical.com/menu"><span>Food &amp; Drink</span></a>
+                                  </li>
+                                  <li id="menu-item-268"
+                                      class="menu-item--btn menu-item menu-item-type-custom menu-item-object-custom menu-item-268">
+                                      <a target="_blank"
+                                          href="https://bookings.clubspeed.com/DT/DTBearLake"><span>Book
+                                              Now</span></a>
+                                  </li>
+                              </ul>
+                          </nav>
+                      </div>
+
+                      <div class="main-header__col main-header__col--book-now">
+                          <a href="https://bookings.clubspeed.com/DT/DTBearLake" title="Book Now" target="_blank"
+                              class="main-header__book-now-link">
+                              <span>Book Now</span>
+                          </a>
+                      </div>
+
+                      <div class="main-header__col main-header__col--mobile-menu">
+                          <button title="Mobile Menu Open" class="main-header__mobile-menu js-mobile-menu-open" href="javascript:void(0);" (click)="myFunction()">
+                              <svg class="icon-bar">
+                                  <use xlink:href="../assets/svg/roar.svg#icon-bar">
+                                  </use>
+                              </svg> </button>
+                      </div>
+
+                  </div>
+              </div>
+          </div>
+      </div>
+  </header>
+    <div class="center_content row">
+      <div class="right_content col-12 col-sm-12 col-md-12 col-lg-10" id="right_content">
+        <hr />
+        <h4><span *ngIf="accountService.userValue">Hello {{accountService.userValue.first_name}},</span> Welcome To D-TAC</h4>
+        <hr />
+        <router-outlet></router-outlet>
+      </div>
+      <div class="left_content col-12 col-sm-12 col-md-12 col-lg-2" id="left_content">
+        <app-right-navbar *ngIf="accountService.isLoggedInCheck()"></app-right-navbar>
+      </div>
+      
+      <!-- end of right content-->
+    </div> <!--end of center content -->
+    <div class="clear"></div>
+  </div> <!--end of main content-->
+
+
+<footer id="footer" class="footer">
+    <div class="fw--footer">
+        <div class="cw">
+            <div class="footer">
+                <div class="footer__row">
+                    <div class="footer__col footer__col--info">
+                        <a href="#" title="Decision Tactical Home"
+                            class="footer__logo-link">
+                            <img src="https://decisiontactical.com/wp-content/themes/dtac-theme/assets/img/vector/optimized/decision-tactical-logo-blue-black.svg"
+                                class="footer__logo no-lazy-load" alt="Decision Tactical Color Logo">
+                        </a>
+                        <address class="content-address footer__address"><span>430 Town Center Cir</span>
+                            <span></span><br><span>Sanford</span>, <span>FL</span> <span>32771</span>
+                        </address> <a href="tel:+14078780011" title="Click to Call"
+                            class="click-to-call footer__click-to-call js-click-to-call phone-link-shortcode js-click-to-call"><svg
+                                class="icon-phone-full">
+                                <use
+                                    xlink:href="../assets/svg/dtac.svg#icon-phone-full">
+                                </use>
+                            </svg><span>407.878.0011</span></a>
+                        <div class="footer__terms-links">
+                            <div class="footer__terms-link">
+                                <a href="https://decisiontactical.com/terms-and-conditions"
+                                    title="Terms and Conditions">Terms and Conditions</a>
+                            </div>
+                            <div class="footer__terms-link">
+                                <a href="https://decisiontactical.com/privacy-policy"
+                                    title="Privacy Policy">Privacy Policy</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer__col footer__col--links">
+                        <div id="nav_menu-5" class="widget_nav_menu">
+                            <ul id="menu-footer-menu-1" class="menu">
+                                <li id="menu-item-307"
+                                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-266 current_page_item menu-item-307">
+                                    <a href="" aria-current="page">Home</a>
+                                </li>
+                                <li id="menu-item-308"
+                                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-308">
+                                    <a href="https://decisiontactical.com/technology-and-safety">Technology &amp;
+                                        Safety</a>
+                                </li>
+                                <li id="menu-item-277"
+                                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-277">
+                                    <a href="https://decisiontactical.com/virtual-shooting-simulator">How It
+                                        Works</a>
+                                </li>
+                                <li id="menu-item-275"
+                                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-275">
+                                    <a href="https://decisiontactical.com/firearms-simulator-training">Train</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="footer__col footer__col--links">
+                        <div id="nav_menu-3" class="widget_nav_menu">
+                            <ul id="menu-footer-menu-2" class="menu">
+                                <li id="menu-item-281"
+                                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-281">
+                                    <a href="https://decisiontactical.com/virtual-shooting">Play &amp; Learn</a>
+                                </li>
+                                <li id="menu-item-309"
+                                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-309">
+                                    <a href="https://decisiontactical.com/group-events">Parties &amp; Events</a>
+                                </li>
+                                <li id="menu-item-283"
+                                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-283">
+                                    <a href="https://decisiontactical.com/menu">Food &amp; Drink</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="footer__col footer__col--links">
+                        <div id="nav_menu-4" class="widget_nav_menu">
+                            <ul id="menu-footer-menu-3" class="menu">
+                                <li id="menu-item-311"
+                                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-311">
+                                    <a href="https://decisiontactical.com/careers">Careers</a>
+                                </li>
+                                <li id="menu-item-313"
+                                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-313">
+                                    <a href="https://decisiontactical.com/contact-us">Contact Us</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="footer__col footer__col--actions">
+                        <a href="https://decisiontactical.com/plan-your-visit"
+                            class="btn btn--secondary btn--footer" title="Plan Your Visit"><span>Plan Your
+                                Visit</span></a>
+                        <a href="#" title="View Your Account" class="btn btn--secondary btn--footer" *ngIf="!accountService.isLoggedInCheck()" routerLink="/login"><span>Account Login</span></a>
+                        <a href="#" title="View Your Account" (click)="logout()" class="btn btn--secondary btn--footer" *ngIf="accountService.isLoggedInCheck()"><span>Logout</span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bot">
+                <div class="footer-bot__row">
+                    <div class="footer-bot__col footer-bot__col--terms"></div>
+                    <div class="footer-bot__col footer-bot__col--newsletter"></div>
+                    <div class="footer-bot__col footer-bot__col--socials">
+                        <div class="social-media-container social-media-container">
+                            <ul class="social-media">
+                                <li class="social-media__single"><a href="https://www.facebook.com/DecisionTactical"
+                                        title="View Decision Tactical on Facebook" class="social-media__link"
+                                        target="_blank"><svg class="icon-facebook">
+                                            <use
+                                                xlink:href="../assets/svg/roar-brands.svg#icon-facebook">
+                                            </use>
+                                        </svg></a></li>
+                                <li class="social-media__single"><a
+                                        href="https://www.instagram.com/decision_tactical"
+                                        title="View Decision Tactical on Instagram" class="social-media__link"
+                                        target="_blank"><svg class="icon-instagram">
+                                            <use
+                                                xlink:href="../assets/svg/roar-brands.svg#icon-instagram">
+                                            </use>
+                                        </svg></a></li>
+                                <li class="social-media__single"><a href="https://twitter.com/DTacSanford"
+                                        title="View Decision Tactical on Twitter" class="social-media__link"
+                                        target="_blank"><svg class="icon-x-twitter">
+                                            <use
+                                                xlink:href="../assets/svg/dtac.svg#icon-x-twitter">
+                                            </use>
+                                        </svg></a></li>
+                                <li class="social-media__single"><a
+                                        href="https://www.linkedin.com/company/decision-tactical"
+                                        title="View Decision Tactical on LinkedIn" class="social-media__link"
+                                        target="_blank"><svg class="icon-linkedin">
+                                            <use
+                                                xlink:href="../assets/svg/roar-brands.svg#icon-linkedin">
+                                            </use>
+                                        </svg></a></li>
+                                <li class="social-media__single"><a href="https://youtube.com/@Decision_Tactical"
+                                        title="View Decision Tactical on YouTube" class="social-media__link"
+                                        target="_blank"><svg class="icon-youtube">
+                                            <use xlink:href="../assets/svg/roar-brands.svg#icon-youtube"></use>
+                                        </svg></a></li>
+                                <li class="social-media__single"><a
+                                        href="https://www.pinterest.com/Decision_Tactical"
+                                        title="View Decision Tactical on Pinterest" class="social-media__link"
+                                        target="_blank"><svg class="icon-pinterest">
+                                            <use
+                                                xlink:href="../assets/svg/roar-brands.svg#icon-pinterest">
+                                            </use>
+                                        </svg></a></li>
+                                <li class="social-media__single"><a href="https://www.tiktok.com/@decision_tactical"
+                                        title="View Decision Tactical on TikTok" class="social-media__link"
+                                        target="_blank"><svg class="icon-tiktok">
+                                            <use
+                                                xlink:href="../assets/svg/dtac.svg#icon-tiktok">
+                                            </use>
+                                        </svg></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   <!--<div class="branding-footer" style="background-color: #efefef;">
+        <a href="https://roarwebdesign.com" title="ROAR! Internet Marketing" target="_blank"
+            class="branding-footer__link" style="color: #121b45;">
+            <svg class="icon-roar-internet-marketing">
+                <use
+                    xlink:href="../assets/svg/roar.svg#icon-roar-internet-marketing">
+                </use>
+            </svg> <span>Orlando Web Design and Digital Marketing by ROAR! Internet Marketing</span>
+        </a>
+    </div>-->
+</footer>
+</div>

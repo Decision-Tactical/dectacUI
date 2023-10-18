@@ -1,0 +1,47 @@
+
+.sidebarmenu {
+    margin: 0px 0;
+    padding: 0;
+}
+
+
+.sidebarmenu p.menuitem_red {
+    background-color: rgba(0, 0, 0, .75);
+    height: 31px;
+    margin: 0 0 5px 0;
+    line-height: 31px;
+    padding: 0px 0 0 15%;
+    font-size: 1.6rem;
+    text-decoration: none;
+    border-radius: .3rem;
+    border-radius: var(--border-radius);
+    color: #fff;
+    color: var(--white);
+    display: block;
+    font-family: Anton, Impact, Haettenschweiler, Franklin Gothic Bold, Charcoal, Helvetica Inserat, Bitstream Vera Sans Bold, 'Arial Black', sans serif;
+    font-family: var(--h-font);
+    font-weight: 400;
+    text-shadow: rgba(0, 0, 0, .01) 0 0 1px;
+    text-transform: uppercase;
+    transition: background-color .4s cubic-bezier(.25, .46, .45, .94), color .4s cubic-bezier(.25, .46, .45, .94);
+    backface-visibility: hidden;
+    will-change: background-color, color
+}
+
+.sidebarmenu p.menuitem_red:hover {
+    background-color: rgba(178, 14, 0, .5);
+    color: rgba(255, 255, 255, .9);
+    text-decoration: none
+}
+
+.sidebarmenu p.menuitem:visited,
+.sidebarmenu p.menuitem:active {
+    color: grey;
+}
+
+.sidebarmenu p.menuitem .statusicon {
+    position: absolute;
+    top: 11px;
+    right: 7px;
+    border: none;
+}

@@ -1,0 +1,37 @@
+<div class="container col-md-6 offset-md-3 mt-5">
+  <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+  <div *ngIf="success" class="alert alert-success">{{success}}</div>
+  <div class="card">
+      <h4 class="card-header">Login</h4>
+      <div class="card-body">
+          <form [formGroup]="form" (ngSubmit)="onSubmit()">
+              <div class="mb-3">
+                  <label class="form-label">Username</label>
+                  <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+                  <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                      <div *ngIf="f.username.errors.required">Username is required</div>
+                  </div>
+              </div>
+              <div class="mb-3">
+                  <label class="form-label">Password</label>
+                  <input matInput [type]="showPassword ? 'text' : 'password'" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                  <mat-icon matSuffix (click)="togglePasswordVisibility()" style="position: absolute; margin-top: -25px; margin-right: 20px; right: 0;">
+                    {{showPassword?'visibility_off':'visibility'}}
+                </mat-icon>
+                  <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                      <div *ngIf="f.password.errors.required">Password is required</div>
+                  </div>
+              </div>
+              <div>
+                  <button [disabled]="loading" class="btn btn--secondary btn--general-cta">
+                      <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
+                      Login
+                  </button>
+                  <!--<a routerLink="../register" class="btn btn-link">Register</a>-->
+                  <p> Are You First Time User? <a routerLink="../first-user" class="btn btn-link">Click Here</a></p>
+                  <p> <a routerLink="../forgotPassword" class="btn btn-link">Forgot Password?</a> </p>
+              </div>
+          </form>
+      </div>
+  </div>
+</div>

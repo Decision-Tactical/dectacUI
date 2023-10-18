@@ -1,0 +1,141 @@
+<div class="sidebarmenu row">
+    <div class="col-12">
+        <p class="menuitem_red" routerLink="/">DASHBOARD</p>
+    </div>
+    <div class="col-12">
+        <p class="menuitem_red" routerLink="/video">VIDEOS</p>
+    </div>
+    <div class="col-12">
+        <p class="menuitem_red" routerLink="/getcredits">CREDITS</p>
+        <!--<p class="menuitem_red" (click)="openModal()">CREDITS</p>-->
+    </div>
+    <div class="col-12">
+        <p class="menuitem_red"  routerLink="/resetpassword">PASSWORD MANAGEMENT</p>
+    </div>
+    <div class="col-12">
+        <p class="menuitem_red" routerLink="/getprofile">PROFILE MANAGEMENT</p>
+    </div>
+    <!--<div class="col-12">
+    <p class="menuitem_red">TBD1</p>
+</div>
+<div class="col-12">
+    <p class="menuitem_red">TBD2</p>
+</div>
+<div class="col-12">
+    <p class="menuitem_red">TBD3</p>
+</div>
+<div class="col-12">
+    <p class="menuitem_red">TBD4</p>
+</div>
+<div class="col-12">
+    <p class="menuitem_red">TBD5</p>
+</div>-->
+    <div class="col-12">
+        <p class="menuitem_red" (click)="logout()">LOGOUT</p>
+    </div>
+</div>
+<nav class="offset-menu offset-menu--offset js-offset-menu" aria-hidden="true" id="myLinks">
+    <button title="Close Mobile Menu" class="offset-menu__close js-mobile-menu-close" aria-label="Close Menu" href="javascript:void(0);" (click)="myFunction()">
+        <svg class="icon-close">
+            <use
+                xlink:href="../assets/svg/roar.svg#icon-close">
+            </use>
+        </svg> </button>
+    <div class="offset-menu__navigation">
+        <ul id="menu-mobile-menu" class="offset-menu__nav" data-role="menubar">
+            <li id="menu-item-796" class="menu-item menu-item-type-post_type menu-item-object-custom menu-item-796"><span  routerLink="/">DASHBOARD</span></li>
+            <li id="menu-item-794" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-794"><span routerLink="/video">VIDEOS</span></li>
+            <li id="menu-item-791" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-791"><span routerLink="/getcredits">CREDITS</span></li>
+            <li id="menu-item-787" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-787"><span routerLink="/resetpassword">PASSWORD MANAGEMENT</span></li>
+            <li id="menu-item-792" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-792"><span routerLink="/getprofile">PROFILE MANAGEMENT</span></li>
+            <li id="menu-item-790" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-790"><span (click)="logout()">LOGOUT</span></li>
+            <!--<li id="menu-item-788" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-788"><a
+                    href="/group-events" tabindex="-1"><span>Parties &amp;
+                        Events</span></a></li>
+            <li id="menu-item-786" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-786"><a
+                    href="/menu" tabindex="-1"><span>Food &amp; Drink</span></a></li>
+            <li id="menu-item-784" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-784"><a
+                    href="/contact-us" tabindex="-1"><span>Contact Us</span></a></li>
+            <li id="menu-item-782" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-782"><a
+                    href="/careers" tabindex="-1"><span>Careers</span></a></li>
+            <li id="menu-item-793" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-793"><a
+                    href="/terms-and-conditions" tabindex="-1"><span>Terms &amp;
+                        Conditions</span></a></li>
+            <li id="menu-item-781"
+                class="menu-item menu-item-type-post_type menu-item-object-page menu-item-privacy-policy menu-item-781">
+                <a href="/privacy-policy" tabindex="-1"><span>Privacy Policy</span></a>
+            </li>
+            <li id="menu-item-780"
+                class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-266 current_page_item menu-item-780">
+                <a href="" tabindex="-1"><span>Home</span></a>
+            </li>-->
+        </ul>
+    </div>
+    <div class="offset-menu__information">
+        <div class="offset-menu__phone-container">
+            <a href="tel:+14078780011" title="Click to Call"
+                class="click-to-call offset-menu__click-to-call js-click-to-call phone-link-shortcode js-click-to-call"
+                tabindex="-1"><span>407.878.0011</span></a>
+        </div>
+        <div class="offset-menu__address-container">
+            <address class="content-address offset-menu__address"><span>430 Town Center Cir</span>
+                <span></span><br><span>Sanford</span>, <span>FL</span> <span>32771</span>
+            </address>
+        </div>
+        <div class="offset-menu__socials">
+            <div class="social-media-container social-media-container">
+                <ul class="social-media">
+                    <li class="social-media__single"><a href="https://www.facebook.com/DecisionTactical"
+                            title="View Decision Tactical on Facebook" class="social-media__link" target="_blank"
+                            tabindex="-1"><svg class="icon-facebook">
+                                <use xlink:href="../assets/svg/roar-brands.svg#icon-facebook">
+                                </use>
+                            </svg></a></li>
+                    <li class="social-media__single"><a href="https://www.instagram.com/decision_tactical"
+                            title="View Decision Tactical on Instagram" class="social-media__link" target="_blank"
+                            tabindex="-1"><svg class="icon-instagram">
+                                <use xlink:href="../assets/svg/roar-brands.svg#icon-instagram">
+                                </use>
+                            </svg></a></li>
+                    <li class="social-media__single"><a href="https://twitter.com/DTacSanford"
+                            title="View Decision Tactical on Twitter" class="social-media__link" target="_blank"
+                            tabindex="-1"><svg class="icon-x-twitter">
+                                <use xlink:href="../assets/svg/dtac.svg#icon-x-twitter">
+                                </use>
+                            </svg></a></li>
+                    <li class="social-media__single"><a href="https://www.linkedin.com/company/decision-tactical"
+                            title="View Decision Tactical on LinkedIn" class="social-media__link" target="_blank"
+                            tabindex="-1"><svg class="icon-linkedin">
+                                <use xlink:href="../assets/svg/roar-brands.svg#icon-linkedin">
+                                </use>
+                            </svg></a></li>
+                    <li class="social-media__single"><a href="https://youtube.com/@Decision_Tactical"
+                            title="View Decision Tactical on YouTube" class="social-media__link" target="_blank"
+                            tabindex="-1"><svg class="icon-youtube">
+                                <use xlink:href="../assets/svg/roar-brands.svg#icon-youtube">
+                                </use>
+                            </svg></a></li>
+                    <li class="social-media__single"><a href="https://www.pinterest.com/Decision_Tactical"
+                            title="View Decision Tactical on Pinterest" class="social-media__link" target="_blank"
+                            tabindex="-1"><svg class="icon-pinterest">
+                                <use xlink:href="../assets/svg/roar-brands.svg#icon-pinterest">
+                                </use>
+                            </svg></a></li>
+                    <li class="social-media__single"><a href="https://www.tiktok.com/@decision_tactical"
+                            title="View Decision Tactical on TikTok" class="social-media__link" target="_blank"
+                            tabindex="-1"><svg class="icon-tiktok">
+                                <use xlink:href="../assets/svg/dtac.svg#icon-tiktok">
+                                </use>
+                            </svg></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="offset-menu__logo">
+            <a href="" class="offset-menu__logo-link offset-menu__logo-link--icon" tabindex="-1">
+                <svg class="icon-dtac-logo">
+                    <use xlink:href="../assets/svg/dtac.svg#icon-dtac-logo">
+                    </use>
+                </svg> </a>
+        </div>
+    </div>
+</nav>

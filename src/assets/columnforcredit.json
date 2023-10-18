@@ -1,0 +1,5 @@
+[
+    {"field":"credittype", "header":"Credit Type"},
+    {"field":"creditquantity", "header":"Credit Quantity"}
+
+]

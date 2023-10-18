@@ -1,0 +1,74 @@
+
+    <div class="row" *ngIf="successHide"><div class="col-12">
+      <div *ngIf="success" class="alert alert-success">{{success}}</div>
+      <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+    </div></div>
+
+    <div class="row">
+      <div class="col-12 col-sm-12 col-md-12 col-lg-3">
+        <label>Select Date Range: </label>
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+            <!--<div id="datepickerFrom" class="input-group date" data-date-format="mm-dd-yyyy">
+              <input class="form-control" type="text" readonly />
+              <span class="input-group-addon">
+                <i class="glyphicon glyphicon-calendar"></i>
+              </span>
+            </div>-->
+            <mat-form-field>
+              <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="pickerFrom" [formControl]="dateControl" placeholder="Choose Start Date" (dateChange)="startDateChanged($event)">
+              <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+              <mat-datepicker #pickerFrom></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-8">
+            <mat-form-field>
+              <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="pickerTo" [formControl]="dateControl" placeholder="Choose End Date" (dateChange)="endDateChanged($event)">
+              <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+              <mat-datepicker #pickerTo></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-4">
+            <button class="btn btn--secondary btn--general-cta"  (click)="onDateClick()"> <span>GO</span></button>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-12 col-md-12 col-lg-9">
+        <p-table #myTab [columns]="cols" [value]="tableData" [scrollable]="true" scrollHeight="400px" [rowHover]="true" [rows]="10"
+          [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [paginator]="true"
+          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" sortMode="multiple" class="stat-table">
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                {{ col.header }}
+                <p-sortIcon [field]="col.field"></p-sortIcon>
+              </th>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="body" let-people let-columns="columns">
+            <tr>
+              <td *ngFor="let col of columns">
+                {{people[col.field]}}
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+    <hr />
+    <!--<app-video-thumbnail></app-video-thumbnail>
+    <div class="row">
+      <div class="col-4"></div>
+      <div class="col-5">
+        <div class="card">
+          <p-chart type="bar" [data]="data" [options]="options"></p-chart>
+        </div>
+      </div>
+      <div class="col-3"></div>
+    </div>-->
+ 

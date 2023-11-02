@@ -26,7 +26,7 @@ export class DashboardComponent implements OnInit {
   successHide?: boolean = true;
   pickerFrom: any;
   pickerTo: any;
-  minDate: any = moment('2020=1-1', 'YYYY-MM-DD').local();
+  minDate: any = moment('2020-1-1', 'YYYY-MM-DD').local();
   maxDate: any = moment().local();
 
   constructor(

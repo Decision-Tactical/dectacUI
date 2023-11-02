@@ -21,7 +21,19 @@ export class AppComponent implements OnInit, OnDestroy {
 ngOnInit(): void {
   this._sub = this.accountService.isLoggedIn$.subscribe(loginState => this.isLoggedIn = loginState)
   this.user = this.accountService.userValue;
-}
+  let a: any = document.getElementById('dtacbody'); //document.querySelectorAll('.menu-item');
+  a.addEventListener("click", function (event: any) {
+    console.log('event-->', event);
+    const x: any = document.getElementById('myLinks');
+    if (event.target.id === 'mobile-menu-open' || event.target.farthestViewportElement && event.target.farthestViewportElement.id === 'mobile-menu-open') {
+      x.classList.toggle('offset-menu--active');      
+    } else {
+      if (x.classList.contains('offset-menu--active')) {
+        x.classList.remove('offset-menu--active');
+      }
+    }
+  });
+  }
 // Unsubscribe from login state on destroy to prevent memory leak
 ngOnDestroy(): void {
   this._sub.unsubscribe();

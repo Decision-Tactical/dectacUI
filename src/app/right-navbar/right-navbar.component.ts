@@ -18,11 +18,11 @@ export class RightNavbarComponent implements OnInit{
   
   }
   ngOnInit(): void {
-    const a: any = document.getElementById('menu-mobile-menu'); //document.querySelectorAll('.menu-item');
-    a.addEventListener("click", function () {
-      const x: any = document.getElementById('myLinks');
-      x.classList.toggle('offset-menu--active');
-    });
+    // const a: any = document.getElementById('menu-mobile-menu'); //document.querySelectorAll('.menu-item');
+    // a.addEventListener("click", function () {
+    //   const x: any = document.getElementById('myLinks');
+    //   x.classList.toggle('offset-menu--active');
+    // });
   }
 
   // openModal() {

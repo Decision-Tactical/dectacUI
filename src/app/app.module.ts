@@ -14,6 +14,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
+import { MatTabsModule } from '@angular/material/tabs';
 
 // user created
 import { AppComponent } from './app.component';
@@ -49,7 +50,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
     MatInputModule,
     MatFormFieldModule,
     MatNativeDateModule,
-    MatMomentDateModule, MatButtonModule, MatDividerModule, MatIconModule
+    MatMomentDateModule, MatButtonModule, MatDividerModule, MatIconModule, MatTabsModule
   ],
   declarations: [
     AppComponent,

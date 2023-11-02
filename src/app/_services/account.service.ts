@@ -74,9 +74,8 @@ export class AccountService {
         this.userSubject.next(null);
         this.router.navigate(['/login']);
     }
-    sendVerificationEmail(email: string) {
-        const apiUrl = `${environment.apiUrl}/send-verification-email`;
-        const payload = { email };    
+    sendVerificationEmail(payload: object) {
+        const apiUrl = `${environment.apiUrl}/send-verification-email`;   
         return this.http.post(apiUrl, payload);
       }
 
@@ -87,7 +86,8 @@ export class AccountService {
       }
 
       getUser() {
-        return sessionStorage.getItem('user');
+        const email = this.userValue?.email;
+        return this.http.get<any>(`${environment.apiUrl}/getProfileDetails/${email}`);
       }
     
       updateUser(updatedUser: any) {

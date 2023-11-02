@@ -1,5 +1,6 @@
 // src/app/profile/profile.component.ts
 import { Component, OnInit } from '@angular/core';
+import { UserDetails } from '@app/_models/userDetails';
 import { AccountService } from '@app/_services';
 
 @Component({
@@ -9,17 +10,43 @@ import { AccountService } from '@app/_services';
 })
 export class ProfileComponent implements OnInit {
   user: any;
-  userDetails:any;
+  userDetails:UserDetails = {
+    'address1': '',
+    'address2': '',
+    'city': '',
+    'client_id': '',
+    'country': '',
+    'dob': '',
+    'email': '',
+    'first_name': '',
+    'last_name': '',
+    'middle_name': '',
+    'profileimage': '',
+    'racer_name': '',
+    'serial_number': '',
+    'state': '',
+    'tel': '',
+    'tel2': '',
+    'zipcode': 0
+  };
   disName:boolean= true;
+  profileImage:any;
 
   constructor(private userService: AccountService) {}
 
   ngOnInit(): void {
-    this.user = this.userService.getUser();
-    this.userDetails = JSON.parse(this.user);
-    if(!!this.user) {
-      console.log("this.user-->", this.user)
-    }
+    this.userService.getUser().subscribe({
+      next: (data: any) => {
+        this.userDetails = data.profiledetaildvocollection[0];
+        if (this.userDetails.profileimage !== '') {
+          this.profileImage = `${this.userDetails.profileimage}`;
+        } else {
+          this.profileImage = 'https://decisiontactical.com/wp-content/themes/dtac-theme/assets/img/vector/optimized/decision-tactical-logo-blue-black.svg';
+        }
+      },
+      error: error => {
+      }
+    });
   }
 
   updateProfile() {

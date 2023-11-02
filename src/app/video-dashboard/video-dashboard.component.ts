@@ -99,9 +99,10 @@ export class VideoDashboardComponent  implements OnInit, OnDestroy {
   }
 
   onRowSelectVideo(event: any) {
-    this.modalRef = this.modalService.open(VideoPopupComponent, {
-      data: { videoid: event.data.videoid },
-    });
+    // this.modalRef = this.modalService.open(VideoPopupComponent, {
+    //   data: { videoid: event.data.videoid },
+    // });
+    window.open(event.data.videopath, "_blank");
 }
 
 

@@ -6,7 +6,7 @@
             <div class="account-settings">
                 <div class="user-profile">
                     <div class="user-avatar">
-                        <img src="https://decisiontactical.com/wp-content/themes/dtac-theme/assets/img/vector/optimized/decision-tactical-logo-blue-black.svg" alt="Avatar">
+                        <img [src] ="profileImage" alt="Avatar">
                     </div>
                     <h5 class="user-name">Name: {{ userDetails.first_name }} {{ userDetails.last_name }}</h5>
                     <h6 class="user-email">E-Mail: <a href="mailto:'{{ userDetails.email }}'">{{ userDetails.email }}</a> </h6>

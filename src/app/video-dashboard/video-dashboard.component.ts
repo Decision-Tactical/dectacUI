@@ -59,7 +59,7 @@ export class VideoDashboardComponent  implements OnInit, OnDestroy {
       .pipe(
         switchMap((data: any) => {
           if (data.tableColumnNameSetting.length > 0) {
-            this.cols = data.tableColumnNameSetting[0];
+            this.cols = data.tableColumnNameSetting;
             if (!(this.pickerFrom && this.pickerTo)) {
               this.pickerTo = '';
               this.pickerFrom = '';
@@ -78,7 +78,7 @@ export class VideoDashboardComponent  implements OnInit, OnDestroy {
         }
         else {
           if (response.videosdetailscollection.length > 0) {
-            this.tableData = response.videosdetailscollection[0];
+            this.tableData = response.videosdetailscollection;
           } else {
             this.error = 'No Data Found';
           }

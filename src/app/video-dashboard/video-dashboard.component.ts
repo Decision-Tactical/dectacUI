@@ -59,7 +59,7 @@ export class VideoDashboardComponent  implements OnInit, OnDestroy {
       .pipe(
         switchMap((data: any) => {
           if (data.tableColumnNameSetting.length > 0) {
-            this.cols = data.tableColumnNameSetting;
+            this.cols = data.tableColumnNameSetting[0];
             if (!(this.pickerFrom && this.pickerTo)) {
               this.pickerTo = '';
               this.pickerFrom = '';
@@ -78,7 +78,7 @@ export class VideoDashboardComponent  implements OnInit, OnDestroy {
         }
         else {
           if (response.videosdetailscollection.length > 0) {
-            this.tableData = response.videosdetailscollection;
+            this.tableData = response.videosdetailscollection[0];
           } else {
             this.error = 'No Data Found';
           }
@@ -99,10 +99,10 @@ export class VideoDashboardComponent  implements OnInit, OnDestroy {
   }
 
   onRowSelectVideo(event: any) {
-    // this.modalRef = this.modalService.open(VideoPopupComponent, {
-    //   data: { videoid: event.data.videoid },
-    // });
-    window.open(event.data.videopath, "_blank");
+    this.modalRef = this.modalService.open(VideoPopupComponent, {
+      data: { videoid: event.data.videoid },
+    });
+    // window.open(event.data.videopath, "_blank");
 }
 
 

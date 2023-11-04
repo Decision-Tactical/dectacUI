@@ -131,7 +131,7 @@ h2,
 h3,
 h4,
 h5,
-h6 {
+h6, .mat-typography h4 {
     font-family: Anton, Impact, Haettenschweiler, Franklin Gothic Bold, Charcoal, Helvetica Inserat, Bitstream Vera Sans Bold, 'Arial Black', sans serif;
     font-family: var(--h-font);
     font-weight: 400;
@@ -161,7 +161,7 @@ h3 {
 }
 
 .h4,
-h4 {
+h4, .mat-typography h4 {
     font-size: calc(1rem * 2);
     font-size: var(--h4-size)
 }
@@ -2561,6 +2561,6 @@ button {
     clear: both;
 }
 .modal {
-    --bs-modal-width: 50%;
+    --bs-modal-width: 100%;
     --bs-modal-footer-gap: 0 rem;
 }

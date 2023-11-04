@@ -86,8 +86,9 @@ export class AccountService {
       }
 
       getUser() {
-        const email = this.userValue?.email;
-        return this.http.get<any>(`${environment.apiUrl}/getProfileDetails/${email}`);
+        // const email = this.userValue?.email;
+        // return this.http.get<any>(`${environment.apiUrl}/getProfileDetails/${email}`);
+        return sessionStorage.getItem('user');
       }
     
       updateUser(updatedUser: any) {

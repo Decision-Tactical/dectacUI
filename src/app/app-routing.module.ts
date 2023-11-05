@@ -18,12 +18,12 @@ const routes: Routes = [
   { path: 'login', component:  LoginComponent},
   { path: 'first-user', component:  FirstUserComponent},
   { path: 'forgotPassword', component:  ForgotPasswordComponent},
-  { path: '', component:  DashboardComponent, canActivate: [AuthGuard]},
-  { path: 'resetpassword', component: ResetPasswordComponent, canActivate: [AuthGuard] },
-  { path: 'getcredits', component: ModalComponent, canActivate: [AuthGuard] },  
-  { path: 'video', component: VideoDashboardComponent, canActivate: [AuthGuard] },
+  { path: '', component:  DashboardComponent, canActivate: [AuthGuard], data: { breadcrumb: 'Dashboard' }},
+  { path: 'resetpassword', component: ResetPasswordComponent, canActivate: [AuthGuard], data: { breadcrumb: 'Change Password' } },
+  { path: 'getcredits', component: ModalComponent, canActivate: [AuthGuard] , data: { breadcrumb: 'Credits' }},  
+  { path: 'video', component: VideoDashboardComponent, canActivate: [AuthGuard], data: { breadcrumb: 'Videos' } },
   { path: 'video/:id', component: VideoPopupComponent, canActivate: [AuthGuard] },
-  { path: 'getprofile', component: ProfileComponent, canActivate: [AuthGuard] },
+  { path: 'getprofile', component: ProfileComponent, canActivate: [AuthGuard], data: { breadcrumb: 'Profile' } },
    // otherwise redirect to home
   //  { path: '**', redirectTo: '' }
   { path: '**', component: NotFoundComponent }

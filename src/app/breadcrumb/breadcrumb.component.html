@@ -1,0 +1,12 @@
+<!--<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li *ngFor="let breadcrumb of breadcrumbs; let last = last" class="breadcrumb-item">
+        <ng-container *ngIf="!last; else lastItem">{{ breadcrumb.label }}</ng-container>
+        <ng-template #lastItem>{{ breadcrumb.label }}</ng-template>
+      </li>
+    </ol>
+  </nav>-->
+  <div class="card flex justify-content-center">
+    <p-breadcrumb class="max-w-full" [model]="items" [home]="home"></p-breadcrumb>
+</div>
+  

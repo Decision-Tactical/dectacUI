@@ -13,7 +13,6 @@ export class AppComponent implements OnInit, OnDestroy {
   isLoggedIn!: boolean; 
   // reference to the isLoggedIn$ subscription, see ngOnDestroy
   private _sub!: Subscription;
-
   title = 'D-Tac';
   user:any;
   constructor(public accountService: AccountService) { }

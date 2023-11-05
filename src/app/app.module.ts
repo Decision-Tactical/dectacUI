@@ -34,6 +34,7 @@ import { VideoPopupComponent } from './video-popup/video-popup.component';
 import { ProfileComponent } from './profile/profile.component';
 import { VideoDashboardComponent } from './video-dashboard/video-dashboard.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { DateFormatPipe } from './date-format.pipe';
 
 
 @NgModule({
@@ -66,7 +67,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
     VideoPopupComponent,
     ProfileComponent,
     VideoDashboardComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    DateFormatPipe
   ],
   providers: [
     // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

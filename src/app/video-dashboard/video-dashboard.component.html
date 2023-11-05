@@ -48,7 +48,7 @@
         <ng-template pTemplate="body" let-people let-columns="columns">
           <tr [pSelectableRow]="people">
             <td *ngFor="let col of columns">
-              {{people[col.field]}}
+              {{ (col.field === 'DATE') ? (people[col.field]| dateFormat : 'dd/MMM/yyyy hh:mm a') : people[col.field] }}
             </td>
           </tr>
         </ng-template>

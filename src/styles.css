@@ -178,7 +178,7 @@ h6 {
     font-size: var(--h6-size)
 }
 
-a {
+.p-breadcrumb .p-breadcrumb-list li:last-child .p-menuitem-text, a {
     color: #b20e00;
     color: var(--link-color);
     font-weight: 400;

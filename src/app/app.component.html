@@ -94,12 +94,14 @@
       </div>
   </header>
     <div class="center_content row">
-      <div class="right_content col-12 col-sm-12 col-md-12 col-lg-10" id="right_content">
+    <div class="right_content col-12 col-sm-12 col-md-12 col-lg-10" id="right_content">
         <hr />
-        <h4><span *ngIf="accountService.userValue">Hello {{accountService.userValue.first_name}},</span> Welcome To D-TAC</h4>
+        <h4><span *ngIf="accountService.userValue">Hello {{accountService.userValue.first_name}},</span> Welcome To D-TAC
+        </h4>    
+        <app-breadcrumb *ngIf="accountService.isLoggedInCheck()"></app-breadcrumb>
         <hr />
         <router-outlet></router-outlet>
-      </div>
+    </div>
       <div class="left_content col-12 col-sm-12 col-md-12 col-lg-2" id="left_content">
         <app-right-navbar *ngIf="accountService.isLoggedInCheck()"></app-right-navbar>
         <nav class="offset-menu offset-menu--offset js-offset-menu" aria-hidden="true" id="myLinks" *ngIf="!accountService.isLoggedInCheck()">

@@ -1,0 +1,14 @@
+.download {
+    font-size: calc(1rem * 1.8);
+    color: #b20e00;
+    color: var(--link-color);
+    font-weight: 400;
+    font-weight: var(--link-font-weight);
+    text-decoration: none;
+    text-decoration: var(--link-td);
+    transition: color .4s cubic-bezier(.39, .575, .565, 1);
+    backface-visibility: hidden;
+    will-change: color;
+    text-transform: uppercase;
+    padding: 0 18px;
+}

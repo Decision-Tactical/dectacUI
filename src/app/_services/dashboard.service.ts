@@ -23,30 +23,33 @@ export class DashboardService {
 
   getDataForCredit(): Observable<any> {
     const email = this.user.email;
-    return this.http.post(`${environment.apiUrl}/dashboard/getCreditTableData`, {email});
+    const dtacid = this.user.serial_number;
+    return this.http.post(`${environment.apiUrl}/dashboard/getCreditTableData`, {email, dtacid });
   }
 
   getColumnDataForCredit(): Observable<any> {
     return this.http.get(this.jsonColDataForCreditUrl);
   }
-  getDashboardTableData(data:any){
-    let fromDate: any= data.fromDate;
-    let toDate:any = data.toDate; 
+  getDashboardTableData(data: any) {
+    let fromDate: any = data.fromDate;
+    let toDate: any = data.toDate;
     if (!(toDate && toDate)) {
       toDate = '';
       fromDate = '';
     }
     const email = this.user.email;
-    return this.http.post(`${environment.apiUrl}/dashboard/getDashboardTableData`, {email, fromDate, toDate});
+    const dtacid = this.user.serial_number;
+    return this.http.post(`${environment.apiUrl}/dashboard/getDashboardTableData`, { email, dtacid, fromDate, toDate });
   }
-  getVideoDashboardTableData(data:any){
-    let fromDate: any= data.fromDate;
-    let toDate:any = data.toDate; 
+  getVideoDashboardTableData(data: any) {
+    let fromDate: any = data.fromDate;
+    let toDate: any = data.toDate;
     if (!(toDate && toDate)) {
       toDate = '';
       fromDate = '';
     }
     const email = this.user.email;
-    return this.http.post(`${environment.apiUrl}/videos/getVideoDashboardTableData`, {email, fromDate, toDate});
+    const dtacid = this.user.serial_number;
+    return this.http.post(`${environment.apiUrl}/videos/getVideoDashboardTableData`, { email, dtacid, fromDate, toDate });
   }
 }

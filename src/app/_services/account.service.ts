@@ -95,5 +95,8 @@ export class AccountService {
       updateUser(updatedUser: any) {
         this.user = { ...this.user, ...updatedUser };
       }
-
+      getImageData() {
+        const email = this.userValue?.email;
+        return this.http.get(`${environment.apiUrl}/getImageData/${email}`);
+      }
 }

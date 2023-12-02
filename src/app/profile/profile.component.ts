@@ -52,8 +52,12 @@ export class ProfileComponent implements OnInit {
       if (!!response) {
         // Get the base64-encoded image string from the JSON response
         const imageBase64 = response.image_base64;
-        // Decode the base64 image string
-        this.profileImage = 'data:image/jpeg;base64,' + imageBase64.split(',')[1];
+        if (!!imageBase64) {
+          // Decode the base64 image string
+          this.profileImage = 'data:image/jpeg;base64,' + imageBase64.split(',')[1];
+        } else {
+          this.profileImage = 'https://decisiontactical.com/wp-content/themes/dtac-theme/assets/img/vector/optimized/decision-tactical-logo-blue-black.svg';
+        }
       } else {
         this.profileImage = 'https://decisiontactical.com/wp-content/themes/dtac-theme/assets/img/vector/optimized/decision-tactical-logo-blue-black.svg';
       }

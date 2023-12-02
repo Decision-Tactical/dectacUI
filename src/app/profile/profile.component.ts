@@ -110,11 +110,21 @@ export class ProfileComponent implements OnInit {
     this.userService.updateUser(this.user).subscribe({
         next: (data: any) => {
           this.getUser();
+          this.success = data;
+          setTimeout(() => {
+            this.success = '';
+            this.error = '';
+          }, 3000);
         },
         error: error => {
           this.error = error;
-        }
+        }        
       });
-    // You can also send the updated data to a server/API here if needed.
+
+      setTimeout(() => {
+        this.success = '';
+        this.error = '';
+      }, 3000);
+      
   }
 }

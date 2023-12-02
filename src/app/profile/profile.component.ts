@@ -10,6 +10,9 @@ import { switchMap } from 'rxjs/operators';
 })
 export class ProfileComponent implements OnInit {
   user: any;
+  success?: string;
+  error?: string;
+  successHide?: boolean = true;
   userDetails: UserDetails = {
     'address1': '',
     'address2': '',
@@ -36,6 +39,10 @@ export class ProfileComponent implements OnInit {
   constructor(private userService: AccountService) { }
 
   ngOnInit(): void {
+    this.getUser();
+  }
+
+  getUser(): void {
     this.userService.getUser().pipe(
       switchMap((data: any) => {
         this.userDetails = data.profiledetaildvocollection[0];
@@ -61,29 +68,9 @@ export class ProfileComponent implements OnInit {
       } else {
         this.profileImage = 'https://decisiontactical.com/wp-content/themes/dtac-theme/assets/img/vector/optimized/decision-tactical-logo-blue-black.svg';
       }
-
     });
-
-
-    // this.userService.getUser().subscribe({
-    //   next: (data: any) => {
-    //     this.userDetails = data.profiledetaildvocollection[0];
-    //     if ((!!this.userDetails.profileimage && this.userDetails.profileimage !== null)) {
-    //       const reader = new FileReader();
-    //       reader.onload = () => {
-    //         this.profileImage = reader.result as string;
-    //       };
-    //       reader.readAsDataURL(this.userDetails.profileimage);
-    //       // this.profileImage = `${this.userDetails.profileimage}`;
-    //     } else {
-    //       this.profileImage = 'https://decisiontactical.com/wp-content/themes/dtac-theme/assets/img/vector/optimized/decision-tactical-logo-blue-black.svg';
-    //     }
-    //   },
-    //   error: error => {
-    //     console.log(error);
-    //   }
-    // });
   }
+
   enableButton() {
     let currentAddress = {
       'address1': this.userDetails.address1,
@@ -97,7 +84,6 @@ export class ProfileComponent implements OnInit {
     } else {
       this.disEnableButton = true;
     }
-
   }
 
   isDifferentAddress(addr1: any, addr2: any) {
@@ -114,7 +100,21 @@ export class ProfileComponent implements OnInit {
   }
 
   updateProfile() {
-    this.userService.updateUser(this.user);
+    this.user = {
+      'address1': this.userDetails.address1,
+      'address2': this.userDetails.address2,
+      'city': this.userDetails.city,
+      'state': this.userDetails.state,
+      'zipcode': this.userDetails.zipcode
+    };
+    this.userService.updateUser(this.user).subscribe({
+        next: (data: any) => {
+          this.getUser();
+        },
+        error: error => {
+          this.error = error;
+        }
+      });
     // You can also send the updated data to a server/API here if needed.
   }
 }

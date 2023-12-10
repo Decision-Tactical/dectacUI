@@ -86,13 +86,20 @@ export class AccountService {
       }
 
       getUser() {
-        // const email = this.userValue?.email;
+        const email = this.userValue?.email;
+        const dtacid = this.userValue?.serial_number;
         // return this.http.get<any>(`${environment.apiUrl}/getProfileDetails/${email}`);
-        return sessionStorage.getItem('user');
+        return this.http.post(`${environment.apiUrl}/getProfileDetails`, {email, dtacid });
       }
     
       updateUser(updatedUser: any) {
-        this.user = { ...this.user, ...updatedUser };
+    const email = this.userValue?.email;
+    const dtacid = this.userValue?.serial_number;
+    this.user = { ...this.user, ...updatedUser };
+    return this.http.post(`${environment.apiUrl}/setProfileData`, { updatedUser, email, dtacid });
+  }
+      getImageData() {
+        const email = this.userValue?.email;
+        return this.http.get(`${environment.apiUrl}/getImageData/${email}`);
       }
-
 }

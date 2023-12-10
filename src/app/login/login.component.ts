@@ -34,6 +34,16 @@ export class LoginComponent implements OnInit {
             username: ['', Validators.required],
             password: ['', Validators.required]
         });
+        // Subscribe to route parameter changes
+        this.route.params.subscribe(params => {
+            const idFromUrl = params['id'];
+
+            // Set the value in the form
+            this.form.patchValue({
+                username: idFromUrl,
+                // set other form fields if needed...
+            });
+        });
 
         // show success message after registration
         if (this.route.snapshot.queryParams.registered) {

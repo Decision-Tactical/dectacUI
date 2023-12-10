@@ -34,17 +34,7 @@ export class LoginComponent implements OnInit {
             username: ['', Validators.required],
             password: ['', Validators.required]
         });
-        // Subscribe to route parameter changes
-        this.route.params.subscribe(params => {
-            // const idFromUrl = params['id'];
-
-            // Set the value in the form
-            this.form.patchValue({
-                username: params['id']
-                // set other form fields if needed...
-            });
-        });
-
+        
         // show success message after registration
         if (this.route.snapshot.queryParams.registered) {
             this.success = this.route.snapshot.queryParams.registered;
@@ -52,6 +42,13 @@ export class LoginComponent implements OnInit {
                 this.success = '';
                 this.error = '';
             }, 3000);
+        }
+        // show success message after registration
+        if (!!this.route.snapshot.queryParams.parsedData) {
+            this.form.patchValue({
+                username: this.route.snapshot.queryParams.parsedData
+                // set other form fields if needed...
+            });
         }
     }
 

@@ -16,7 +16,6 @@ import { ModalComponent } from './modal/modal.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: ':id', component: LoginComponent },
   { path: 'first-user', component: FirstUserComponent },
   { path: 'forgotPassword', component: ForgotPasswordComponent },
   { path: '', component: DashboardComponent, canActivate: [AuthGuard], data: { breadcrumb: 'Dashboard' } },
@@ -25,11 +24,9 @@ const routes: Routes = [
   { path: 'video', component: VideoDashboardComponent, canActivate: [AuthGuard], data: { breadcrumb: 'Videos' } },
   { path: 'video/:id', component: VideoPopupComponent, canActivate: [AuthGuard] },
   { path: 'getprofile', component: ProfileComponent, canActivate: [AuthGuard], data: { breadcrumb: 'Profile' } },
-  // otherwise redirect to home
-  //  { path: '**', redirectTo: '' }
-  { path: '**', component: NotFoundComponent }
-
+  { path: '**', component: NotFoundComponent } // Catch-all route should be the last
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

@@ -28,6 +28,8 @@ export class NotFoundComponent implements OnInit{
     if (!this.authService.isLoggedInCheck()) {
       // Step 3: Redirect to login page with parsed data
       this.router.navigate(['/login'], { queryParams: { returnUrl: '/', parsedData: this.parsedData } });
+    } else {
+      this.router.navigate(['/']);
     }
   }
 }

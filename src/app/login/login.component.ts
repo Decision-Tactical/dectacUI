@@ -36,11 +36,11 @@ export class LoginComponent implements OnInit {
         });
         // Subscribe to route parameter changes
         this.route.params.subscribe(params => {
-            const idFromUrl = params['id'];
+            // const idFromUrl = params['id'];
 
             // Set the value in the form
             this.form.patchValue({
-                username: idFromUrl,
+                username: params['id']
                 // set other form fields if needed...
             });
         });

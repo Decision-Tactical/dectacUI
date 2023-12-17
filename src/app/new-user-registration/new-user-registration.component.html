@@ -18,14 +18,15 @@
                                 </div>
                                 <label for="profilePicture">Profile Picture:<span
                                         class="requiredAsterisk">*</span></label>
-                                <input formControlName="email" type="file" id="profilePicture"  (change)="onFileChange($event)" />
+                                <input formControlName="profilePicture" type="file" id="profilePicture"
+                                    (change)="onFileChange($event)" />
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
-                <div class="card h-100">
+                <div class="mb-3 card">
                     <div class="card-body">
                         <div class="row gutters mb-3">
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -37,8 +38,9 @@
                                 <label for="firstname">First Name:<span class="requiredAsterisk">*</span></label>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                <input formControlName="email" type="text" class="form-control" id="firstname" placeholder="Enter first name"
-                                    [(ngModel)]="userDetails.first_name" name="first_name"/>
+                                <input formControlName="firstname" type="text" class="form-control" id="firstname"
+                                    placeholder="Enter first name" [(ngModel)]="userDetails.first_name"
+                                    name="first_name" />
                             </div>
                         </div>
                         <div class="row form-group mb-3">
@@ -46,8 +48,9 @@
                                 <label for="lastname">Last Name:<span class="requiredAsterisk">*</span></label>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                <input formControlName="email" type="url" class="form-control" id="lastname" placeholder="Enter Last Name"
-                                    [(ngModel)]="userDetails.last_name" name="last_name"/>
+                                <input formControlName="lastname" type="url" class="form-control" id="lastname"
+                                    placeholder="Enter Last Name" [(ngModel)]="userDetails.last_name"
+                                    name="last_name" />
                             </div>
                         </div>
                         <div class="row form-group mb-3">
@@ -55,8 +58,9 @@
                                 <label for="racername">Nick Name:<span class="requiredAsterisk">*</span></label>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                <input formControlName="email" type="text" class="form-control" id="racername" placeholder="Enter Nick Name"
-                                    [(ngModel)]="userDetails.racer_name" name="racer_name"/>
+                                <input formControlName="racername" type="text" class="form-control" id="racername"
+                                    placeholder="Enter Nick Name" [(ngModel)]="userDetails.racer_name"
+                                    name="racer_name" />
                             </div>
                         </div>
                         <div class="row form-group mb-3">
@@ -65,14 +69,19 @@
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <mat-form-field>
-                                    <input formControlName="email" matInput [min]="minDate" [max]="maxDate" [matDatepicker]="dob"
-                                        [formControl]="dateControl" placeholder="Choose Birth Date"
-                                        (dateChange)="endDateChanged($event)" class="form-control">
-                                    <mat-datepicker-toggle matSuffix [for]="dob"></mat-datepicker-toggle>
-                                    <mat-datepicker #dob></mat-datepicker>
+                                    <input formControlName="birthdate" matInput [min]="minDate" [max]="maxDate"
+                                        [matDatepicker]="birthdate" [formControl]="dateControl"
+                                        placeholder="Choose Birth Date" (dateChange)="endDateChanged($event)"
+                                        class="form-control">
+                                    <mat-datepicker-toggle matSuffix [for]="birthdate"></mat-datepicker-toggle>
+                                    <mat-datepicker #birthdate></mat-datepicker>
                                 </mat-form-field>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="mb-3 card">
+                    <div class="card-body">
                         <div class="row gutters mb-3">
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                 <h4 class="mt-3 mb-2 text-primary">Address</h4>
@@ -83,8 +92,8 @@
                                 <label for="address1">Address Line 1:<span class="requiredAsterisk">*</span></label>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                <input formControlName="email" type="text" class="form-control" id="address1" placeholder="Enter Address 1"
-                                    [(ngModel)]="userDetails.address1" name="address1"/>
+                                <input formControlName="address1" type="text" class="form-control" id="address1"
+                                    placeholder="Enter Address 1" [(ngModel)]="userDetails.address1" name="address1" />
                             </div>
                         </div>
                         <div class="row form-group mb-3">
@@ -92,8 +101,8 @@
                                 <label for="address2">Address Line 2</label>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                <input formControlName="email" type="text" class="form-control" id="address2" placeholder="Enter Address 2"
-                                    [(ngModel)]="userDetails.address2" name="address2"/>
+                                <input formControlName="address2" type="text" class="form-control" id="address2"
+                                    placeholder="Enter Address 2" [(ngModel)]="userDetails.address2" name="address2" />
                             </div>
                         </div>
                         <div class="row form-group mb-3">
@@ -101,8 +110,8 @@
                                 <label for="city">City:<span class="requiredAsterisk">*</span></label>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                <input formControlName="email" type="text" class="form-control" id="city" placeholder="Enter City"
-                                    [(ngModel)]="userDetails.city" name="city"/>
+                                <input formControlName="city" type="text" class="form-control" id="city"
+                                    placeholder="Enter City" [(ngModel)]="userDetails.city" name="city" />
                             </div>
                         </div>
                         <div class="row form-group mb-3">
@@ -110,8 +119,8 @@
                                 <label for="state">State:<span class="requiredAsterisk">*</span></label>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                <input formControlName="email" type="text" class="form-control" id="state" placeholder="Enter State"
-                                    [(ngModel)]="userDetails.state" name="state"/>
+                                <input formControlName="state" type="text" class="form-control" id="state"
+                                    placeholder="Enter State" [(ngModel)]="userDetails.state" name="state" />
                             </div>
                         </div>
                         <div class="row form-group mb-3">
@@ -119,17 +128,17 @@
                                 <label for="zipcode">Postal Code:<span class="requiredAsterisk">*</span></label>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                <input formControlName="email" type="text" class="form-control" id="zipcode" placeholder="Zip Code"
-                                    [(ngModel)]="userDetails.zipcode" name="zipcode"/>
+                                <input formControlName="zipcode" type="text" class="form-control" id="zipcode"
+                                    placeholder="Zip Code" [(ngModel)]="userDetails.zipcode" name="zipcode" />
                             </div>
                         </div>
                         <div class="row form-group mb-3">
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                <label for="zipcode">Country:<span class="requiredAsterisk">*</span></label>
+                                <label for="country">Country:<span class="requiredAsterisk">*</span></label>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                <input formControlName="email" type="text" class="form-control" id="zipcode" placeholder="Zip Code"
-                                    [(ngModel)]="userDetails.zipcode" name="zipcode"/>
+                                <input formControlName="email" type="text" class="form-control" id="country"
+                                    placeholder="Country" [(ngModel)]="userDetails.country" name="country" />
                             </div>
                         </div>
                         <div class="row form-group mb-3">
@@ -137,46 +146,87 @@
                                 <label for="email">Email:<span class="requiredAsterisk">*</span></label>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                <input formControlName="email" type="email" class="form-control" id="email" placeholder="Enter Email ID"
-                                    [(ngModel)]="userDetails.email" name="email"/>
+                                <input formControlName="email" type="email" class="form-control" id="email"
+                                    placeholder="Enter Email ID" [(ngModel)]="userDetails.email" name="email" />
                             </div>
                         </div>
                         <div class="row form-group mb-3">
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                <label for="tel">Mobile Phone: <span class="requiredAsterisk">*</span></label>
+                                <label for="mobilephone">Mobile Phone: <span class="requiredAsterisk">*</span></label>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                <input formControlName="email" type="text" class="form-control" id="tel" placeholder="Enter Mobile Phone"
-                                    [(ngModel)]="userDetails.tel" name="tel"/>
+                                <input formControlName="mobilephone" type="text" class="form-control" id="mobilephone"
+                                    placeholder="Enter Mobile Phone" name="mobilephone" />
                             </div>
                         </div>
-
+                    </div>
+                </div>
+                <div class="mb-3 card">
+                    <div class="card-body">
                         <div class="row form-group mb-3">
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                <label for="address1">How Did You Hear About Us?:<span class="requiredAsterisk">*</span>
+                                <label for="howDidYouHearAboutUs">How Did You Hear About Us?:<span
+                                        class="requiredAsterisk">*</span>
                                 </label>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                <input formControlName="email" type="text" class="form-control" id="address1" placeholder="Enter Address 1"
-                                    [(ngModel)]="userDetails.address1" name="address1"/>
+                                <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example"
+                                    id="howDidYouHearAboutUs" name="howDidYouHearAboutUs">
+                                    <option selected>Please Choose One</option>
+                                    <option value="google">Google</option>
+                                    <option value="facebook"> Facebook</option>
+                                    <option value="instagram">Instagram</option>
+                                    <option value="radio">Radio</option>
+                                    <option value="tv">TV</option>
+                                    <option value="billboard">Billboard</option>
+                                    <option value="family">Family</option>
+                                    <option value="friends">Friends</option>
+                                    <option value="coworkers">Co-Workers</option>
+                                    <option value="drivingby">Driving By</option>
+                                    <option value="other">Other</option>
+                                </select>
                             </div>
                         </div>
                         <div class="row form-group mb-3">
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                <label for="address2">I'm Here For: <span class="requiredAsterisk">*</span></label>
+                                <label for="otherHearAboutUs">If Other, Please Specify: </label>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                <input formControlName="email" type="text" class="form-control" id="address2" placeholder="Enter Address 2"
-                                    [(ngModel)]="userDetails.address2" name="address2"/>
+                                <input formControlName="otherHearAboutUs" type="text" class="form-control"
+                                    id="otherHearAboutUs" placeholder="Other" name="otherHearAboutUs" />
                             </div>
                         </div>
                         <div class="row form-group mb-3">
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                <label for="city">Are you active or retired Military?</label>
+                                <label for="eventgroupid">I'm Here For: <span class="requiredAsterisk">*</span></label>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                <input formControlName="email" type="text" class="form-control" id="city" placeholder="Enter City"
-                                    [(ngModel)]="userDetails.city" name="city"/>
+                                <select ormControlName="eventgroupid" id="eventgroupid" name="eventgroupid"
+                                    class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                                    <option value="walkin" selected>Walk-in</option>
+                                    <option value="EventCode">I have an event/booking code</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3 card">
+                    <div class="card-body">
+                        <div class="row form-group mb-3">
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <label for="retiredMilitary">Are you active or retired Military?</label>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="retiredMilitary"
+                                        id="retiredMilitaryYes" value="yes">
+                                    <label class="form-check-label" for="retiredMilitaryYes">Yes</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="retiredMilitary"
+                                        id="retiredMilitaryNo" value="no">
+                                    <label class="form-check-label" for="retiredMilitaryNo">No</label>
+                                </div>
                             </div>
                         </div>
                         <div class="row gutters mb-3">
@@ -189,35 +239,56 @@
                                 <label for="state">Where Have You Served/Currently Serving In The Military?</label>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                <input formControlName="email" type="text" class="form-control" id="state" placeholder="Enter State"
-                                    [(ngModel)]="userDetails.state" name="state"/>
+                                <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example"
+                                    id="currentlyServings" name="currentlyServings">
+                                    <option selected>Please Choose One</option>
+                                    <option value="army">The Army</option>
+                                    <option value="marine"> Marine Corps</option>
+                                    <option value="navy">Navy</option>
+                                    <option value="airforce">Air Force</option>
+                                    <option value="spaceforce">Space Force</option>
+                                    <option value="coastguard">Coast Guard</option>
+                                </select>
                             </div>
                         </div>
                         <div class="row form-group mb-3">
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                <label for="zipcode">How Long Have You Served/Been Serving? </label>
+                                <label for="servingyears">How Long Have You Served/Been Serving? </label>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                <input formControlName="email" type="text" class="form-control" id="zipcode" placeholder="Zip Code"
-                                    [(ngModel)]="userDetails.zipcode" name="zipcode"/>
-                            </div>
-                        </div>
-                        <div class="row form-group mb-3">
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                <label for="zipcode"> What Is Your Rank? </label>
-                            </div>
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                <input formControlName="email" type="text" class="form-control" id="zipcode" placeholder="Zip Code"
-                                    [(ngModel)]="userDetails.zipcode" name="zipcode"/>
+                                <input formControlName="servingyears" type="number" min="0" max="100"
+                                    class="form-control" id="servingyears" placeholder="Serving Years"
+                                    name="servingyears" />
                             </div>
                         </div>
                         <div class="row form-group mb-3">
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                <label for="email">Are You Active Or Retired Law Enforcement? </label>
+                                <label for="jobrank"> What Is Your Rank? </label>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                <input formControlName="email" type="email" class="form-control" id="email" placeholder="Enter email ID"
-                                    [(ngModel)]="userDetails.email" name="email"/>
+                                <input formControlName="jobrank" type="text" class="form-control" id="jobrank"
+                                    placeholder="Job Rank" name="jobrank" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3 card">
+                    <div class="card-body">
+                        <div class="row form-group mb-3">
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <label for="lawEnforcement">Are You Active Or Retired Law Enforcement? </label>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="lawEnforcement"
+                                        id="lawEnforcement" value="yes">
+                                    <label class="form-check-label" for="lawEnforcement">Yes</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="lawEnforcement" id="inlineRadio2"
+                                        value="no">
+                                    <label class="form-check-label" for="inlineRadio2">No</label>
+                                </div>
                             </div>
                         </div>
                         <div class="row gutters mb-3">
@@ -227,11 +298,19 @@
                         </div>
                         <div class="row form-group mb-3">
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                <label for="tel">Where Have You Served/Currently Serving In The Law Enforcement?</label>
+                                <label for="currentlyServingsLawEnforcement">Where Have You Served/Currently Serving In
+                                    The Law Enforcement?</label>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                <input formControlName="email" type="text" class="form-control" id="tel" placeholder="Enter phone number"
-                                    [(ngModel)]="userDetails.tel" name="tel"/>
+                                <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example"
+                                    id="currentlyServingsLawEnforcement" name="currentlyServingsLawEnforcement">
+                                    <option selected>Please Choose One</option>
+                                    <option value="firstresponders">First Responders</option>
+                                    <option value="police">Police</option>
+                                    <option value="firefighters">Firefighters</option>
+                                    <option value="emt">EMT</option>
+                                    <option value="paramedic">Paramedic</option>
+                                </select>
                             </div>
                         </div>
                         <div class="row form-group mb-3">
@@ -239,8 +318,9 @@
                                 <label for="tel2">How Long Have You Served/Been Serving? </label>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                <input formControlName="email" type="text" class="form-control" id="tel2" placeholder="Enter phone number"
-                                    [(ngModel)]="userDetails.tel2" name="tel2"/>
+                                <input formControlName="servingyears" type="number" min="0" max="100"
+                                    class="form-control" id="servingyears" placeholder="Serving Years"
+                                    name="servingyears" />
                             </div>
                         </div>
                         <div class="row form-group mb-3">
@@ -248,16 +328,21 @@
                                 <label for="tel2">What Is Your Rank? </label>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                <input formControlName="email" type="text" class="form-control" id="tel2" placeholder="Enter phone number"
-                                    [(ngModel)]="userDetails.tel2" name="tel2"/>
+                                <input formControlName="jobrank" type="text" class="form-control" id="jobrank"
+                                    placeholder="Job Rank" name="jobrank" />
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="mb-3 card">
+                    <div class="card-body">
                         <div class="row form-group mb-3">
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                 <div class="row">
                                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
-                                        <input formControlName="email" name="rulesandregulation" type="checkbox"
-                                            class="form-control form-check-input" value="" id="rulesandregulation" />
+                                        <input formControlName="rulesandregulation" name="rulesandregulation"
+                                            type="checkbox" class="form-control form-check-input" value=""
+                                            id="rulesandregulation" />
                                     </div>
                                     <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-10">
                                         <label class="form-check-label" for="rulesandregulation">
@@ -271,7 +356,7 @@
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                 <div class="row">
                                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
-                                        <input formControlName="email" name="consenttoemail" type="checkbox"
+                                        <input formControlName="consenttoemail" name="consenttoemail" type="checkbox"
                                             class="form-control form-check-input" value="" id="consenttoemail" />
                                     </div>
                                     <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-10">
@@ -291,7 +376,8 @@
                                         </label>
                                     </div>
                                     <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
-                                        <input formControlName="email" name="promocode" type="text" class="form-control" id="promocode"/>
+                                        <input formControlName="promocode" name="promocode" type="text"
+                                            class="form-control" id="promocode" />
                                     </div>
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
                                     </div>

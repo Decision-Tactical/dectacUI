@@ -37,6 +37,7 @@ import { VideoDashboardComponent } from './video-dashboard/video-dashboard.compo
 import { NotFoundComponent } from './not-found/not-found.component';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { DateFormatPipe } from './date-format.pipe';
+import { NewUserRegistrationComponent } from './new-user-registration/new-user-registration.component';
 
 
 @NgModule({
@@ -72,7 +73,8 @@ import { DateFormatPipe } from './date-format.pipe';
     VideoDashboardComponent,
     NotFoundComponent,
     BreadcrumbComponent,
-    DateFormatPipe
+    DateFormatPipe,
+    NewUserRegistrationComponent
   ],
   providers: [
     // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

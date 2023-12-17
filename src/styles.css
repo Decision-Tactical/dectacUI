@@ -2564,3 +2564,11 @@ button {
     --bs-modal-width: 100%;
     --bs-modal-footer-gap: 0 rem;
 }
+.form-check-input {
+    width: 1.5em;
+    min-height:1.5em;
+    margin: 0 5px;
+}
+.requiredAsterisk {
+    color: red;
+}

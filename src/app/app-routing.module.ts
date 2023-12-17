@@ -12,10 +12,12 @@ import { ProfileComponent } from './profile/profile.component';
 import { VideoDashboardComponent } from './video-dashboard/video-dashboard.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ModalComponent } from './modal/modal.component';
+import { NewUserRegistrationComponent } from './new-user-registration/new-user-registration.component';
 
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
+  { path: 'new-user', component: NewUserRegistrationComponent },
   { path: 'first-user', component: FirstUserComponent },
   { path: 'forgotPassword', component: ForgotPasswordComponent },
   { path: '', component: DashboardComponent, canActivate: [AuthGuard], data: { breadcrumb: 'Dashboard' } },

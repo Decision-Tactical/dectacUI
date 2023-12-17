@@ -102,4 +102,9 @@ export class AccountService {
         const email = this.userValue?.email;
         return this.http.get(`${environment.apiUrl}/getImageData/${email}`);
       }
+
+  register(formData: FormData): Observable<any> {
+    // Replace the following URL with your backend registration endpoint
+    return this.http.post('/api/register', formData);
+  }
 }

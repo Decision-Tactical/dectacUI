@@ -1,0 +1,15 @@
+    <div class="modal-header">
+        <h5 class="modal-title accountHeader">Please Take Snapshot</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modalRefImageWebcam.close()"></button>
+      </div>
+      <div class="modal-body">
+        <webcam [height]="500" [width]="500" [trigger]="triggerObservable" (imageCapture)="handleImage($event)"
+        *ngIf="showWebcam" [allowCameraSwitch]="allowCameraSwitch" [switchCamera]="nextWebcamObservable"
+        [videoOptions]="videoOptions" [imageQuality]="1" (cameraSwitched)="cameraWasSwitched($event)"
+        (initError)="handleInitError($event)"></webcam>     
+      
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="triggerSnapshot();">Take A Snapshot</button>
+        <button type="button" class="btn btn-primary" (click)="toggleWebcam();">Toggle Webcam</button>
+      </div>

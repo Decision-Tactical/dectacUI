@@ -1,0 +1,4 @@
+.error-message {
+    color: red;
+}
+input[type="radio"]:checked+label { font-weight: bold; }

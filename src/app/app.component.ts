@@ -22,7 +22,6 @@ ngOnInit(): void {
   this.user = this.accountService.userValue;
   let a: any = document.getElementById('dtacbody'); //document.querySelectorAll('.menu-item');
   a.addEventListener("click", function (event: any) {
-    console.log('event-->', event);
     const x: any = document.getElementById('myLinks');
     if (event.target.id === 'mobile-menu-open' || event.target.farthestViewportElement && event.target.farthestViewportElement.id === 'mobile-menu-open') {
       x.classList.toggle('offset-menu--active');      

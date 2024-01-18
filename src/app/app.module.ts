@@ -16,6 +16,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
+import { AngularSignaturePadModule } from '@almothafar/angular-signature-pad';
+import { WebcamModule } from 'ngx-webcam';
 
 // user created
 import { AppComponent } from './app.component';
@@ -38,6 +40,10 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { DateFormatPipe } from './date-format.pipe';
 import { NewUserRegistrationComponent } from './new-user-registration/new-user-registration.component';
+import { TermandconditionsComponent } from './termandconditions/termandconditions.component';
+import { SignaturePadCustomComponent } from './signature-pad-custom/signature-pad-custom.component';
+import { ImageWebcamComponent } from './image-webcam/image-webcam.component';
+
 
 
 @NgModule({
@@ -55,7 +61,9 @@ import { NewUserRegistrationComponent } from './new-user-registration/new-user-r
     MatInputModule,
     MatFormFieldModule,
     MatNativeDateModule,
-    MatMomentDateModule, MatButtonModule, MatDividerModule, MatIconModule, MatTabsModule
+    MatMomentDateModule, MatButtonModule, MatDividerModule, MatIconModule, MatTabsModule, 
+    AngularSignaturePadModule,
+    WebcamModule
   ],
   declarations: [
     AppComponent,
@@ -74,7 +82,10 @@ import { NewUserRegistrationComponent } from './new-user-registration/new-user-r
     NotFoundComponent,
     BreadcrumbComponent,
     DateFormatPipe,
-    NewUserRegistrationComponent
+    NewUserRegistrationComponent,
+    TermandconditionsComponent,
+    SignaturePadCustomComponent,
+    ImageWebcamComponent
   ],
   providers: [
     // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

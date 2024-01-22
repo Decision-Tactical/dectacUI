@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import { AccountService } from '../_services';
@@ -11,7 +11,8 @@ import { ImageUtilService } from '@app/_utils/image-util.service';
 @Component({
   selector: 'app-new-user-registration',
   templateUrl: './new-user-registration.component.html',
-  styleUrls: ['./new-user-registration.component.css']
+  styleUrls: ['./new-user-registration.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class NewUserRegistrationComponent implements OnInit {   
   registrationForm!: FormGroup;
@@ -53,16 +54,16 @@ export class NewUserRegistrationComponent implements OnInit {
       consentToEmail: [''],
       country: [''],
       currentlyServingsInMilitary: [''],
-      currentlyServingsLawEnforcement: [''],
+      currentlyServingsFirstResponder: [''],
       email: [''],
       eventCode: [''],
       eventGroupIds: [''],
       firstName: [''],
       howDidYouHearAboutUs: [''],
-      jobRankInLawEnforcement: [''],
+      jobRankInFirstResponder: [''],
       jobRankInMilitary: [''],
       lastName: [''],
-      lawEnforcementJobChoice: 'none',
+      firstResponderJobChoice: '',
       legalGardianFirstName:[''],
       legalGardianLastName:[''],
       legalGardianBirthDate:[''],
@@ -73,7 +74,7 @@ export class NewUserRegistrationComponent implements OnInit {
       promocode: [''],
       racerName: [''],
       rulesAndRegulation: [''],
-      servingYearsInLawEnforcement: [''],
+      servingYearsInFirstResponder: [''],
       servingYearsInMilitary: [''],
       signPicture: [''],
       state: [''],
@@ -102,14 +103,18 @@ export class NewUserRegistrationComponent implements OnInit {
   initializeForm() {
     const formGroupConfig: any = {};
     this.formFields?.forEach(cardBody => {
-      cardBody.cardBodyListCollection.forEach((field: { inputType: string; buttonList: any[]; validators: any[]; controlName: string | number; }) => {
+      cardBody.cardBodyListCollection.forEach((field: {
+        checked: boolean; inputType: string; buttonList: any[]; validators: any[]; controlName: string | number; 
+}) => {
         const validatorsArray: any = [];
         if (field.validators) {
           field.validators.forEach((validator: any) => {
             if (validator === 'required' || validator === 'birthdate') {
               validatorsArray.push(Validators.required);
             } else {
-              // Handle other validators as needed
+              if (validator === 'email') {
+                validatorsArray.push(Validators.email);
+              }
             }
           });
         }
@@ -119,8 +124,14 @@ export class NewUserRegistrationComponent implements OnInit {
           // Set the default value for radio button
           formGroupConfig[field.controlName] = [defaultCheckedButton ? defaultCheckedButton.value : '', validatorsArray];
         } else {
-          // For other input types
-          formGroupConfig[field.controlName] = ['', validatorsArray];
+          if (field.inputType === 'rulesandregulation' && field.checked === true) {
+          // Set the default value for radio button
+          formGroupConfig[field.controlName] = [true];
+          } else {
+            // For other input types
+            formGroupConfig[field.controlName] = ['', validatorsArray];
+          }
+          
         }
       });
     });
@@ -204,7 +215,7 @@ export class NewUserRegistrationComponent implements OnInit {
       let buttonitems: any = varFormFields?.find((item: { cardBodyType: String; }) => item.cardBodyType === j);
     
       buttonitems.cardBodyListCollection.forEach((value: { controlName: String; hide: boolean; }) => {       
-        if (!(value.controlName === 'milatoryJobChoice' || value.controlName === 'lawEnforcementJobChoice')) {
+        if (!(value.controlName === 'milatoryJobChoice' || value.controlName === 'firstResponderJobChoice')) {
           value.hide = true;
         }       
       });
@@ -246,36 +257,66 @@ export class NewUserRegistrationComponent implements OnInit {
         controlName = ['currentlyServingsInMilitary', 'servingYearsInMilitary', 'jobRankInMilitary', 'ifYes', 'pastServingsInMilitary', 'servingYearsPastInMilitary', 'pastJobRankInMilitary', 'ifNo'];
         this.populateCardBody('milatoryJobDetails', controlName);
       }
-      if (id === 'lawEnforcementJobActive') {
-        controlName = ['currentlyServingsLawEnforcement', 'servingYearsInLawEnforcement', 'jobRankInLawEnforcement', 'ifYes'];
-        this.populateCardBody('lawEnforcementJobDetails', controlName);
+      if (id === 'firstResponderActive') {
+        controlName = ['currentlyServingFirstResponder', 'servingYearsInFirstResponder', 'jobRankInFirstResponder', 'ifYes'];
+        this.populateCardBody('firstResponderJobDetails', controlName);
       }
-      if (id === 'lawEnforcementJobRetired') {
-        controlName = ['pastServingsLawEnforcement', 'servedYearsInLawEnforcement', 'pastJobRankInLawEnforcement', 'ifNo'];
-        this.populateCardBody('lawEnforcementJobDetails', controlName);
+      if (id === 'firstResponderRetired') {
+        controlName = ['pastServingsFirstResponder', 'servedYearsInFirstResponder', 'pastJobRankInFirstResponder', 'ifNo'];
+        this.populateCardBody('firstResponderJobDetails', controlName);
       }
-      if (id === 'lawEnforcementJobNo') {
-        controlName = ['currentlyServingsLawEnforcement', 'servingYearsInLawEnforcement', 'jobRankInLawEnforcement', 'ifYes', 'pastServingsLawEnforcement', 'servedYearsInLawEnforcement', 'pastJobRankInLawEnforcement', 'ifNo'];
-        this.populateCardBody('lawEnforcementJobDetails', controlName);
+      if (id === 'firstResponderNo') {
+        controlName = ['currentlyServingFirstResponder', 'servingYearsInFirstResponder', 'jobRankInFirstResponder', 'ifYes', 'pastServingsFirstResponder', 'servedYearsInFirstResponder', 'pastJobRankInFirstResponder', 'ifNo', 'numberYearsSwatFirstResponder', 'numberYearsPastSwatFirstResponder'];
+        this.populateCardBody('firstResponderJobDetails', controlName);
       }
     }
   }
 
-  onOptionsSelected(value: string) {
-    if (this.registrationForm.value.eventGroupIds === 'eventCode') {
+  onOptionsSelected(value: string, event:any) {
+    if (event.target.id === 'howDidYouHearAboutUs' && value === 'other') {
       let buttonitems = this.formFields?.find((item) => item.cardBodyType === 'howDidYouHearAboutUsDetails');
-      let buttonitem = buttonitems.cardBodyListCollection.filter((e: { controlName: string; inputType: string }) => e.controlName === 'eventCode')
+      let buttonitem = buttonitems.cardBodyListCollection.filter((e: { controlName: string; inputType: string }) => e.controlName === 'othersHearAboutUs')
       buttonitem.forEach((field: { controlName: String; hide: Boolean }) => {
         field.hide = false;
       });
-    } else {
+    }
+
+    if (event.target.id === 'howDidYouHearAboutUs' && value !== 'other') {
       let buttonitems = this.formFields?.find((item) => item.cardBodyType === 'howDidYouHearAboutUsDetails');
-      let buttonitem = buttonitems.cardBodyListCollection.filter((e: { controlName: string; inputType: string }) => e.controlName === 'eventCode')
+      let buttonitem = buttonitems.cardBodyListCollection.filter((e: { controlName: string; inputType: string }) => e.controlName === 'othersHearAboutUs')
       buttonitem.forEach((field: { controlName: String; hide: Boolean }) => {
         field.hide = true;
       });
     }
+    if (event.target.id === 'currentlyServingFirstResponder' && value !== 'lawEnforcementwithswatexperience') {
+      let buttonitems = this.formFields?.find((item) => item.cardBodyType === 'firstResponderJobDetails');
+      let buttonitem = buttonitems.cardBodyListCollection.filter((e: { controlName: string; inputType: string }) => e.controlName === 'numberYearsSwatFirstResponder')
+      buttonitem.forEach((field: { controlName: String; hide: Boolean }) => {
+        field.hide = true;
+      });
+    }
+    if (event.target.id === 'currentlyServingFirstResponder' && value === 'lawEnforcementwithswatexperience') {
+      let buttonitems = this.formFields?.find((item) => item.cardBodyType === 'firstResponderJobDetails');
+      let buttonitem = buttonitems.cardBodyListCollection.filter((e: { controlName: string; inputType: string }) => e.controlName === 'numberYearsSwatFirstResponder')
+      buttonitem.forEach((field: { controlName: String; hide: Boolean }) => {
+        field.hide = false;
+      });
+    } 
+    if (event.target.id === 'pastServingsFirstResponder' && value === 'lawEnforcementwithswatexperience') {
+      let buttonitems = this.formFields?.find((item) => item.cardBodyType === 'firstResponderJobDetails');
+      let buttonitem = buttonitems.cardBodyListCollection.filter((e: { controlName: string; inputType: string }) => e.controlName === 'numberYearsPastSwatFirstResponder')
+      buttonitem.forEach((field: { controlName: String; hide: Boolean }) => {
+        field.hide = false;
+      });
+    } 
 
+    if (event.target.id === 'pastServingsFirstResponder' && value !== 'lawEnforcementwithswatexperience') {
+      let buttonitems = this.formFields?.find((item) => item.cardBodyType === 'firstResponderJobDetails');
+      let buttonitem = buttonitems.cardBodyListCollection.filter((e: { controlName: string; inputType: string }) => e.controlName === 'numberYearsPastSwatFirstResponder')
+      buttonitem.forEach((field: { controlName: String; hide: Boolean }) => {
+        field.hide = true;
+      });
+    } 
   }
   rulesAndRegulationCheck(value: any) {
     if ((value.target as HTMLInputElement).id === 'rulesAndRegulation' && (value.target as HTMLInputElement).checked) {

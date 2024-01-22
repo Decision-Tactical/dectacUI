@@ -43,6 +43,7 @@ import { NewUserRegistrationComponent } from './new-user-registration/new-user-r
 import { TermandconditionsComponent } from './termandconditions/termandconditions.component';
 import { SignaturePadCustomComponent } from './signature-pad-custom/signature-pad-custom.component';
 import { ImageWebcamComponent } from './image-webcam/image-webcam.component';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 
 
@@ -85,7 +86,8 @@ import { ImageWebcamComponent } from './image-webcam/image-webcam.component';
     NewUserRegistrationComponent,
     TermandconditionsComponent,
     SignaturePadCustomComponent,
-    ImageWebcamComponent
+    ImageWebcamComponent,
+    SpinnerComponent
   ],
   providers: [
     // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

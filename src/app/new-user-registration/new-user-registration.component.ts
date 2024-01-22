@@ -67,7 +67,7 @@ export class NewUserRegistrationComponent implements OnInit {
       legalGardianFirstName:[''],
       legalGardianLastName:[''],
       legalGardianBirthDate:[''],
-      milatoryJobChoice: 'none',
+      milatoryJobChoice: '',
       mobilePhoneNumber: [''],
       othersHearAboutUs: [''],
       profilePicture: [''],
@@ -272,52 +272,40 @@ export class NewUserRegistrationComponent implements OnInit {
     }
   }
 
-  onOptionsSelected(value: string, event:any) {
+  populateDropdownItem(details: string, control: string, hidevalue: boolean) {
+    let buttonitems = this.formFields?.find((item) => item.cardBodyType === details);
+    let buttonitem = buttonitems.cardBodyListCollection.filter((e: { controlName: string; inputType: string }) => e.controlName === control)
+    buttonitem.forEach((field: { controlName: String; hide: Boolean }) => {
+      field.hide = hidevalue;
+    });
+  }
+
+  onOptionsSelected(value: string, event: any) {
     if (event.target.id === 'howDidYouHearAboutUs' && value === 'other') {
-      let buttonitems = this.formFields?.find((item) => item.cardBodyType === 'howDidYouHearAboutUsDetails');
-      let buttonitem = buttonitems.cardBodyListCollection.filter((e: { controlName: string; inputType: string }) => e.controlName === 'othersHearAboutUs')
-      buttonitem.forEach((field: { controlName: String; hide: Boolean }) => {
-        field.hide = false;
-      });
+      this.populateDropdownItem('howDidYouHearAboutUsDetails', 'othersHearAboutUs', false);
     }
 
     if (event.target.id === 'howDidYouHearAboutUs' && value !== 'other') {
-      let buttonitems = this.formFields?.find((item) => item.cardBodyType === 'howDidYouHearAboutUsDetails');
-      let buttonitem = buttonitems.cardBodyListCollection.filter((e: { controlName: string; inputType: string }) => e.controlName === 'othersHearAboutUs')
-      buttonitem.forEach((field: { controlName: String; hide: Boolean }) => {
-        field.hide = true;
-      });
+      this.populateDropdownItem('howDidYouHearAboutUsDetails', 'othersHearAboutUs', true);
     }
+
     if (event.target.id === 'currentlyServingFirstResponder' && value !== 'lawEnforcementwithswatexperience') {
-      let buttonitems = this.formFields?.find((item) => item.cardBodyType === 'firstResponderJobDetails');
-      let buttonitem = buttonitems.cardBodyListCollection.filter((e: { controlName: string; inputType: string }) => e.controlName === 'numberYearsSwatFirstResponder')
-      buttonitem.forEach((field: { controlName: String; hide: Boolean }) => {
-        field.hide = true;
-      });
+      this.populateDropdownItem('firstResponderJobDetails', 'numberYearsSwatFirstResponder', true);
     }
+    
     if (event.target.id === 'currentlyServingFirstResponder' && value === 'lawEnforcementwithswatexperience') {
-      let buttonitems = this.formFields?.find((item) => item.cardBodyType === 'firstResponderJobDetails');
-      let buttonitem = buttonitems.cardBodyListCollection.filter((e: { controlName: string; inputType: string }) => e.controlName === 'numberYearsSwatFirstResponder')
-      buttonitem.forEach((field: { controlName: String; hide: Boolean }) => {
-        field.hide = false;
-      });
-    } 
+      this.populateDropdownItem('firstResponderJobDetails', 'numberYearsSwatFirstResponder', false);
+    }
+
     if (event.target.id === 'pastServingsFirstResponder' && value === 'lawEnforcementwithswatexperience') {
-      let buttonitems = this.formFields?.find((item) => item.cardBodyType === 'firstResponderJobDetails');
-      let buttonitem = buttonitems.cardBodyListCollection.filter((e: { controlName: string; inputType: string }) => e.controlName === 'numberYearsPastSwatFirstResponder')
-      buttonitem.forEach((field: { controlName: String; hide: Boolean }) => {
-        field.hide = false;
-      });
-    } 
+      this.populateDropdownItem('firstResponderJobDetails', 'numberYearsPastSwatFirstResponder', false);
+    }
 
     if (event.target.id === 'pastServingsFirstResponder' && value !== 'lawEnforcementwithswatexperience') {
-      let buttonitems = this.formFields?.find((item) => item.cardBodyType === 'firstResponderJobDetails');
-      let buttonitem = buttonitems.cardBodyListCollection.filter((e: { controlName: string; inputType: string }) => e.controlName === 'numberYearsPastSwatFirstResponder')
-      buttonitem.forEach((field: { controlName: String; hide: Boolean }) => {
-        field.hide = true;
-      });
-    } 
+      this.populateDropdownItem('firstResponderJobDetails', 'numberYearsPastSwatFirstResponder', true)
+    }
   }
+
   rulesAndRegulationCheck(value: any) {
     if ((value.target as HTMLInputElement).id === 'rulesAndRegulation' && (value.target as HTMLInputElement).checked) {
       const modalRefTermandconditions = this.modalService.open(TermandconditionsComponent, this.config);

@@ -21,7 +21,7 @@
                                 <input type="file" id="profilePicture" (change)="onFileChange($event)" />
                                 <p>OR</p>
                                 <p class="actionBtn" id="profileImageWebcam" (click)="triggerSnapshot($event)">Take A
-                                    Snapshot</p>
+                                    Selfie</p>
 
                             </div>
                         </div>
@@ -137,12 +137,12 @@
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
                                 *ngIf="field.inputType==='rulesandregulation' && !field.hide">
                                 <div class="row">
-                                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
+                                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-12">
                                         <input [id]="field.controlName" [formControlName]="field.controlName"
                                             type="checkbox" class="form-control form-check-input"
                                             value="{{field.value}}" (click)="rulesAndRegulationCheck($event)" />
                                     </div>
-                                    <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-10"><span
+                                    <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-12"><span
                                             class="requiredAsterisk" *ngIf="field.validators.length>0">*</span>
                                         <label class="form-check-label" [for]="field.controlName"
                                             [innerHtml]="field.label">
@@ -165,7 +165,7 @@
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                 <div class="row">
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                        <label class="form-check-label" for="promocode">
+                                        <label class="form-check-label" for="validDoumentId">
                                             License/Identification Number:
                                         </label>
                                     </div>
@@ -180,7 +180,7 @@
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                 <div class="row">
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                        <label class="form-check-label" for="promocode">
+                                        <label class="form-check-label" for="validDoumentImage">
                                             Upload License/Identification Document:
                                         </label>
                                     </div>
@@ -192,8 +192,7 @@
                                         <p>OR</p>
                                     </div>
                                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-12">
-                                        <p class="actionBtn" id="fileImageWebcam" (click)="triggerSnapshot($event)">Take
-                                            A Snapshot</p>
+                                        <p class="actionBtn" id="fileImageWebcam" (click)="triggerSnapshot($event)">Take a Pic of Licence</p>
                                     </div>
                                 </div>
 
@@ -206,16 +205,16 @@
                         <div class="row form-group mb-3">
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                 <div class="row">
-                                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
-                                        <label class="form-check-label" for="promocode">
-                                            Promo:
+                                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                                        <label class="form-check-label" for="referralCode">
+                                            Referral:
                                         </label>
                                     </div>
-                                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
-                                        <input formControlName="promocode" name="promocode" type="text"
-                                            class="form-control" id="promocode" />
+                                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                        <input formControlName="referralCode" name="referralCode" type="text"
+                                            class="form-control" id="referralCode" />
                                     </div>
-                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                         <button id="promocodebutton" type="button"
                                             class="btn btn--black btn--general-cta"
                                             (click)="applyPromoCode()">Apply</button>

@@ -14,7 +14,7 @@ import { ImageUtilService } from '@app/_utils/image-util.service';
   styleUrls: ['./new-user-registration.component.css'],
   encapsulation: ViewEncapsulation.None,
 })
-export class NewUserRegistrationComponent implements OnInit {   
+export class NewUserRegistrationComponent implements OnInit {
   registrationForm!: FormGroup;
   registrationFormData!: {};
   formFields?: any[];
@@ -24,7 +24,7 @@ export class NewUserRegistrationComponent implements OnInit {
   successHide?: boolean = true;
   minDate: any = moment('1950-1-1', 'YYYY-MM-DD').local();
   maxDate: any = moment().local();
-  maxDatelegal:any = moment().subtract(18, "years"); ;
+  maxDatelegal: any = moment().subtract(18, "years");;
   dob: any;
   isYesRadioSelected: boolean = false;
   config = {
@@ -32,7 +32,10 @@ export class NewUserRegistrationComponent implements OnInit {
     backdrop: true,
     containerClass: 'right',
     data: {
-      title: 'Signature Pad'
+      title: 'Signature Pad',
+      firstName: '',
+      lastName: '',
+      birthDate: ''
     },
     ignoreBackdropClick: true,
     keyboard: true,
@@ -64,9 +67,9 @@ export class NewUserRegistrationComponent implements OnInit {
       militaryActiveRank: [''],
       lastName: [''],
       firstResponderJobChoice: '',
-      legalGardianFirstName:[''],
-      legalGardianLastName:[''],
-      legalGardianBirthDate:[''],
+      legalGardianFirstName: [''],
+      legalGardianLastName: [''],
+      legalGardianBirthDate: [''],
       milatoryJobChoice: '',
       mobilePhoneNumber: [''],
       othersHearAboutUs: [''],
@@ -79,7 +82,7 @@ export class NewUserRegistrationComponent implements OnInit {
       signPicture: [''],
       state: [''],
       validDoumentId: [''],
-      validDoumentImage:[''],
+      validDoumentImage: [''],
       zipcode: ['']
     });
   }
@@ -104,8 +107,8 @@ export class NewUserRegistrationComponent implements OnInit {
     const formGroupConfig: any = {};
     this.formFields?.forEach(cardBody => {
       cardBody.cardBodyListCollection.forEach((field: {
-        checked: boolean; inputType: string; buttonList: any[]; validators: any[]; controlName: string | number; 
-}) => {
+        checked: boolean; inputType: string; buttonList: any[]; validators: any[]; controlName: string | number;
+      }) => {
         const validatorsArray: any = [];
         if (field.validators) {
           field.validators.forEach((validator: any) => {
@@ -125,13 +128,13 @@ export class NewUserRegistrationComponent implements OnInit {
           formGroupConfig[field.controlName] = [defaultCheckedButton ? defaultCheckedButton.value : '', validatorsArray];
         } else {
           if (field.inputType === 'rulesandregulation' && field.checked === true) {
-          // Set the default value for radio button
-          formGroupConfig[field.controlName] = [true];
+            // Set the default value for radio button
+            formGroupConfig[field.controlName] = [true];
           } else {
             // For other input types
             formGroupConfig[field.controlName] = ['', validatorsArray];
           }
-          
+
         }
       });
     });
@@ -162,7 +165,7 @@ export class NewUserRegistrationComponent implements OnInit {
         },
         error: error => {
           this.error = error;
-        }        
+        }
       });
 
       setTimeout(() => {
@@ -213,11 +216,11 @@ export class NewUserRegistrationComponent implements OnInit {
     if (c.length > 0) {
       const varFormFields = Object.assign([], this.formFields);;
       let buttonitems: any = varFormFields?.find((item: { cardBodyType: String; }) => item.cardBodyType === j);
-    
-      buttonitems.cardBodyListCollection.forEach((value: { controlName: String; hide: boolean; }) => {       
+
+      buttonitems.cardBodyListCollection.forEach((value: { controlName: String; hide: boolean; }) => {
         if (!(value.controlName === 'milatoryJobChoice' || value.controlName === 'firstResponderJobChoice')) {
           value.hide = true;
-        }       
+        }
       });
 
       if ((buttonitems.cardBodyListCollection.length - 1) !== c.length) {
@@ -292,36 +295,39 @@ export class NewUserRegistrationComponent implements OnInit {
     if (event.target.id === 'firstResponderActiveBranch' && value !== 'lawEnforcementwithswatexperience') {
       this.populateDropdownItem('firstResponderJobDetails', 'firstResponderActiveYearsInSwat', true);
     }
-    
+
     if (event.target.id === 'firstResponderActiveBranch' && value === 'lawEnforcementwithswatexperience') {
       this.populateDropdownItem('firstResponderJobDetails', 'firstResponderActiveYearsInSwat', false);
     }
 
     if (event.target.id === 'firstResponderRetiredBranch' && value === 'lawEnforcementwithswatexperience') {
-      this.populateDropdownItem('firstResponderJobDetails', 'numberYearsPastSwatFirstResponder', false);
+      this.populateDropdownItem('firstResponderJobDetails', 'firstResponderRetiredYearsInSwat', false);
     }
 
     if (event.target.id === 'firstResponderRetiredBranch' && value !== 'lawEnforcementwithswatexperience') {
-      this.populateDropdownItem('firstResponderJobDetails', 'numberYearsPastSwatFirstResponder', true)
+      this.populateDropdownItem('firstResponderJobDetails', 'firstResponderRetiredYearsInSwat', true)
     }
   }
 
   rulesAndRegulationCheck(value: any) {
     if ((value.target as HTMLInputElement).id === 'rulesAndRegulation' && (value.target as HTMLInputElement).checked) {
+      this.config.data.firstName = this.registrationForm.value.firstName;
+      this.config.data.lastName = this.registrationForm.value.lastName;
+      this.config.data.birthDate = this.registrationForm.value.birthDate;
       const modalRefTermandconditions = this.modalService.open(TermandconditionsComponent, this.config);
       modalRefTermandconditions.component.formTermsAndConditionSubmitted.subscribe((signImage) => {
-        if (!!signImage && signImage!== 'closed') {
+        if (!!signImage && signImage !== 'closed') {
           const dataToAppend = { ...this.registrationForm.value, ...{ 'signImage': signImage } };
           this.registrationFormData = { ...this.registrationFormData, ...dataToAppend };
         } else {
-          if((value.target as HTMLInputElement).id === 'rulesAndRegulation'){
+          if ((value.target as HTMLInputElement).id === 'rulesAndRegulation') {
             value.target.checked = false;
           }
-        } 
+        }
       });
       modalRefTermandconditions.onClose.subscribe((message: any) => {
-        if(!message && message !== 'success') {
-          if((value.target as HTMLInputElement).id === 'rulesAndRegulation'){
+        if (!message && message !== 'success') {
+          if ((value.target as HTMLInputElement).id === 'rulesAndRegulation') {
             value.target.checked = false;
           }
         }
@@ -336,22 +342,22 @@ export class NewUserRegistrationComponent implements OnInit {
       this.previewSelectedImage(file, (event.target as HTMLInputElement).id);
     }
   }
-  addValidDoumentId(value:any){
+  addValidDoumentId(value: any) {
     const dataToAppend = { ...this.registrationForm.value, ...{ 'validDoumentId': (value.target as HTMLInputElement).value } };
     this.registrationFormData = { ...this.registrationFormData, ...dataToAppend };
   }
 
-  previewSelectedImage(file: File, id:string): void {
+  previewSelectedImage(file: File, id: string): void {
     const reader = new FileReader();
     let dataToAppend: {};
     reader.onload = () => {
-      if(id !== 'validDoumentImage') {
+      if (id !== 'validDoumentImage') {
         this.previewImage = reader.result;
         dataToAppend = { ...this.registrationForm.value, ...{ 'profilePicture': this.previewImage } };
       } else {
         dataToAppend = { ...this.registrationForm.value, ...{ 'validDoumentImage': reader.result } };
-      } 
-      
+      }
+
       this.registrationFormData = { ...this.registrationFormData, ...dataToAppend };
     };
     reader.readAsDataURL(file);
@@ -359,13 +365,13 @@ export class NewUserRegistrationComponent implements OnInit {
   triggerSnapshot(value: any) {
     const modalRefImageWevcam = this.modalService.open(ImageWebcamComponent, this.config);
     modalRefImageWevcam.component.imageWebcamSubmitted.subscribe((webcamImage) => {
-      if (!!webcamImage && value.target.id !== 'fileImageWebcam') {      
+      if (!!webcamImage && value.target.id !== 'fileImageWebcam') {
         const filename = 'webcam_image.png'; // You can set any filename
         const file = this.imageUtilService.dataURLtoFile(webcamImage.imageAsDataUrl, filename);
         this.previewSelectedImage(file, value.target.id);
-      }  else if(!!webcamImage && value.target.id === 'fileImageWebcam'){
-      const dataToAppend = { ...this.registrationForm.value, ...{ 'validDoumentImage': webcamImage} };
-      this.registrationFormData = { ...this.registrationFormData, ...dataToAppend };
+      } else if (!!webcamImage && value.target.id === 'fileImageWebcam') {
+        const dataToAppend = { ...this.registrationForm.value, ...{ 'validDoumentImage': webcamImage } };
+        this.registrationFormData = { ...this.registrationFormData, ...dataToAppend };
       }
     });
   }

@@ -436,11 +436,11 @@
             and my minor child or ward (“Minor”), whose name is:</p>
 
         <p>
-            First Name: _________________ </p>
+            First Name: <span class="dynamicValue">{{firstName}}</span></p>
 
-            <p>Last Name: ____________________ </p>
+            <p>Last Name: <span class="dynamicValue">{{lastName}}</span></p>
 
-            <p>DOB: _______________</p>
+            <p>DOB: <span class="dynamicValue">{{birthDate | date:'MM/dd/yy'}}</span></p>
         <p>
             All such terms, statements, warranties, notices representations, waivers, and releases fully apply to my
             minor
@@ -482,21 +482,30 @@
             ALL LIABILITY TO THE FULL EXTENT OF THE LAW.</p>
 
         <p>
-            Signature:______________________________________</p>
+            Signature:<span class="dynamicValueImg"><img src="{{previewSign}}" alt="" srcset="" /></span></p>
 
-            <p> Date: ________________</p>
+            <p> Date: <span class="dynamicValue">{{currentDate | date:'MM/dd/yy'}}</span></p>
 
         <p>
-            ________ I represent that I am 18 years of age or older.</p>
+            <span class="dynamicValue">Yes</span> I represent that I am 18 years of age or older.</p>
         <p>
-            ________ I represent that I have had ample time to read this Agreement and that I have entered into this
+            <span class="dynamicValue">Yes</span> I represent that I have had ample time to read this Agreement and that I have entered into this
             agreement voluntarily, freely, under no threat of duress, without inducement, promise, or guarantee
-            being communicated to me.
+            being communicated to me.</p>
+            <div class="row">
+                <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-12">
+                    <input type="checkbox" class="form-control form-check-input" (click)="startSigningButton($event)" />
+                </div>
+                <div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-12">
+                        <p class="signtheform">I have read and agree to the Terms and Conditions. Click in checkbox to sign the form</p>
+                </div>
+            </div>
+           
     </div>
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-secondary" (click)="modalRefTermandconditions.close()">
         Cancel
     </button>
-    <button type="button" class="btn btn-primary" id="startSigningButton" (click)="startSigningButton()">I Agree, Sign</button>
+    <button type="button" class="btn btn-primary" id="startSigningButton" (click)="submitSigningButton()" >I Agree, Sign</button>
 </div>

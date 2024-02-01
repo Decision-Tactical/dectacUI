@@ -1,3 +1,21 @@
 .termsBox {
     height: 70vh;
 }
+.dynamicValue {
+    text-decoration: underline;
+    background-color: #d3d3d3;
+    padding: 2px;
+}
+.dynamicValueImg {
+    background-color: #d3d3d3;
+    max-width: 20%;
+}
+.dynamicValueImg img {
+    background-color: #d3d3d3;
+    max-width: 20%;
+}
+.signtheform {
+    text-decoration: underline;
+    text-transform: uppercase;
+    font-weight: bold;
+}

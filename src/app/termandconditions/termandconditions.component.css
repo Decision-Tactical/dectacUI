@@ -18,4 +18,12 @@
     text-decoration: underline;
     text-transform: uppercase;
     font-weight: bold;
+    color: red;
+}
+.form-check-input {
+    border: solid #333;
+    border-width: 0 3px 3px 0;
+    width: 30px;
+    height: 15px;
+
 }

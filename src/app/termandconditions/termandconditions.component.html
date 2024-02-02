@@ -492,7 +492,7 @@
             <span class="dynamicValue">Yes</span> I represent that I have had ample time to read this Agreement and that I have entered into this
             agreement voluntarily, freely, under no threat of duress, without inducement, promise, or guarantee
             being communicated to me.</p>
-            <div class="row">
+            <div class="row dynamicValue">
                 <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-12">
                     <input type="checkbox" class="form-control form-check-input" (click)="startSigningButton($event)" />
                 </div>
@@ -507,5 +507,5 @@
     <button type="button" class="btn btn-secondary" (click)="modalRefTermandconditions.close()">
         Cancel
     </button>
-    <button type="button" class="btn btn-primary" id="startSigningButton" (click)="submitSigningButton()" >I Agree, Sign</button>
+    <button type="button" class="btn btn-primary" id="startSigningButton" (click)="submitSigningButton()" [disabled]="!previewSign">I Agree, Sign</button>
 </div>

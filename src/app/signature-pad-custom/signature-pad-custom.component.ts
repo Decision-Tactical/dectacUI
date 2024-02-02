@@ -33,12 +33,13 @@ export class SignaturePadCustomComponent {
     this.signatureNeeded = this.signaturePad.isEmpty();
     if (!this.signatureNeeded) {
       this.signatureNeeded = false;
-    }
-    // this.formSignDataSubmitted.emit(this.signatureImg);
+      // this.formSignDataSubmitted.emit(this.signatureImg);
     this.formSignDataSubmitted.next(this.signatureImg)
 
     // Close the modal
     this.modalRefSignaturePadCustom.close('Data Received');
+    }
+    
   }
   clearPad() {
     this.signaturePad.clear();

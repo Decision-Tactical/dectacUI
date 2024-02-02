@@ -121,8 +121,8 @@
                                 *ngIf="field.inputType==='dropdown' && !field.hide">
                                 <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example"
                                     [id]="field.controlName" [formControlName]="field.controlName" #mySelect
-                                    (change)='onOptionsSelected(mySelect.value, $event)'>
-                                    <option selected value="{{field.placeHolderValue}}">{{field.placeHolder}}</option>
+                                    (change)='onOptionsSelected(mySelect.value, $event)' >
+                                    <option selected [ngValue]="null" disabled>{{field.placeHolder}}</option>
                                     <option *ngFor="let value of field.dropdownvalues" value="{{value.value}}">
                                         {{value.label}}</option>
                                 </select>

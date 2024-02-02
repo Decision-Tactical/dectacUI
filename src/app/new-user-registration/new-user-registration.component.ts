@@ -205,6 +205,10 @@ export class NewUserRegistrationComponent implements OnInit {
           controlName.forEach(item => {
             if (value.controlName === item) {
               value.hide = true;
+              const myControl = this.registrationForm.get(item);
+              if (myControl) {
+                myControl.reset();
+              }
             }
           })
         });
@@ -220,6 +224,12 @@ export class NewUserRegistrationComponent implements OnInit {
       buttonitems.cardBodyListCollection.forEach((value: { controlName: String; hide: boolean; }) => {
         if (!(value.controlName === 'milatoryJobChoice' || value.controlName === 'firstResponderJobChoice')) {
           value.hide = true;
+          const dynamicControlName: String = value.controlName;
+          const myControl = this.registrationForm.get(dynamicControlName.toString());
+          // Check if myControl is not null before calling reset
+          if (myControl) {
+            myControl.reset();
+          }
         }
       });
 
@@ -280,6 +290,14 @@ export class NewUserRegistrationComponent implements OnInit {
     let buttonitem = buttonitems.cardBodyListCollection.filter((e: { controlName: string; inputType: string }) => e.controlName === control)
     buttonitem.forEach((field: { controlName: String; hide: Boolean }) => {
       field.hide = hidevalue;
+      if (hidevalue) {
+        const dynamicControlName: String = field.controlName;
+        const myControl = this.registrationForm.get(dynamicControlName.toString());
+        // Check if myControl is not null before calling reset
+        if (myControl) {
+          myControl.reset();
+        }
+      }
     });
   }
 

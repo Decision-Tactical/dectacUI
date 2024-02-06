@@ -93,6 +93,7 @@ export class NewUserRegistrationComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.spinnerService.startSpinner();
     if (this.accountService.getUserRegistrationPage) {
       this.accountService.getUserRegistrationPage().subscribe(data => {
         if (data && data.pagelebelcollection) {
@@ -105,6 +106,9 @@ export class NewUserRegistrationComponent implements OnInit {
         error => {
           console.error('Error:', error);
         });
+        setTimeout(() => {
+          this.spinnerService.stopSpinner();
+        }, 2000);
     }
   }
 

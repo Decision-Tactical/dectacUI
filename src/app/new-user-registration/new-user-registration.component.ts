@@ -270,27 +270,27 @@ export class NewUserRegistrationComponent implements OnInit {
     if (!!this.registrationForm.value) {
       let controlName: String[] = [];
       if (id === 'milatoryJobYes') {
-        controlName = ['militaryActiveBranch', 'militaryActiveYears', 'militaryActiveRank', 'ifYes'];
+        controlName = ['militaryActiveBranch', 'militaryActiveYears', 'militaryActiveRank', 'ifYes', 'militaryOtherActiveBranch'];
         this.populateCardBody('milatoryJobDetails', controlName);
       }
       if (id === 'milatoryJobRetired') {
-        controlName = ['militaryRetiredBranch', 'militaryRetiredYears', 'militaryRetiredRank', 'ifNo'];
+        controlName = ['militaryRetiredBranch', 'militaryRetiredYears', 'militaryRetiredRank', 'ifNo', 'militaryOtherRetiredBranch'];
         this.populateCardBody('milatoryJobDetails', controlName);
       }
       if (id === 'milatoryJobNo') {
-        controlName = ['militaryActiveBranch', 'militaryActiveYears', 'militaryActiveRank', 'ifYes', 'militaryRetiredBranch', 'militaryRetiredYears', 'militaryRetiredRank', 'ifNo'];
+        controlName = ['militaryActiveBranch', 'militaryActiveYears', 'militaryActiveRank', 'ifYes','militaryOtherActiveBranch', 'militaryRetiredBranch', 'militaryRetiredYears', 'militaryRetiredRank', 'ifNo', 'militaryOtherRetiredBranch'];
         this.populateCardBody('milatoryJobDetails', controlName);
       }
       if (id === 'firstResponderActive') {
-        controlName = ['firstResponderActiveBranch', 'firstResponderActiveYearsInTotal', 'firstResponderActiveRank', 'ifYes'];
+        controlName = ['firstResponderActiveBranch', 'firstResponderActiveYearsInTotal', 'firstResponderActiveRank', 'ifYes', 'firstResponderOtherActiveBranch'];
         this.populateCardBody('firstResponderJobDetails', controlName);
       }
       if (id === 'firstResponderRetired') {
-        controlName = ['firstResponderRetiredBranch', 'firstResponderRetiredYearsInTotal', 'firstResponderRetiredRank', 'ifNo'];
+        controlName = ['firstResponderRetiredBranch', 'firstResponderRetiredYearsInTotal', 'firstResponderRetiredRank', 'ifNo', 'firstResponderOtherRetiredBranch'];
         this.populateCardBody('firstResponderJobDetails', controlName);
       }
       if (id === 'firstResponderNo') {
-        controlName = ['firstResponderActiveBranch', 'firstResponderActiveYearsInTotal', 'firstResponderActiveRank', 'ifYes', 'firstResponderRetiredBranch', 'firstResponderRetiredYearsInTotal', 'firstResponderRetiredRank', 'ifNo', 'firstResponderActiveYearsInSwat', 'numberYearsPastSwatFirstResponder'];
+        controlName = ['firstResponderActiveBranch', 'firstResponderActiveYearsInTotal', 'firstResponderActiveRank', 'ifYes', 'firstResponderOtherActiveBranch','firstResponderRetiredBranch', 'firstResponderRetiredYearsInTotal', 'firstResponderRetiredRank', 'ifNo', 'firstResponderActiveYearsInSwat', 'numberYearsPastSwatFirstResponder', 'firstResponderOtherRetiredBranch'];
         this.populateCardBody('firstResponderJobDetails', controlName);
       }
     }

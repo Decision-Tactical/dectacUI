@@ -153,6 +153,7 @@ export class NewUserRegistrationComponent implements OnInit {
   }
 
   onSubmit() {
+    
     if (this.registrationForm.valid && 
       this.registrationForm.value.rulesAndRegulation !== false &&
       (this.registrationFormData.profilePicture !== undefined) &&
@@ -270,11 +271,11 @@ export class NewUserRegistrationComponent implements OnInit {
     if (!!this.registrationForm.value) {
       let controlName: String[] = [];
       if (id === 'milatoryJobYes') {
-        controlName = ['militaryActiveBranch', 'militaryActiveYears', 'militaryActiveRank', 'ifYes', 'militaryOtherActiveBranch'];
+        controlName = ['militaryActiveBranch', 'militaryActiveYears', 'militaryActiveRank', 'ifYes'];
         this.populateCardBody('milatoryJobDetails', controlName);
       }
       if (id === 'milatoryJobRetired') {
-        controlName = ['militaryRetiredBranch', 'militaryRetiredYears', 'militaryRetiredRank', 'ifNo', 'militaryOtherRetiredBranch'];
+        controlName = ['militaryRetiredBranch', 'militaryRetiredYears', 'militaryRetiredRank', 'ifNo'];
         this.populateCardBody('milatoryJobDetails', controlName);
       }
       if (id === 'milatoryJobNo') {
@@ -282,11 +283,11 @@ export class NewUserRegistrationComponent implements OnInit {
         this.populateCardBody('milatoryJobDetails', controlName);
       }
       if (id === 'firstResponderActive') {
-        controlName = ['firstResponderActiveBranch', 'firstResponderActiveYearsInTotal', 'firstResponderActiveRank', 'ifYes', 'firstResponderOtherActiveBranch'];
+        controlName = ['firstResponderActiveBranch', 'firstResponderActiveYearsInTotal', 'firstResponderActiveRank', 'ifYes'];
         this.populateCardBody('firstResponderJobDetails', controlName);
       }
       if (id === 'firstResponderRetired') {
-        controlName = ['firstResponderRetiredBranch', 'firstResponderRetiredYearsInTotal', 'firstResponderRetiredRank', 'ifNo', 'firstResponderOtherRetiredBranch'];
+        controlName = ['firstResponderRetiredBranch', 'firstResponderRetiredYearsInTotal', 'firstResponderRetiredRank', 'ifNo'];
         this.populateCardBody('firstResponderJobDetails', controlName);
       }
       if (id === 'firstResponderNo') {

@@ -6,6 +6,7 @@ import { TermandconditionsComponent } from '../termandconditions/termandconditio
 import { MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { ImageWebcamComponent } from '@app/image-webcam/image-webcam.component';
 import { ImageUtilService } from '@app/_utils/image-util.service';
+import { NewUserRegistartionFormData } from '@app/_models/newUserRegistrationFormData';
 
 
 @Component({
@@ -16,7 +17,7 @@ import { ImageUtilService } from '@app/_utils/image-util.service';
 })
 export class NewUserRegistrationComponent implements OnInit {
   registrationForm!: FormGroup;
-  registrationFormData!: {};
+  registrationFormData!: NewUserRegistartionFormData;
   formFields?: any[];
   previewImage: string | ArrayBuffer | null = null;
   success?: string;
@@ -154,8 +155,8 @@ export class NewUserRegistrationComponent implements OnInit {
   onSubmit() {
     if (this.registrationForm.valid && 
       this.registrationForm.value.rulesAndRegulation !== false &&
-      !!this.registrationForm.value.profilePicture &&
-      this.registrationForm.value.profilePicture !=='') {
+      (this.registrationFormData.profilePicture !== undefined) &&
+      this.registrationFormData.profilePicture !=='') {
       this.registrationFormData = { ...this.registrationFormData, ...this.registrationForm.value };
       this.accountService.createAccount(this.registrationFormData).subscribe({
         next: (data: any) => {
@@ -315,9 +316,28 @@ export class NewUserRegistrationComponent implements OnInit {
     if (event.target.id === 'howDidYouHearAboutUs' && value === 'other') {
       this.populateDropdownItem('howDidYouHearAboutUsDetails', 'othersHearAboutUs', false);
     }
-
     if (event.target.id === 'howDidYouHearAboutUs' && value !== 'other') {
       this.populateDropdownItem('howDidYouHearAboutUsDetails', 'othersHearAboutUs', true);
+    }
+    if (event.target.id === 'militaryRetiredBranch' && value === 'other') {
+      this.populateDropdownItem('milatoryJobDetails', 'militaryOtherRetiredBranch', false);
+    }
+    if (event.target.id === 'militaryRetiredBranch' && value !== 'other') {
+      this.populateDropdownItem('milatoryJobDetails', 'militaryOtherRetiredBranch', true);
+    }
+
+    if (event.target.id === 'militaryActiveBranch' && value === 'other') {
+      this.populateDropdownItem('milatoryJobDetails', 'militaryOtherActiveBranch', false);
+    }
+    if (event.target.id === 'militaryActiveBranch' && value !== 'other') {
+      this.populateDropdownItem('milatoryJobDetails', 'militaryOtherActiveBranch', true);
+    }
+    if (event.target.id === 'firstResponderActiveBranch' && value !== 'otherfirstresponder') {
+      this.populateDropdownItem('firstResponderJobDetails', 'firstResponderOtherActiveBranch', true);
+    }
+
+    if (event.target.id === 'firstResponderActiveBranch' && value === 'otherfirstresponder') {
+      this.populateDropdownItem('firstResponderJobDetails', 'firstResponderOtherActiveBranch', false);
     }
 
     if (event.target.id === 'firstResponderActiveBranch' && value !== 'lawEnforcementwithswatexperience') {
@@ -326,6 +346,14 @@ export class NewUserRegistrationComponent implements OnInit {
 
     if (event.target.id === 'firstResponderActiveBranch' && value === 'lawEnforcementwithswatexperience') {
       this.populateDropdownItem('firstResponderJobDetails', 'firstResponderActiveYearsInSwat', false);
+    }
+
+    if (event.target.id === 'firstResponderRetiredBranch' && value !== 'otherfirstresponder') {
+      this.populateDropdownItem('firstResponderJobDetails', 'firstResponderOtherRetiredBranch', true);
+    }
+
+    if (event.target.id === 'firstResponderRetiredBranch' && value === 'otherfirstresponder') {
+      this.populateDropdownItem('firstResponderJobDetails', 'firstResponderOtherRetiredBranch', false);
     }
 
     if (event.target.id === 'firstResponderRetiredBranch' && value === 'lawEnforcementwithswatexperience') {

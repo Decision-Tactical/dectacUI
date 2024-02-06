@@ -96,7 +96,7 @@
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12"
                                 *ngIf="field.inputType==='number' && !field.hide">
                                 <input [id]="field.controlName" [formControlName]="field.controlName" type="number"
-                                    min="0" class="form-control" placeholder="{{field.placeHolder}}"
+                                    [min]="field.minLength" class="form-control" placeholder="{{field.placeHolder}}"
                                     [max]="field.maxLength" />
                                 <div *ngIf="f[field.controlName].touched && f[field.controlName].invalid"
                                     class="error-message">

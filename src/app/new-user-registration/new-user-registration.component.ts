@@ -7,6 +7,7 @@ import { MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { ImageWebcamComponent } from '@app/image-webcam/image-webcam.component';
 import { ImageUtilService } from '@app/_utils/image-util.service';
 import { NewUserRegistartionFormData } from '@app/_models/newUserRegistrationFormData';
+import { SpinnerService } from '@app/_services/spinner.service';
 
 
 @Component({
@@ -49,7 +50,8 @@ export class NewUserRegistrationComponent implements OnInit {
     private modalService: MdbModalService,
     private formBuilder: FormBuilder,
     private accountService: AccountService,
-    private imageUtilService: ImageUtilService
+    private imageUtilService: ImageUtilService,
+    private spinnerService: SpinnerService
   ) {
     this.registrationForm = this.formBuilder.group({
       address1: [''],
@@ -152,15 +154,19 @@ export class NewUserRegistrationComponent implements OnInit {
     console.log('its working--------->');
   }
 
-  onSubmit() {
-    
+  onSubmit() {    
     if (this.registrationForm.valid && 
       this.registrationForm.value.rulesAndRegulation !== false &&
       (this.registrationFormData.profilePicture !== undefined) &&
       this.registrationFormData.profilePicture !=='') {
+      this.spinnerService.startSpinner();
       this.registrationFormData = { ...this.registrationFormData, ...this.registrationForm.value };
       this.accountService.createAccount(this.registrationFormData).subscribe({
         next: (data: any) => {
+          setTimeout(() => {
+            this.spinnerService.stopSpinner();
+          }, 2000);
+          
           // this.getUser();
           const element = document.getElementById('createNewAccountFormHeader');
           element?.scrollIntoView();

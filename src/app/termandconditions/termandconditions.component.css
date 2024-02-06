@@ -19,6 +19,7 @@
     text-transform: uppercase;
     font-weight: bold;
     color: red;
+    width: 100%;
 }
 .form-check-input {
     border: solid #333;

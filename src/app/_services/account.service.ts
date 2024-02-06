@@ -106,7 +106,7 @@ export class AccountService {
 
   register(formData: FormData): Observable<any> {
     // Replace the following URL with your backend registration endpoint
-    return this.http.post('/api/register', formData);
+    return this.http.post(`${environment.apiUrl}//api/register`, formData);
   }
 
   getUserRegistrationPage(): Observable<any> {
@@ -116,5 +116,10 @@ export class AccountService {
 
   createAccount(formData: any) {
     return this.http.post(`${environment.apiUrl}/createAccount`, { formData });
+  }
+
+  retriveAccount(formData: FormData): Observable<any> {
+    // Replace the following URL with your backend registration endpoint
+    return this.http.post(`${environment.apiUrl}/retriveAccount` , formData);
   }
 }

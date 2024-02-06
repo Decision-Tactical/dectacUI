@@ -9,7 +9,7 @@
             I have voluntarily elected ___; and/or I have voluntarily elected to allow the minor child(ren) (“Minor”)
             identified below ___: to use</p>
         <p> <b>Decision Tactical, LLC facilities and equipment, located 430 Towne Center Cir, Sanford,
-            FL 32771 (“DECISION TACTICAL”).</b></p>
+                FL 32771 (“DECISION TACTICAL”).</b></p>
         <p> In consideration for being allowed to use, or observe others using, said
             facilities and equipment, and any other services provided by DECISION TACTICAL, its employees, or agents
             (“DECISION TACTICAL Attractions”), I represent, acknowledge and agree as follows:</p>
@@ -88,9 +88,9 @@
             the overall choice to partake in this or any other DECISION TACTICAL activity or obstacle—is solely my
             choice
             and responsibility.</p>
-            <p>
-                <i>Page 2 of 5</i>
-            </p>
+        <p>
+            <i>Page 2 of 5</i>
+        </p>
         <p><b>
                 Release of Potential Injuries for Weaponry and Experiences</b></p>
         <p>
@@ -105,7 +105,7 @@
             including but not limited to injury to face, head, fingers, or other body part(s), blunt force, pinching or
             cutting of
             skin. </p>
-        
+
         <p>
             I also understand that there will be a Level 1 infrared laser that illuminates even when the gun is not
             firing.</p>
@@ -438,9 +438,9 @@
         <p>
             First Name: <span class="dynamicValue">{{firstName}}</span></p>
 
-            <p>Last Name: <span class="dynamicValue">{{lastName}}</span></p>
+        <p>Last Name: <span class="dynamicValue">{{lastName}}</span></p>
 
-            <p>DOB: <span class="dynamicValue">{{birthDate | date:'MM/dd/yy'}}</span></p>
+        <p>DOB: <span class="dynamicValue">{{birthDate | date:'MM/dd/yy'}}</span></p>
         <p>
             All such terms, statements, warranties, notices representations, waivers, and releases fully apply to my
             minor
@@ -484,28 +484,38 @@
         <p>
             Signature:<span class="dynamicValueImg"><img src="{{previewSign}}" alt="" srcset="" /></span></p>
 
-            <p> Date: <span class="dynamicValue">{{currentDate | date:'MM/dd/yy'}}</span></p>
+        <p> Date: <span class="dynamicValue">{{currentDate | date:'MM/dd/yy'}}</span></p>
 
         <p>
-            <span class="dynamicValue">Yes</span> I represent that I am 18 years of age or older.</p>
+            <span class="dynamicValue">Yes</span> I represent that I am 18 years of age or older.
+        </p>
         <p>
-            <span class="dynamicValue">Yes</span> I represent that I have had ample time to read this Agreement and that I have entered into this
+            <span class="dynamicValue">Yes</span> I represent that I have had ample time to read this Agreement and that
+            I have entered into this
             agreement voluntarily, freely, under no threat of duress, without inducement, promise, or guarantee
-            being communicated to me.</p>
-            <div class="row dynamicValue">
-                <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-12">
-                    <input type="checkbox" class="form-control form-check-input" (click)="startSigningButton($event)" />
-                </div>
-                <div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-12">
-                        <p class="signtheform">I have read and agree to the Terms and Conditions. Click in checkbox to sign the form</p>
-                </div>
-            </div>
-           
+            being communicated to me.
+        </p>
+
+
+    </div>
+   
+</div>
+<div class="row dynamicValue signtheform">
+    <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-12">
+        <input type="checkbox" class="form-control form-check-input" (click)="startSigningButton($event)" />
+    </div>
+    <div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-12">
+        <p>I have read and agree to the Terms and Conditions. Click in checkbox to sign the form</p>
     </div>
 </div>
-<div class="modal-footer">
-    <button type="button" class="btn btn-secondary" (click)="modalRefTermandconditions.close()">
-        Cancel
-    </button>
-    <button type="button" class="btn btn-primary" id="startSigningButton" (click)="submitSigningButton()" [disabled]="!previewSign">I Agree, Sign</button>
+<div class="modal-footer">    
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <button type="button" class="btn btn-secondary" (click)="modalRefTermandconditions.close()">
+                Cancel
+            </button>
+            <button type="button" class="btn btn-primary" id="startSigningButton" (click)="submitSigningButton()"
+                [disabled]="!previewSign">I Agree, Sign</button>
+        </div>
+    </div>
 </div>

@@ -44,7 +44,8 @@ import { TermandconditionsComponent } from './termandconditions/termandcondition
 import { SignaturePadCustomComponent } from './signature-pad-custom/signature-pad-custom.component';
 import { ImageWebcamComponent } from './image-webcam/image-webcam.component';
 import { SpinnerComponent } from './spinner/spinner.component';
-
+import { FetchExistingAccountComponent } from './fetch-existing-account/fetch-existing-account.component';
+import { NumberDirective } from './_utils/numbers-only.directive';
 
 
 @NgModule({
@@ -87,7 +88,9 @@ import { SpinnerComponent } from './spinner/spinner.component';
     TermandconditionsComponent,
     SignaturePadCustomComponent,
     ImageWebcamComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    FetchExistingAccountComponent,
+    NumberDirective
   ],
   providers: [
     // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

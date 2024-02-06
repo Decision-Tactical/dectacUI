@@ -24,7 +24,8 @@ export class NewUserRegistrationComponent implements OnInit {
   successHide?: boolean = true;
   minDate: any = moment('1950-1-1', 'YYYY-MM-DD').local();
   maxDate: any = moment().local();
-  maxDatelegal: any = moment().subtract(18, "years");;
+  maxDatelegal: any = moment().subtract(18, "years");profilePictureRequired: any;
+;
   dob: any;
   isYesRadioSelected: boolean = false;
   config = {
@@ -62,6 +63,7 @@ export class NewUserRegistrationComponent implements OnInit {
       eventCode: [''],
       eventGroupIds: [''],
       firstName: [''],
+      gender:[''],
       howDidYouHearAboutUs: [''],
       firstResponderActiveRank: [''],
       militaryActiveRank: [''],
@@ -150,7 +152,10 @@ export class NewUserRegistrationComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.registrationForm.valid && this.registrationForm.value.rulesAndRegulation !== false) {
+    if (this.registrationForm.valid && 
+      this.registrationForm.value.rulesAndRegulation !== false &&
+      !!this.registrationForm.value.profilePicture &&
+      this.registrationForm.value.profilePicture !=='') {
       this.registrationFormData = { ...this.registrationFormData, ...this.registrationForm.value };
       this.accountService.createAccount(this.registrationFormData).subscribe({
         next: (data: any) => {
@@ -161,7 +166,7 @@ export class NewUserRegistrationComponent implements OnInit {
           setTimeout(() => {
             this.success = '';
             this.error = '';
-          }, 3000);
+          }, 10000);
         },
         error: error => {
           this.error = error;
@@ -171,8 +176,13 @@ export class NewUserRegistrationComponent implements OnInit {
       setTimeout(() => {
         this.success = '';
         this.error = '';
-      }, 3000);
+      }, 10000);
     } else {
+      const element = document.getElementById('createNewAccountFormHeader');
+      element?.scrollIntoView();
+      if(!this.registrationForm.value.profilePicture || this.registrationForm.value.profilePicture ==='') {
+        this.profilePictureRequired = true;
+      }
       this.markFormGroupTouched(this.registrationForm);
     }
   }
@@ -366,6 +376,7 @@ export class NewUserRegistrationComponent implements OnInit {
   }
 
   previewSelectedImage(file: File, id: string): void {
+    this.profilePictureRequired = false;
     const reader = new FileReader();
     let dataToAppend: {};
     reader.onload = () => {

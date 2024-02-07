@@ -8,6 +8,8 @@ import { ImageWebcamComponent } from '@app/image-webcam/image-webcam.component';
 import { ImageUtilService } from '@app/_utils/image-util.service';
 import { NewUserRegistartionFormData } from '@app/_models/newUserRegistrationFormData';
 import { SpinnerService } from '@app/_services/spinner.service';
+import { ActivatedRoute } from '@angular/router';
+import { switchMap } from 'rxjs/operators';
 
 
 @Component({
@@ -26,10 +28,11 @@ export class NewUserRegistrationComponent implements OnInit {
   successHide?: boolean = true;
   minDate: any = moment('1950-1-1', 'YYYY-MM-DD').local();
   maxDate: any = moment().local();
-  maxDatelegal: any = moment().subtract(18, "years");profilePictureRequired: any;
-;
+  maxDatelegal: any = moment().subtract(18, "years"); profilePictureRequired: any;
+  ;
   dob: any;
   isYesRadioSelected: boolean = false;
+  pageLoaded: boolean = false;
   config = {
     animation: true,
     backdrop: true,
@@ -51,7 +54,8 @@ export class NewUserRegistrationComponent implements OnInit {
     private formBuilder: FormBuilder,
     private accountService: AccountService,
     private imageUtilService: ImageUtilService,
-    private spinnerService: SpinnerService
+    private spinnerService: SpinnerService,
+    private route: ActivatedRoute
   ) {
     this.registrationForm = this.formBuilder.group({
       address1: [''],
@@ -66,7 +70,7 @@ export class NewUserRegistrationComponent implements OnInit {
       eventCode: [''],
       eventGroupIds: [''],
       firstName: [''],
-      gender:[''],
+      gender: [''],
       howDidYouHearAboutUs: [''],
       firstResponderActiveRank: [''],
       militaryActiveRank: [''],
@@ -94,21 +98,88 @@ export class NewUserRegistrationComponent implements OnInit {
 
   ngOnInit() {
     this.spinnerService.startSpinner();
-    if (this.accountService.getUserRegistrationPage) {
-      this.accountService.getUserRegistrationPage().subscribe(data => {
+    if (this.route.snapshot.queryParams.updatemode) {
+      this.pageLoaded = true;
+    }
+    this.accountService.getUserRegistrationPage().pipe(
+      switchMap((data: any) => {
         if (data && data.pagelebelcollection) {
           this.formFields = data.pagelebelcollection[0];
           this.initializeForm();
         } else {
           console.error('Invalid API response structure.');
         }
-      },
-        error => {
-          console.error('Error:', error);
-        });
         setTimeout(() => {
           this.spinnerService.stopSpinner();
         }, 2000);
+        return this.accountService.accountDetails$;
+      })
+    ).subscribe((response: any) =>{
+      this.patchAccountDetails(response);
+    }
+    );
+    // if (this.accountService.getUserRegistrationPage) {
+    //   this.accountService.getUserRegistrationPage().subscribe({
+    //     next: (data: any) => {
+    //       if (data && data.pagelebelcollection) {
+    //         this.formFields = data.pagelebelcollection[0];
+    //         this.initializeForm();
+    //       } else {
+    //         console.error('Invalid API response structure.');
+    //       }
+    //       setTimeout(() => {
+    //         this.spinnerService.stopSpinner();
+    //       }, 2000);
+    //     },
+    //     error: error => {
+    //       this.error = error;
+    //     }
+    //   });
+    // }
+    // if (this.route.snapshot.queryParams.updatemode) {
+    //   this.pageLoaded = true;
+    // }
+  }
+
+  patchAccountDetails(dataAccountDetails:any) {
+    if (this.pageLoaded) {
+      this.registrationForm.patchValue({
+        address1: dataAccountDetails.address1,
+        address2: dataAccountDetails.address2,
+        birthDate: dataAccountDetails.birthDate,
+        city: dataAccountDetails.city,
+        consentToEmail: dataAccountDetails.consentToEmail,
+        country: dataAccountDetails.country,
+        militaryActiveBranch: dataAccountDetails.militaryActiveBranch,
+        currentlyServingsFirstResponder: dataAccountDetails.currentlyServingsFirstResponder,
+        email: dataAccountDetails.email,
+        eventCode: dataAccountDetails.eventCode,
+        eventGroupIds: dataAccountDetails.eventGroupIds,
+        firstName: dataAccountDetails.firstName,
+        gender: dataAccountDetails.gender,
+        howDidYouHearAboutUs: dataAccountDetails.howDidYouHearAboutUs,
+        firstResponderActiveRank: dataAccountDetails.firstResponderActiveRank,
+        militaryActiveRank: dataAccountDetails.militaryActiveRank,
+        lastName: dataAccountDetails.lastName,
+        firstResponderJobChoice: dataAccountDetails.firstResponderJobChoice,
+        legalGardianFirstName: dataAccountDetails.legalGardianFirstName,
+        legalGardianLastName: dataAccountDetails.legalGardianLastName,
+        legalGardianBirthDate: dataAccountDetails.legalGardianBirthDate,
+        milatoryJobChoice: dataAccountDetails.milatoryJobChoice,
+        mobilePhoneNumber: dataAccountDetails.mobilePhoneNumber,
+        othersHearAboutUs: dataAccountDetails.othersHearAboutUs,
+        profilePicture: dataAccountDetails.profilePicture,
+        referralCode: dataAccountDetails.referralCode,
+        racerName: dataAccountDetails.racerName,
+        rulesAndRegulation: dataAccountDetails.rulesAndRegulation,
+        firstResponderActiveYearsInTotal: dataAccountDetails.firstResponderActiveYearsInTotal,
+        militaryActiveYears: dataAccountDetails.militaryActiveYears,
+        signPicture: dataAccountDetails.signPicture,
+        state: dataAccountDetails.state,
+        validDoumentId: dataAccountDetails.validDoumentId,
+        validDoumentImage: dataAccountDetails.validDoumentImage,
+        zipcode: dataAccountDetails.zipcode
+      });
     }
   }
 
@@ -158,11 +229,11 @@ export class NewUserRegistrationComponent implements OnInit {
     console.log('its working--------->');
   }
 
-  onSubmit() {    
-    if (this.registrationForm.valid && 
+  onSubmit() {
+    if (this.registrationForm.valid &&
       this.registrationForm.value.rulesAndRegulation !== false &&
       (this.registrationFormData.profilePicture !== undefined) &&
-      this.registrationFormData.profilePicture !=='') {
+      this.registrationFormData.profilePicture !== '') {
       this.spinnerService.startSpinner();
       this.registrationFormData = { ...this.registrationFormData, ...this.registrationForm.value };
       this.accountService.createAccount(this.registrationFormData).subscribe({
@@ -170,7 +241,7 @@ export class NewUserRegistrationComponent implements OnInit {
           setTimeout(() => {
             this.spinnerService.stopSpinner();
           }, 2000);
-          
+
           // this.getUser();
           const element = document.getElementById('createNewAccountFormHeader');
           element?.scrollIntoView();
@@ -192,7 +263,7 @@ export class NewUserRegistrationComponent implements OnInit {
     } else {
       const element = document.getElementById('createNewAccountFormHeader');
       element?.scrollIntoView();
-      if(!this.registrationForm.value.profilePicture || this.registrationForm.value.profilePicture ==='') {
+      if (!this.registrationForm.value.profilePicture || this.registrationForm.value.profilePicture === '') {
         this.profilePictureRequired = true;
       }
       this.markFormGroupTouched(this.registrationForm);
@@ -289,7 +360,7 @@ export class NewUserRegistrationComponent implements OnInit {
         this.populateCardBody('milatoryJobDetails', controlName);
       }
       if (id === 'milatoryJobNo') {
-        controlName = ['militaryActiveBranch', 'militaryActiveYears', 'militaryActiveRank', 'ifYes','militaryOtherActiveBranch', 'militaryRetiredBranch', 'militaryRetiredYears', 'militaryRetiredRank', 'ifNo', 'militaryOtherRetiredBranch'];
+        controlName = ['militaryActiveBranch', 'militaryActiveYears', 'militaryActiveRank', 'ifYes', 'militaryOtherActiveBranch', 'militaryRetiredBranch', 'militaryRetiredYears', 'militaryRetiredRank', 'ifNo', 'militaryOtherRetiredBranch'];
         this.populateCardBody('milatoryJobDetails', controlName);
       }
       if (id === 'firstResponderActive') {
@@ -301,7 +372,7 @@ export class NewUserRegistrationComponent implements OnInit {
         this.populateCardBody('firstResponderJobDetails', controlName);
       }
       if (id === 'firstResponderNo') {
-        controlName = ['firstResponderActiveBranch', 'firstResponderActiveYearsInTotal', 'firstResponderActiveRank', 'ifYes', 'firstResponderOtherActiveBranch','firstResponderRetiredBranch', 'firstResponderRetiredYearsInTotal', 'firstResponderRetiredRank', 'ifNo', 'firstResponderActiveYearsInSwat', 'numberYearsPastSwatFirstResponder', 'firstResponderOtherRetiredBranch'];
+        controlName = ['firstResponderActiveBranch', 'firstResponderActiveYearsInTotal', 'firstResponderActiveRank', 'ifYes', 'firstResponderOtherActiveBranch', 'firstResponderRetiredBranch', 'firstResponderRetiredYearsInTotal', 'firstResponderRetiredRank', 'ifNo', 'firstResponderActiveYearsInSwat', 'numberYearsPastSwatFirstResponder', 'firstResponderOtherRetiredBranch'];
         this.populateCardBody('firstResponderJobDetails', controlName);
       }
     }

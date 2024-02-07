@@ -6,11 +6,14 @@ import { map } from 'rxjs/operators';
 
 import { environment } from 'environments/environment';
 import { User, Login, Reset } from '../_models';
+
 @Injectable({ providedIn: 'root' })
 export class AccountService {
   private userSubject: BehaviorSubject<User | null>;
   public user: Observable<User | null>;
-  isLoggedIn$: BehaviorSubject<boolean> = new BehaviorSubject(false)
+  isLoggedIn$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  private accountDetailsSubject = new BehaviorSubject<string>('');
+  accountDetails$ = this.accountDetailsSubject.asObservable();
 
   constructor(
     private router: Router,
@@ -121,5 +124,8 @@ export class AccountService {
   retriveAccount(formData: FormData): Observable<any> {
     // Replace the following URL with your backend registration endpoint
     return this.http.post(`${environment.apiUrl}/retriveAccount` , formData);
+  }
+  setAccountDetails(accountDetails:any) {
+    this.accountDetailsSubject.next(accountDetails)
   }
 }

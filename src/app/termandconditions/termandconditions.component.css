@@ -1,0 +1,30 @@
+.termsBox {
+    height: 70vh;
+}
+.dynamicValue {
+    text-decoration: underline;
+    background-color: #d3d3d3;
+    padding: 2px;
+}
+.dynamicValueImg {
+    background-color: #d3d3d3;
+    max-width: 20%;
+}
+.dynamicValueImg img {
+    background-color: #d3d3d3;
+    max-width: 20%;
+}
+.signtheform {
+    text-decoration: underline;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: red;
+    width: 100%;
+}
+.form-check-input {
+    border: solid #333;
+    border-width: 0 3px 3px 0;
+    width: 30px;
+    height: 15px;
+
+}

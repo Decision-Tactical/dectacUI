@@ -1,0 +1,63 @@
+<div class="container col-md-6 offset-md-3 mt-5">
+    <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+    <div *ngIf="success" class="alert alert-success">{{success}}</div>
+    <div class="card">
+        <h4 class="card-header">Check in with an existing account</h4>
+        <div class="card-body">
+            <form [formGroup]="retriveForm" (ngSubmit)="onRetriveFormSubmit()">
+                <div class="mb-3">
+                    <label class="form-label">First Name</label>
+                    <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
+                    <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                        <div *ngIf="f.firstName.errors.required">First Name is required</div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Last Name</label>
+                    <input type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
+                    <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+                        <div *ngIf="f.lastName.errors.required">Last Name is required</div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">E-Mail Address</label>
+                    <input type="text" formControlName="emailAddress" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.emailAddress.errors }" />
+                    <div *ngIf="submitted && f.emailAddress.errors" class="invalid-feedback">
+                        <div *ngIf="f.emailAddress.errors.required">E-Mail Address is required</div>
+                    </div>
+                    <div *ngIf="submitted && retriveForm.get('emailAddress')?.hasError('email')" class="invalid-feedback">
+                        Invalid email format.
+                      </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Phone Number</label>
+                    <input type="text" formControlName="phoneNumber" class="form-control" minlength="10" maxlength="10" numbersOnly/>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Birth Date</label><br/>
+                    <mat-form-field>
+                        <input matInput [min]="minDate"
+                            [max]="maxDate"
+                            [matDatepicker]="birthDate" placeholder="Choose Date"
+                            class="form-control"
+                            formControlName="birthDate">
+                        <mat-datepicker-toggle matSuffix [for]="birthDate"></mat-datepicker-toggle>
+                        <mat-datepicker #birthDate></mat-datepicker>
+                    </mat-form-field>
+                    <div *ngIf="f.birthDate.touched && f.birthDate.invalid"
+                        class="error-message">
+                        <div *ngFor="let error of f.birthDate.errors | keyvalue">
+                            {{ error.key === 'required' ? 'Birth Date is required' : 'Invalid Date format' }}
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <button [disabled]="loading" class="btn btn--secondary btn--general-cta">
+                        <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
+                        Submit
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+  </div>

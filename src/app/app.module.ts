@@ -16,6 +16,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
+import { AngularSignaturePadModule } from '@almothafar/angular-signature-pad';
+import { WebcamModule } from 'ngx-webcam';
 
 // user created
 import { AppComponent } from './app.component';
@@ -37,6 +39,13 @@ import { VideoDashboardComponent } from './video-dashboard/video-dashboard.compo
 import { NotFoundComponent } from './not-found/not-found.component';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { DateFormatPipe } from './date-format.pipe';
+import { NewUserRegistrationComponent } from './new-user-registration/new-user-registration.component';
+import { TermandconditionsComponent } from './termandconditions/termandconditions.component';
+import { SignaturePadCustomComponent } from './signature-pad-custom/signature-pad-custom.component';
+import { ImageWebcamComponent } from './image-webcam/image-webcam.component';
+import { SpinnerComponent } from './spinner/spinner.component';
+import { FetchExistingAccountComponent } from './fetch-existing-account/fetch-existing-account.component';
+import { NumberDirective } from './_utils/numbers-only.directive';
 
 
 @NgModule({
@@ -54,7 +63,9 @@ import { DateFormatPipe } from './date-format.pipe';
     MatInputModule,
     MatFormFieldModule,
     MatNativeDateModule,
-    MatMomentDateModule, MatButtonModule, MatDividerModule, MatIconModule, MatTabsModule
+    MatMomentDateModule, MatButtonModule, MatDividerModule, MatIconModule, MatTabsModule, 
+    AngularSignaturePadModule,
+    WebcamModule
   ],
   declarations: [
     AppComponent,
@@ -72,7 +83,14 @@ import { DateFormatPipe } from './date-format.pipe';
     VideoDashboardComponent,
     NotFoundComponent,
     BreadcrumbComponent,
-    DateFormatPipe
+    DateFormatPipe,
+    NewUserRegistrationComponent,
+    TermandconditionsComponent,
+    SignaturePadCustomComponent,
+    ImageWebcamComponent,
+    SpinnerComponent,
+    FetchExistingAccountComponent,
+    NumberDirective
   ],
   providers: [
     // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

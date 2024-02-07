@@ -1,0 +1,247 @@
+<div class="row" *ngIf="successHide">
+    <div class="col-12">
+        <div *ngIf="success" class="alert alert-success">{{success}}</div>
+        <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+    </div>
+</div>
+<h5 class="accountHeader" id="createNewAccountFormHeader">Create An Account</h5>
+<form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+    <div class="container">
+        <div class="row gutters">
+            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+                <div class="mb-3 card h-100">
+                    <div class="card-body">
+                        <div class="account-settings">
+                            <div class="user-profile">
+                                <div class="user-avatar">
+                                    <img [src]="previewImage" alt="Selected Image" *ngIf="previewImage">
+                                </div>
+                                <label for="profilePicture">Profile Picture:<span class="requiredAsterisk">*</span></label>
+                                <p class="actionBtn" id="profileImageWebcam" (click)="triggerSnapshot($event)">Take A
+                                    Selfie</p>
+                                <p>OR</p>
+                                <input type="file" id="profilePicture" (change)="onFileChange($event)" />
+                            </div>
+                            <div *ngIf="profilePictureRequired" class="error-message">
+                                {{ 'profilePicture is required' }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+                <div class="mb-3 card" *ngFor="let card of formFields">
+                    <div class="card-body">
+                        <div class="row gutters mb-3">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <h4 class="mb-2 text-primary">{{card.cardBodyName}}</h4>
+                                <span class="info" *ngIf="card.cardBodyType ==='personalDetails'">(must match with id)
+                                </span>
+                            </div>
+                        </div>
+                        <div *ngFor="let field of card.cardBodyListCollection" class="row form-group mb-3">
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12"
+                                *ngIf="field.inputType !=='rulesandregulation' && !field.hide && field.inputType !=='textheader'">
+                                <label [for]="field.controlName">{{ field.label }}<span class="requiredAsterisk"
+                                        *ngIf="field.validators.length>0">*</span></label>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12"
+                                *ngIf="field.inputType ==='radio' && !field.hide">
+                                <span *ngFor="let buttonitem of field.buttonList;let i = index">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" [name]="field.controlName"
+                                            [id]="buttonitem.id" [formControlName]="field.controlName"
+                                            [value]="buttonitem.value" [checked]="buttonitem.checked"
+                                            (change)="radioChecked(buttonitem.id, i)" />
+                                        <label class="form-check-label"
+                                            [for]="buttonitem.id">{{buttonitem.label}}</label>
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="row gutters mb-3"
+                                *ngIf="field.inputType ==='textheader' && !field.hide && isYesRadioSelected">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <h4 class="mt-3 mb-2 text-primary" [innerHtml]="field.label"></h4>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12"
+                                *ngIf="field.inputType==='text' && !field.hide">
+                                <input type="text" [id]="field.controlName" [formControlName]="field.controlName"
+                                    class="form-control" placeholder="{{field.placeHolder}}"
+                                    [maxlength]="field.maxLength" [minlength]="field.minLength" />
+                                <div *ngIf="f[field.controlName].touched && f[field.controlName].invalid"
+                                    class="error-message">
+                                    <div *ngFor="let error of f[field.controlName].errors | keyvalue">
+                                        {{ error.key === 'required' ? field.label + ' is required' : 'Invalid ' +
+                                        field.label + ' format' }}
+                                    </div>
+                                </div>
+                            </div>
+                            <!--<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12"
+                                *ngIf="field.inputType==='file' && !field.hide">
+                                <input type="file" [id]="field.controlName" [formControlName]="field.controlName"
+                                    class="form-control" placeholder="{{field.placeHolder}}"
+                                    (change)="onFileChange($event)" />
+                                <p>OR</p>
+                                <p class="actionBtn" id="fileImageWebcam" (click)="triggerSnapshot($event)">Take A
+                                    Snapshot</p>
+                                <div *ngIf="f[field.controlName].touched && f[field.controlName].invalid"
+                                    class="error-message">
+                                    <div *ngFor="let error of f[field.controlName].errors | keyvalue">
+                                        {{ error.key === 'required' ? field.label + ' is required' : 'Invalid ' +
+                                        field.label + ' format' }}
+                                    </div>
+                                </div>
+                            </div>-->
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12"
+                                *ngIf="field.inputType==='number' && !field.hide">
+                                <input [id]="field.controlName" [formControlName]="field.controlName" type="number"
+                                    [min]="field.minLength" class="form-control" placeholder="{{field.placeHolder}}"
+                                    [max]="field.maxLength" />
+                                <div *ngIf="f[field.controlName].touched && f[field.controlName].invalid"
+                                    class="error-message">
+                                    <div *ngFor="let error of f[field.controlName].errors | keyvalue">
+                                        {{ error.key === 'required' ? field.label + ' is required' : 'Invalid ' +
+                                        field.label + ' format' }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12"
+                                *ngIf="field.inputType==='date' && !field.hide">
+                                <mat-form-field>
+                                    <input matInput [min]="minDate"
+                                        [max]="field.controlName!=='legalGardianBirthDate'?maxDate:maxDatelegal"
+                                        [matDatepicker]="birthDate" placeholder="{{field.placeHolder}}"
+                                        (dateChange)="endDateChanged($event)" class="form-control"
+                                        [id]="field.controlName" [formControlName]="field.controlName">
+                                    <mat-datepicker-toggle matSuffix [for]="birthDate"></mat-datepicker-toggle>
+                                    <mat-datepicker #birthDate></mat-datepicker>
+                                </mat-form-field>
+                                <div *ngIf="f[field.controlName].touched && f[field.controlName].invalid"
+                                    class="error-message">
+                                    <div *ngFor="let error of f[field.controlName].errors | keyvalue">
+                                        {{ error.key === 'required' ? field.label + ' is required' : 'Invalid ' +
+                                        field.label + ' format' }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12"
+                                *ngIf="field.inputType==='dropdown' && !field.hide">
+                                <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example"
+                                    [id]="field.controlName" [formControlName]="field.controlName" #mySelect
+                                    (change)='onOptionsSelected(mySelect.value, $event)'>
+                                    <option selected [ngValue]="null" disabled>{{field.placeHolder}}</option>
+                                    <option *ngFor="let value of field.dropdownvalues" value="{{value.value}}">
+                                        {{value.label}}</option>
+                                </select>
+                                <div *ngIf="f[field.controlName].touched && f[field.controlName].invalid"
+                                    class="error-message">
+                                    <div *ngFor="let error of f[field.controlName].errors | keyvalue">
+                                        {{ error.key === 'required' ? field.label + ' is required' : 'Invalid ' +
+                                        field.label + ' format' }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
+                                *ngIf="field.inputType==='rulesandregulation' && !field.hide">
+                                <div class="row">
+                                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                                        <input [id]="field.controlName" [formControlName]="field.controlName"
+                                            type="checkbox" class="form-control form-check-input"
+                                            value="{{field.value}}" (click)="rulesAndRegulationCheck($event)" />
+                                    </div>
+                                    <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-12"><span
+                                            class="requiredAsterisk" *ngIf="field.validators.length>0">*</span>
+                                        <label class="form-check-label" [for]="field.controlName"
+                                            [innerHtml]="field.label">
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- <div class="mb-3 card">
+                    <div class="card-body">
+                        <div class="row gutters mb-3">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <h4 class="mb-2 text-primary">ID Details</h4>
+                            </div>
+                        </div>
+                        <div class="row form-group mb-3">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <div class="row">
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                        <label class="form-check-label" for="validDoumentId">
+                                            License/Identification Number:
+                                        </label>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                        <input name="validDoumentId" type="text" class="form-control"
+                                            id="validDoumentId" (blur)="addValidDoumentId($event)" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-group mb-3">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <div class="row">
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                        <label class="form-check-label" for="validDoumentImage">
+                                            Upload License/Identification Document:
+                                        </label>
+                                    </div>
+                                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                                        <input type="file" id="validDoumentImage" class="form-control"
+                                            (change)="onFileChange($event)" />
+                                    </div>
+                                    <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-12">
+                                        <p>OR</p>
+                                    </div>
+                                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                                        <p class="actionBtn" id="fileImageWebcam" (click)="triggerSnapshot($event)">Take a Pic of Licence</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
+                <div class="mb-3 card">
+                    <div class="card-body">
+                        <!--<div class="row form-group mb-3">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <div class="row">
+                                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                                        <label class="form-check-label" for="referralCode">
+                                            Referral:
+                                        </label>
+                                    </div>
+                                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                        <input formControlName="referralCode" name="referralCode" type="text"
+                                            class="form-control" id="referralCode" />
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                        <button id="promocodebutton" type="button"
+                                            class="btn btn--black btn--general-cta"
+                                            (click)="applyPromoCode()">Apply</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>-->
+                        <div class="row form-group mb-3">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <div class="text-right">
+                                    <button id="submit" name="submit" type="submit"
+                                        [disabled]="registrationForm.invalid"
+                                        class="btn btn--secondary btn--general-cta">Register</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

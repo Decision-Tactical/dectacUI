@@ -10,6 +10,7 @@
   },
   "private": true,
   "dependencies": {
+    "@almothafar/angular-signature-pad": "^5.0.1",
     "@angular/animations": "^16.2.0",
     "@angular/cdk": "^16.2.1",
     "@angular/common": "^16.2.0",
@@ -29,8 +30,10 @@
     "jquery": "^3.7.0",
     "mdb-angular-ui-kit": "^5.0.0",
     "moment": "^2.29.4",
+    "ngx-webcam": "^0.4.1",
     "primeng": "^16.2.0",
     "rxjs": "~7.8.0",
+    "signature_pad": "^4.1.7",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
   },

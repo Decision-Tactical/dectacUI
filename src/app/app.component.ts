@@ -3,6 +3,7 @@ import { AccountService } from './_services';
 import "bootstrap" ;
 import { Subscription } from 'rxjs/internal/Subscription';
 import * as jQuery from 'jquery';
+import { SpinnerService } from '@app/_services/spinner.service';
 
 @Component({
   selector: 'app-root',
@@ -10,19 +11,22 @@ import * as jQuery from 'jquery';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, OnDestroy {
+  // loading = true;
   isLoggedIn!: boolean; 
   // reference to the isLoggedIn$ subscription, see ngOnDestroy
   private _sub!: Subscription;
   title = 'D-Tac';
   user:any;
-  constructor(public accountService: AccountService) { }
+  constructor(public accountService: AccountService, public spinnerService: SpinnerService) { }
   
 ngOnInit(): void {
+  // setTimeout(() => {
+  //   this.loading = false;
+  // }, 2000);
   this._sub = this.accountService.isLoggedIn$.subscribe(loginState => this.isLoggedIn = loginState)
   this.user = this.accountService.userValue;
   let a: any = document.getElementById('dtacbody'); //document.querySelectorAll('.menu-item');
   a.addEventListener("click", function (event: any) {
-    console.log('event-->', event);
     const x: any = document.getElementById('myLinks');
     if (event.target.id === 'mobile-menu-open' || event.target.farthestViewportElement && event.target.farthestViewportElement.id === 'mobile-menu-open') {
       x.classList.toggle('offset-menu--active');      

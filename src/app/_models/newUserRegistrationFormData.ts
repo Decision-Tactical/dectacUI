@@ -1,0 +1,47 @@
+export class NewUserRegistartionFormData {
+    address1?: string;
+    address2?: string;
+    birthDate?: Date;
+    city?: string;
+    consentToEmail?: boolean;
+    country?: string;
+    militaryActiveBranch?: string;
+    currentlyServingsFirstResponder?: string;
+    email?: string;
+    eventCode?: string;
+    eventGroupIds?: string;
+    firstName?: string;
+    howDidYouHearAboutUs?: string;
+    firstResponderActiveRank?: string;
+    militaryActiveRank?: string;
+    lastName?: string;
+    firstResponderJobChoice?: string;
+    firstResponderActiveBranch?:string;
+    firstResponderActiveYearsInSwat?:string;
+    firstResponderRetiredBranch?:string;
+    firstResponderRetiredRank?:string;
+    firstResponderRetiredYearsInSwat?:string;
+    firstResponderRetiredYearsInTotal?:string;
+    gender?:string;
+    legalGardianFirstName?: string;
+    legalGardianLastName?: string;
+    legalGardianBirthDate?: Date;
+    milatoryJobChoice?: string
+    mobilePhoneNumber?: number;
+    othersHearAboutUs?: string;
+    profilePicture?: string;
+    referralCode?: string;
+    racerName?: string;
+    rulesAndRegulation?: boolean;
+    firstResponderActiveYearsInTotal?: number;
+    militaryActiveYears?: number;
+    militaryRetiredBranch?:string;
+    militaryRetiredRank?:string;
+    militaryRetiredYears?:string;
+    signPicture?: string;
+    signImage?:string;
+    state?: string;
+    validDoumentId?: string;
+    validDoumentImage?: string;
+    zipcode?: number;
+}

@@ -163,7 +163,8 @@ h3 {
 .h4,
 h4, .mat-typography h4 {
     font-size: calc(1rem * 2);
-    font-size: var(--h4-size)
+    font-size: var(--h4-size);
+    display: inline-block;
 }
 
 .h5,
@@ -2079,11 +2080,11 @@ button {
 }
 
 .btn--general-cta:first-child {
-    margin-top: 0
+    margin-top: 1px
 }
 
 .btn--general-cta:last-child {
-    margin-bottom: 0
+    margin-bottom: 1px
 }
 
 .btn--general-cta.btn--double-cta {
@@ -2563,4 +2564,24 @@ button {
 .modal {
     --bs-modal-width: 100%;
     --bs-modal-footer-gap: 0 rem;
+}
+.form-check-input {
+    width: 1.5em;
+    min-height:1.5em;
+    margin: 0 5px;
+}
+.requiredAsterisk {
+    color: red;
+}
+.accountHeader {
+    font: var(--h-font-weight) var(--h5-size) var(--h-font) !important;
+    color: #b20e00;
+    color: var(--link-color);
+    font-weight: 400;
+    font-weight: var(--link-font-weight);
+    text-decoration: none;
+    text-decoration: var(--link-td);
+    transition: color .4s cubic-bezier(.39, .575, .565, 1);
+    backface-visibility: hidden;
+    will-change: color
 }

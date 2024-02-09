@@ -249,7 +249,7 @@ export class NewUserRegistrationComponent implements OnInit {
           setTimeout(() => {
             this.success = '';
             this.error = '';
-          }, 10000);
+          }, 20000);
         },
         error: error => {
           this.error = error;
@@ -259,7 +259,7 @@ export class NewUserRegistrationComponent implements OnInit {
       setTimeout(() => {
         this.success = '';
         this.error = '';
-      }, 10000);
+      }, 20000);
     } else {
       const element = document.getElementById('createNewAccountFormHeader');
       element?.scrollIntoView();

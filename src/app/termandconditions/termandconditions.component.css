@@ -28,3 +28,6 @@
     height: 15px;
 
 }
+.modal-footer>* {
+    margin-bottom: 20px;
+}

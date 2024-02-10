@@ -394,55 +394,56 @@ export class NewUserRegistrationComponent implements OnInit {
     });
   }
 
-  onOptionsSelected(value: string, event: any) {
-    if (event.target.id === 'howDidYouHearAboutUs' && value === 'other') {
+  onOptionsSelected(event: any, value: string, eventType:boolean) {
+  
+    if (eventType && event === 'howDidYouHearAboutUs' && value === 'other') {
       this.populateDropdownItem('howDidYouHearAboutUsDetails', 'othersHearAboutUs', false);
     }
-    if (event.target.id === 'howDidYouHearAboutUs' && value !== 'other') {
+    if (eventType && event === 'howDidYouHearAboutUs' && value !== 'other') {
       this.populateDropdownItem('howDidYouHearAboutUsDetails', 'othersHearAboutUs', true);
     }
-    if (event.target.id === 'militaryRetiredBranch' && value === 'other') {
+    if (eventType && event === 'militaryRetiredBranch' && value === 'other') {
       this.populateDropdownItem('milatoryJobDetails', 'militaryOtherRetiredBranch', false);
     }
-    if (event.target.id === 'militaryRetiredBranch' && value !== 'other') {
+    if (eventType && event === 'militaryRetiredBranch' && value !== 'other') {
       this.populateDropdownItem('milatoryJobDetails', 'militaryOtherRetiredBranch', true);
     }
 
-    if (event.target.id === 'militaryActiveBranch' && value === 'other') {
+    if (eventType && event === 'militaryActiveBranch' && value === 'other') {
       this.populateDropdownItem('milatoryJobDetails', 'militaryOtherActiveBranch', false);
     }
-    if (event.target.id === 'militaryActiveBranch' && value !== 'other') {
+    if (eventType && event === 'militaryActiveBranch' && value !== 'other') {
       this.populateDropdownItem('milatoryJobDetails', 'militaryOtherActiveBranch', true);
     }
-    if (event.target.id === 'firstResponderActiveBranch' && value !== 'otherfirstresponder') {
+    if (eventType && event === 'firstResponderActiveBranch' && value !== 'otherfirstresponder') {
       this.populateDropdownItem('firstResponderJobDetails', 'firstResponderOtherActiveBranch', true);
     }
 
-    if (event.target.id === 'firstResponderActiveBranch' && value === 'otherfirstresponder') {
+    if (eventType && event === 'firstResponderActiveBranch' && value === 'otherfirstresponder') {
       this.populateDropdownItem('firstResponderJobDetails', 'firstResponderOtherActiveBranch', false);
     }
 
-    if (event.target.id === 'firstResponderActiveBranch' && value !== 'lawEnforcementwithswatexperience') {
+    if (eventType && event === 'firstResponderActiveBranch' && value !== 'lawEnforcementwithswatexperience') {
       this.populateDropdownItem('firstResponderJobDetails', 'firstResponderActiveYearsInSwat', true);
     }
 
-    if (event.target.id === 'firstResponderActiveBranch' && value === 'lawEnforcementwithswatexperience') {
+    if (eventType && event === 'firstResponderActiveBranch' && value === 'lawEnforcementwithswatexperience') {
       this.populateDropdownItem('firstResponderJobDetails', 'firstResponderActiveYearsInSwat', false);
     }
 
-    if (event.target.id === 'firstResponderRetiredBranch' && value !== 'otherfirstresponder') {
+    if (eventType && event === 'firstResponderRetiredBranch' && value !== 'otherfirstresponder') {
       this.populateDropdownItem('firstResponderJobDetails', 'firstResponderOtherRetiredBranch', true);
     }
 
-    if (event.target.id === 'firstResponderRetiredBranch' && value === 'otherfirstresponder') {
+    if (eventType && event === 'firstResponderRetiredBranch' && value === 'otherfirstresponder') {
       this.populateDropdownItem('firstResponderJobDetails', 'firstResponderOtherRetiredBranch', false);
     }
 
-    if (event.target.id === 'firstResponderRetiredBranch' && value === 'lawEnforcementwithswatexperience') {
+    if (eventType && event === 'firstResponderRetiredBranch' && value === 'lawEnforcementwithswatexperience') {
       this.populateDropdownItem('firstResponderJobDetails', 'firstResponderRetiredYearsInSwat', false);
     }
 
-    if (event.target.id === 'firstResponderRetiredBranch' && value !== 'lawEnforcementwithswatexperience') {
+    if (eventType && event === 'firstResponderRetiredBranch' && value !== 'lawEnforcementwithswatexperience') {
       this.populateDropdownItem('firstResponderJobDetails', 'firstResponderRetiredYearsInSwat', true)
     }
   }

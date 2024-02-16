@@ -56,7 +56,8 @@ export class FetchExistingAccountComponent implements OnInit {
       lastName: this.f.lastName.value,
       emailAddress: this.f.emailAddress.value,
       phoneNumber:this.f.phoneNumber.value,
-      birthDate:this.f.birthDate.value
+      birthDate:this.f.birthDate.value,
+      screenName:'retriveAccount'
     }
     
     this.accountService.retriveAccount(accountDetails).subscribe({

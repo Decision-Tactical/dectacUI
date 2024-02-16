@@ -26,7 +26,7 @@ export class NewUserRegistrationComponent implements OnInit {
   success?: string;
   error?: string;
   successHide?: boolean = true;
-  minDate: any = moment('1920-1-1', 'YYYY-MM-DD').local();
+  minDate: any = moment('1950-1-1', 'YYYY-MM-DD').local();
   maxDate: any = moment().local();
   maxDatelegal: any = moment().subtract(18, "years"); profilePictureRequired: any;
   ;
@@ -143,6 +143,7 @@ export class NewUserRegistrationComponent implements OnInit {
 
   patchAccountDetails(dataAccountDetails:any) {
     if (this.pageLoaded) {
+      this.registrationFormData = {...this.registrationFormData, ...{'formMode':'update'}};
       this.registrationForm.patchValue({
         address1: dataAccountDetails.address1,
         address2: dataAccountDetails.address2,
@@ -180,6 +181,8 @@ export class NewUserRegistrationComponent implements OnInit {
         validDoumentImage: dataAccountDetails.validDoumentImage,
         zipcode: dataAccountDetails.zipcode
       });
+    } else {
+      this.registrationFormData = {...this.registrationFormData, ...{'formMode':'add'}};
     }
   }
 
@@ -236,6 +239,7 @@ export class NewUserRegistrationComponent implements OnInit {
       this.registrationFormData.profilePicture !== '') {
       this.spinnerService.startSpinner();
       this.registrationFormData = { ...this.registrationFormData, ...this.registrationForm.value };
+      this.registrationFormData.screenName = 'userRegistration';
       this.accountService.createAccount(this.registrationFormData).subscribe({
         next: (data: any) => {
           setTimeout(() => {

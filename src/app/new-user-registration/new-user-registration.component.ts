@@ -453,11 +453,13 @@ export class NewUserRegistrationComponent implements OnInit {
   }
 
   rulesAndRegulationCheck(value: any) {
+    var body = document.body;
     if ((value.target as HTMLInputElement).id === 'rulesAndRegulation' && (value.target as HTMLInputElement).checked) {
       this.config.data.firstName = this.registrationForm.value.firstName;
       this.config.data.lastName = this.registrationForm.value.lastName;
       this.config.data.birthDate = this.registrationForm.value.birthDate;
       const modalRefTermandconditions = this.modalService.open(TermandconditionsComponent, this.config);
+      body.classList.add('no-scroll');
       modalRefTermandconditions.component.formTermsAndConditionSubmitted.subscribe((signImage) => {
         if (!!signImage && signImage !== 'closed') {
           const dataToAppend = { ...this.registrationForm.value, ...{ 'signImage': signImage } };
@@ -469,6 +471,7 @@ export class NewUserRegistrationComponent implements OnInit {
         }
       });
       modalRefTermandconditions.onClose.subscribe((message: any) => {
+        body.classList.remove('no-scroll');
         if (!message && message !== 'success') {
           if ((value.target as HTMLInputElement).id === 'rulesAndRegulation') {
             value.target.checked = false;
@@ -477,6 +480,8 @@ export class NewUserRegistrationComponent implements OnInit {
       });
     }
   }
+
+ 
 
   onFileChange(event: any) {
     const file = (event.target as HTMLInputElement).files?.[0];

@@ -56,18 +56,21 @@ export class FetchExistingAccountComponent implements OnInit {
       lastName: this.f.lastName.value,
       emailAddress: this.f.emailAddress.value,
       phoneNumber:this.f.phoneNumber.value,
-      birthDate:this.f.birthDate.value
+      birthDate:this.f.birthDate.value,
+      screenName:'retriveAccount'
     }
     
     this.accountService.retriveAccount(accountDetails).subscribe({
       next: (response: any) => {
-        if (!!response.error) {
-          this.error = response.error;
+        if (response.errorinfodvocollection.length>0) {
+          this.error = response.errorinfodvocollection[0].NotFound;
           this.loading = false;
+          this.router.navigate(['/new-user']);
         } else {
           // const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
           // this.router.navigateByUrl(returnUrl);
-          this.router.navigate(['/new-user'], { queryParams: { addmode: true } });
+          this.accountService.setAccountDetails(response.accountdetaildvocollection[0]);
+          this.router.navigate(['/new-user'], { queryParams: { updatemode: true } });
         }
       },
       error: error => {

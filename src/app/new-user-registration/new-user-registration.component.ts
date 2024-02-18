@@ -8,6 +8,8 @@ import { ImageWebcamComponent } from '@app/image-webcam/image-webcam.component';
 import { ImageUtilService } from '@app/_utils/image-util.service';
 import { NewUserRegistartionFormData } from '@app/_models/newUserRegistrationFormData';
 import { SpinnerService } from '@app/_services/spinner.service';
+import { ActivatedRoute } from '@angular/router';
+import { switchMap } from 'rxjs/operators';
 
 
 @Component({
@@ -26,10 +28,11 @@ export class NewUserRegistrationComponent implements OnInit {
   successHide?: boolean = true;
   minDate: any = moment('1920-1-1', 'YYYY-MM-DD').local();
   maxDate: any = moment().local();
-  maxDatelegal: any = moment().subtract(18, "years");profilePictureRequired: any;
-;
+  maxDatelegal: any = moment().subtract(18, "years"); profilePictureRequired: any;
+  ;
   dob: any;
   isYesRadioSelected: boolean = false;
+  pageLoaded: boolean = false;
   config = {
     animation: true,
     backdrop: true,
@@ -51,7 +54,8 @@ export class NewUserRegistrationComponent implements OnInit {
     private formBuilder: FormBuilder,
     private accountService: AccountService,
     private imageUtilService: ImageUtilService,
-    private spinnerService: SpinnerService
+    private spinnerService: SpinnerService,
+    private route: ActivatedRoute
   ) {
     this.registrationForm = this.formBuilder.group({
       address1: [''],
@@ -66,7 +70,7 @@ export class NewUserRegistrationComponent implements OnInit {
       eventCode: [''],
       eventGroupIds: [''],
       firstName: [''],
-      gender:[''],
+      gender: [''],
       howDidYouHearAboutUs: [''],
       firstResponderActiveRank: [''],
       militaryActiveRank: [''],
@@ -94,21 +98,91 @@ export class NewUserRegistrationComponent implements OnInit {
 
   ngOnInit() {
     this.spinnerService.startSpinner();
-    if (this.accountService.getUserRegistrationPage) {
-      this.accountService.getUserRegistrationPage().subscribe(data => {
+    if (this.route.snapshot.queryParams.updatemode) {
+      this.pageLoaded = true;
+    }
+    this.accountService.getUserRegistrationPage().pipe(
+      switchMap((data: any) => {
         if (data && data.pagelebelcollection) {
           this.formFields = data.pagelebelcollection[0];
           this.initializeForm();
         } else {
           console.error('Invalid API response structure.');
         }
-      },
-        error => {
-          console.error('Error:', error);
-        });
         setTimeout(() => {
           this.spinnerService.stopSpinner();
         }, 2000);
+        return this.accountService.accountDetails$;
+      })
+    ).subscribe((response: any) =>{
+      this.patchAccountDetails(response);
+    }
+    );
+    // if (this.accountService.getUserRegistrationPage) {
+    //   this.accountService.getUserRegistrationPage().subscribe({
+    //     next: (data: any) => {
+    //       if (data && data.pagelebelcollection) {
+    //         this.formFields = data.pagelebelcollection[0];
+    //         this.initializeForm();
+    //       } else {
+    //         console.error('Invalid API response structure.');
+    //       }
+    //       setTimeout(() => {
+    //         this.spinnerService.stopSpinner();
+    //       }, 2000);
+    //     },
+    //     error: error => {
+    //       this.error = error;
+    //     }
+    //   });
+    // }
+    // if (this.route.snapshot.queryParams.updatemode) {
+    //   this.pageLoaded = true;
+    // }
+  }
+
+  patchAccountDetails(dataAccountDetails:any) {
+    if (this.pageLoaded) {
+      this.registrationFormData = {...this.registrationFormData, ...{'formMode':'update'}};
+      this.registrationForm.patchValue({
+        address1: dataAccountDetails.address1,
+        address2: dataAccountDetails.address2,
+        birthDate: dataAccountDetails.birthDate,
+        city: dataAccountDetails.city,
+        consentToEmail: dataAccountDetails.consentToEmail,
+        country: dataAccountDetails.country,
+        militaryActiveBranch: dataAccountDetails.militaryActiveBranch,
+        currentlyServingsFirstResponder: dataAccountDetails.currentlyServingsFirstResponder,
+        email: dataAccountDetails.email,
+        eventCode: dataAccountDetails.eventCode,
+        eventGroupIds: dataAccountDetails.eventGroupIds,
+        firstName: dataAccountDetails.firstName,
+        gender: dataAccountDetails.gender,
+        howDidYouHearAboutUs: dataAccountDetails.howDidYouHearAboutUs,
+        firstResponderActiveRank: dataAccountDetails.firstResponderActiveRank,
+        militaryActiveRank: dataAccountDetails.militaryActiveRank,
+        lastName: dataAccountDetails.lastName,
+        firstResponderJobChoice: dataAccountDetails.firstResponderJobChoice,
+        legalGardianFirstName: dataAccountDetails.legalGardianFirstName,
+        legalGardianLastName: dataAccountDetails.legalGardianLastName,
+        legalGardianBirthDate: dataAccountDetails.legalGardianBirthDate,
+        milatoryJobChoice: dataAccountDetails.milatoryJobChoice,
+        mobilePhoneNumber: dataAccountDetails.mobilePhoneNumber,
+        othersHearAboutUs: dataAccountDetails.othersHearAboutUs,
+        profilePicture: dataAccountDetails.profilePicture,
+        referralCode: dataAccountDetails.referralCode,
+        racerName: dataAccountDetails.racerName,
+        rulesAndRegulation: dataAccountDetails.rulesAndRegulation,
+        firstResponderActiveYearsInTotal: dataAccountDetails.firstResponderActiveYearsInTotal,
+        militaryActiveYears: dataAccountDetails.militaryActiveYears,
+        signPicture: dataAccountDetails.signPicture,
+        state: dataAccountDetails.state,
+        validDoumentId: dataAccountDetails.validDoumentId,
+        validDoumentImage: dataAccountDetails.validDoumentImage,
+        zipcode: dataAccountDetails.zipcode
+      });
+    } else {
+      this.registrationFormData = {...this.registrationFormData, ...{'formMode':'add'}};
     }
   }
 
@@ -158,19 +232,20 @@ export class NewUserRegistrationComponent implements OnInit {
     console.log('its working--------->');
   }
 
-  onSubmit() {    
-    if (this.registrationForm.valid && 
+  onSubmit() {
+    if (this.registrationForm.valid &&
       this.registrationForm.value.rulesAndRegulation !== false &&
       (this.registrationFormData.profilePicture !== undefined) &&
-      this.registrationFormData.profilePicture !=='') {
+      this.registrationFormData.profilePicture !== '') {
       this.spinnerService.startSpinner();
       this.registrationFormData = { ...this.registrationFormData, ...this.registrationForm.value };
+      this.registrationFormData.screenName = 'userRegistration';
       this.accountService.createAccount(this.registrationFormData).subscribe({
         next: (data: any) => {
           setTimeout(() => {
             this.spinnerService.stopSpinner();
           }, 2000);
-          
+
           // this.getUser();
           const element = document.getElementById('createNewAccountFormHeader');
           element?.scrollIntoView();
@@ -192,7 +267,7 @@ export class NewUserRegistrationComponent implements OnInit {
     } else {
       const element = document.getElementById('createNewAccountFormHeader');
       element?.scrollIntoView();
-      if(!this.registrationForm.value.profilePicture || this.registrationForm.value.profilePicture ==='') {
+      if (!this.registrationForm.value.profilePicture || this.registrationForm.value.profilePicture === '') {
         this.profilePictureRequired = true;
       }
       this.markFormGroupTouched(this.registrationForm);
@@ -289,7 +364,7 @@ export class NewUserRegistrationComponent implements OnInit {
         this.populateCardBody('milatoryJobDetails', controlName);
       }
       if (id === 'milatoryJobNo') {
-        controlName = ['militaryActiveBranch', 'militaryActiveYears', 'militaryActiveRank', 'ifYes','militaryOtherActiveBranch', 'militaryRetiredBranch', 'militaryRetiredYears', 'militaryRetiredRank', 'ifNo', 'militaryOtherRetiredBranch'];
+        controlName = ['militaryActiveBranch', 'militaryActiveYears', 'militaryActiveRank', 'ifYes', 'militaryOtherActiveBranch', 'militaryRetiredBranch', 'militaryRetiredYears', 'militaryRetiredRank', 'ifNo', 'militaryOtherRetiredBranch'];
         this.populateCardBody('milatoryJobDetails', controlName);
       }
       if (id === 'firstResponderActive') {
@@ -301,7 +376,7 @@ export class NewUserRegistrationComponent implements OnInit {
         this.populateCardBody('firstResponderJobDetails', controlName);
       }
       if (id === 'firstResponderNo') {
-        controlName = ['firstResponderActiveBranch', 'firstResponderActiveYearsInTotal', 'firstResponderActiveRank', 'ifYes', 'firstResponderOtherActiveBranch','firstResponderRetiredBranch', 'firstResponderRetiredYearsInTotal', 'firstResponderRetiredRank', 'ifNo', 'firstResponderActiveYearsInSwat', 'numberYearsPastSwatFirstResponder', 'firstResponderOtherRetiredBranch'];
+        controlName = ['firstResponderActiveBranch', 'firstResponderActiveYearsInTotal', 'firstResponderActiveRank', 'ifYes', 'firstResponderOtherActiveBranch', 'firstResponderRetiredBranch', 'firstResponderRetiredYearsInTotal', 'firstResponderRetiredRank', 'ifNo', 'firstResponderActiveYearsInSwat', 'numberYearsPastSwatFirstResponder', 'firstResponderOtherRetiredBranch'];
         this.populateCardBody('firstResponderJobDetails', controlName);
       }
     }
@@ -323,65 +398,68 @@ export class NewUserRegistrationComponent implements OnInit {
     });
   }
 
-  onOptionsSelected(value: string, event: any) {
-    if (event.target.id === 'howDidYouHearAboutUs' && value === 'other') {
+  onOptionsSelected(event: any, value: string, eventType:boolean) {
+  
+    if (eventType && event === 'howDidYouHearAboutUs' && value === 'other') {
       this.populateDropdownItem('howDidYouHearAboutUsDetails', 'othersHearAboutUs', false);
     }
-    if (event.target.id === 'howDidYouHearAboutUs' && value !== 'other') {
+    if (eventType && event === 'howDidYouHearAboutUs' && value !== 'other') {
       this.populateDropdownItem('howDidYouHearAboutUsDetails', 'othersHearAboutUs', true);
     }
-    if (event.target.id === 'militaryRetiredBranch' && value === 'other') {
+    if (eventType && event === 'militaryRetiredBranch' && value === 'other') {
       this.populateDropdownItem('milatoryJobDetails', 'militaryOtherRetiredBranch', false);
     }
-    if (event.target.id === 'militaryRetiredBranch' && value !== 'other') {
+    if (eventType && event === 'militaryRetiredBranch' && value !== 'other') {
       this.populateDropdownItem('milatoryJobDetails', 'militaryOtherRetiredBranch', true);
     }
 
-    if (event.target.id === 'militaryActiveBranch' && value === 'other') {
+    if (eventType && event === 'militaryActiveBranch' && value === 'other') {
       this.populateDropdownItem('milatoryJobDetails', 'militaryOtherActiveBranch', false);
     }
-    if (event.target.id === 'militaryActiveBranch' && value !== 'other') {
+    if (eventType && event === 'militaryActiveBranch' && value !== 'other') {
       this.populateDropdownItem('milatoryJobDetails', 'militaryOtherActiveBranch', true);
     }
-    if (event.target.id === 'firstResponderActiveBranch' && value !== 'otherfirstresponder') {
+    if (eventType && event === 'firstResponderActiveBranch' && value !== 'otherfirstresponder') {
       this.populateDropdownItem('firstResponderJobDetails', 'firstResponderOtherActiveBranch', true);
     }
 
-    if (event.target.id === 'firstResponderActiveBranch' && value === 'otherfirstresponder') {
+    if (eventType && event === 'firstResponderActiveBranch' && value === 'otherfirstresponder') {
       this.populateDropdownItem('firstResponderJobDetails', 'firstResponderOtherActiveBranch', false);
     }
 
-    if (event.target.id === 'firstResponderActiveBranch' && value !== 'lawEnforcementwithswatexperience') {
+    if (eventType && event === 'firstResponderActiveBranch' && value !== 'lawEnforcementwithswatexperience') {
       this.populateDropdownItem('firstResponderJobDetails', 'firstResponderActiveYearsInSwat', true);
     }
 
-    if (event.target.id === 'firstResponderActiveBranch' && value === 'lawEnforcementwithswatexperience') {
+    if (eventType && event === 'firstResponderActiveBranch' && value === 'lawEnforcementwithswatexperience') {
       this.populateDropdownItem('firstResponderJobDetails', 'firstResponderActiveYearsInSwat', false);
     }
 
-    if (event.target.id === 'firstResponderRetiredBranch' && value !== 'otherfirstresponder') {
+    if (eventType && event === 'firstResponderRetiredBranch' && value !== 'otherfirstresponder') {
       this.populateDropdownItem('firstResponderJobDetails', 'firstResponderOtherRetiredBranch', true);
     }
 
-    if (event.target.id === 'firstResponderRetiredBranch' && value === 'otherfirstresponder') {
+    if (eventType && event === 'firstResponderRetiredBranch' && value === 'otherfirstresponder') {
       this.populateDropdownItem('firstResponderJobDetails', 'firstResponderOtherRetiredBranch', false);
     }
 
-    if (event.target.id === 'firstResponderRetiredBranch' && value === 'lawEnforcementwithswatexperience') {
+    if (eventType && event === 'firstResponderRetiredBranch' && value === 'lawEnforcementwithswatexperience') {
       this.populateDropdownItem('firstResponderJobDetails', 'firstResponderRetiredYearsInSwat', false);
     }
 
-    if (event.target.id === 'firstResponderRetiredBranch' && value !== 'lawEnforcementwithswatexperience') {
+    if (eventType && event === 'firstResponderRetiredBranch' && value !== 'lawEnforcementwithswatexperience') {
       this.populateDropdownItem('firstResponderJobDetails', 'firstResponderRetiredYearsInSwat', true)
     }
   }
 
   rulesAndRegulationCheck(value: any) {
+    var body = document.body;
     if ((value.target as HTMLInputElement).id === 'rulesAndRegulation' && (value.target as HTMLInputElement).checked) {
       this.config.data.firstName = this.registrationForm.value.firstName;
       this.config.data.lastName = this.registrationForm.value.lastName;
       this.config.data.birthDate = this.registrationForm.value.birthDate;
       const modalRefTermandconditions = this.modalService.open(TermandconditionsComponent, this.config);
+      body.classList.add('no-scroll');
       modalRefTermandconditions.component.formTermsAndConditionSubmitted.subscribe((signImage) => {
         if (!!signImage && signImage !== 'closed') {
           const dataToAppend = { ...this.registrationForm.value, ...{ 'signImage': signImage } };
@@ -393,6 +471,7 @@ export class NewUserRegistrationComponent implements OnInit {
         }
       });
       modalRefTermandconditions.onClose.subscribe((message: any) => {
+        body.classList.remove('no-scroll');
         if (!message && message !== 'success') {
           if ((value.target as HTMLInputElement).id === 'rulesAndRegulation') {
             value.target.checked = false;
@@ -401,6 +480,8 @@ export class NewUserRegistrationComponent implements OnInit {
       });
     }
   }
+
+ 
 
   onFileChange(event: any) {
     const file = (event.target as HTMLInputElement).files?.[0];

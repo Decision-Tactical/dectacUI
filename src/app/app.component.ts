@@ -36,6 +36,13 @@ ngOnInit(): void {
       }
     }
   });
+  window.addEventListener("load",function() {
+    // Set a timeout...
+    setTimeout(function(){
+      // Hide the address bar!
+      window.scrollTo(0, 1);
+    }, 0);
+  });
   }
 // Unsubscribe from login state on destroy to prevent memory leak
 ngOnDestroy(): void {

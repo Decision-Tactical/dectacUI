@@ -13,6 +13,7 @@ export class NewUserRegistartionFormData {
     firstName?: string;
     howDidYouHearAboutUs?: string;
     firstResponderActiveRank?: string;
+    formMode!:string;
     militaryActiveRank?: string;
     lastName?: string;
     firstResponderJobChoice?: string;
@@ -38,6 +39,7 @@ export class NewUserRegistartionFormData {
     militaryRetiredBranch?:string;
     militaryRetiredRank?:string;
     militaryRetiredYears?:string;
+    screenName!:string;
     signPicture?: string;
     signImage?:string;
     state?: string;

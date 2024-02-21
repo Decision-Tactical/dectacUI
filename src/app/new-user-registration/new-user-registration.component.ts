@@ -26,7 +26,7 @@ export class NewUserRegistrationComponent implements OnInit {
   success?: string;
   error?: string;
   successHide?: boolean = true;
-  minDate: any = moment('1950-1-1', 'YYYY-MM-DD').local();
+  minDate: any = moment('1920-1-1', 'YYYY-MM-DD').local();
   maxDate: any = moment().local();
   maxDatelegal: any = moment().subtract(18, "years"); profilePictureRequired: any;
   ;

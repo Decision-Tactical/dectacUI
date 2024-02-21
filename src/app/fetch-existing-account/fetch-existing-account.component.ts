@@ -65,7 +65,7 @@ export class FetchExistingAccountComponent implements OnInit {
         if (response.errorinfodvocollection.length>0) {
           this.error = response.errorinfodvocollection[0].NotFound;
           this.loading = false;
-          this.router.navigate(['/new-user']);
+          this.router.navigate(['/new-user'], { queryParams: { updatemode: false } });
         } else {
           // const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
           // this.router.navigateByUrl(returnUrl);

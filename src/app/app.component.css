@@ -42,3 +42,6 @@
     height: 25px;
     padding-top: 10px;
 }
+.no-scroll {
+    overflow: hidden;
+}

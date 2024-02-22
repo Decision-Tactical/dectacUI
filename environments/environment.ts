@@ -1,3 +1,3 @@
 export const environment = {
-    apiUrl: 'https://apidectac-53lfl5bsla-ue.a.run.app'
+    apiUrl: 'https://testapidectac-53lfl5bsla-uc.a.run.app'
 };

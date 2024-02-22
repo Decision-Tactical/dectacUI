@@ -99,10 +99,10 @@ export class NewUserRegistrationComponent implements OnInit {
   ngOnInit() {
     this.spinnerService.startSpinner();
     const accountDetails: any = this.accountService.accountDetails$;
-    if (this.route.snapshot.queryParams.updatemode === true) {
+    if (this.route.snapshot.queryParams.updatemode === 'true') {
       this.pageLoaded = true;
-      this.success = accountDetails.success;
-    } if (this.route.snapshot.queryParams.updatemode === false) {
+      this.success = accountDetails.source._value.success;
+    } if (this.route.snapshot.queryParams.updatemode === 'false') {
       this.error = accountDetails.error; //'System does not have your account. Kindly fill the fresh form or contact customer care'
     }
     setTimeout(() => {
@@ -158,7 +158,7 @@ export class NewUserRegistrationComponent implements OnInit {
         address2: dataAccountDetails.address2,
         birthDate: dataAccountDetails.birthDate,
         city: dataAccountDetails.city,
-        consentToEmail: 'consentToEmailAccepted',
+        consentToEmail: true,
         country: dataAccountDetails.country,
         email: dataAccountDetails.email,
         firstName: dataAccountDetails.firstName,

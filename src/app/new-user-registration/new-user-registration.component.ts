@@ -98,7 +98,7 @@ export class NewUserRegistrationComponent implements OnInit {
 
   ngOnInit() {
     this.spinnerService.startSpinner();
-    if (this.route.snapshot.queryParams.updatemode) {
+    if (this.route.snapshot.queryParams.updatemode === true) {
       this.pageLoaded = true;
       this.success = 'Found your account, Kindly fill the below form.'; 
     } if(this.route.snapshot.queryParams.updatemode === false) {

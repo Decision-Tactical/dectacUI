@@ -63,7 +63,7 @@ export class FetchExistingAccountComponent implements OnInit {
     this.accountService.retriveAccount(accountDetails).subscribe({
       next: (response: any) => {
         if (response.errorinfodvocollection.length>0) {
-          this.error = response.errorinfodvocollection[0].NotFound;
+          this.accountService.setAccountDetails(response.errorinfodvocollection[0]);
           this.loading = false;
           this.router.navigate(['/new-user'], { queryParams: { updatemode: false } });
         } else {

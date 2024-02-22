@@ -98,11 +98,12 @@ export class NewUserRegistrationComponent implements OnInit {
 
   ngOnInit() {
     this.spinnerService.startSpinner();
+    const accountDetails: any = this.accountService.accountDetails$;
     if (this.route.snapshot.queryParams.updatemode === true) {
       this.pageLoaded = true;
-      this.success = 'Found your account, Kindly fill the below form.'; 
-    } if(this.route.snapshot.queryParams.updatemode === false) {
-      this.error = 'System does not have your account. Kindly fill the fresh form or contact customer care'
+      this.success = accountDetails.success;
+    } if (this.route.snapshot.queryParams.updatemode === false) {
+      this.error = accountDetails.error; //'System does not have your account. Kindly fill the fresh form or contact customer care'
     }
     setTimeout(() => {
       this.success = '';

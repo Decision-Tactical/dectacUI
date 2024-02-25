@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import { AccountService } from '../_services';
 import { TermandconditionsComponent } from '../termandconditions/termandconditions.component';
@@ -98,9 +98,18 @@ export class NewUserRegistrationComponent implements OnInit {
 
   ngOnInit() {
     this.spinnerService.startSpinner();
-    if (this.route.snapshot.queryParams.updatemode) {
+    const accountDetails: any = this.accountService.accountDetails$;
+    if (this.route.snapshot.queryParams.updatemode === 'true') {
       this.pageLoaded = true;
+      this.success = accountDetails.source._value.success;
+    } if (this.route.snapshot.queryParams.updatemode === 'false') {
+      this.error = accountDetails.error; //'System does not have your account. Kindly fill the fresh form or contact customer care'
     }
+    setTimeout(() => {
+      this.success = '';
+      this.error = '';
+    }, 20000);
+
     this.accountService.getUserRegistrationPage().pipe(
       switchMap((data: any) => {
         if (data && data.pagelebelcollection) {
@@ -149,36 +158,17 @@ export class NewUserRegistrationComponent implements OnInit {
         address2: dataAccountDetails.address2,
         birthDate: dataAccountDetails.birthDate,
         city: dataAccountDetails.city,
-        consentToEmail: dataAccountDetails.consentToEmail,
+        consentToEmail: true,
         country: dataAccountDetails.country,
-        militaryActiveBranch: dataAccountDetails.militaryActiveBranch,
-        currentlyServingsFirstResponder: dataAccountDetails.currentlyServingsFirstResponder,
         email: dataAccountDetails.email,
-        eventCode: dataAccountDetails.eventCode,
-        eventGroupIds: dataAccountDetails.eventGroupIds,
         firstName: dataAccountDetails.firstName,
         gender: dataAccountDetails.gender,
-        howDidYouHearAboutUs: dataAccountDetails.howDidYouHearAboutUs,
-        firstResponderActiveRank: dataAccountDetails.firstResponderActiveRank,
-        militaryActiveRank: dataAccountDetails.militaryActiveRank,
         lastName: dataAccountDetails.lastName,
-        firstResponderJobChoice: dataAccountDetails.firstResponderJobChoice,
-        legalGardianFirstName: dataAccountDetails.legalGardianFirstName,
-        legalGardianLastName: dataAccountDetails.legalGardianLastName,
-        legalGardianBirthDate: dataAccountDetails.legalGardianBirthDate,
-        milatoryJobChoice: dataAccountDetails.milatoryJobChoice,
+        firstResponderJobChoice: 'no',
+        milatoryJobChoice: 'no',
         mobilePhoneNumber: dataAccountDetails.mobilePhoneNumber,
-        othersHearAboutUs: dataAccountDetails.othersHearAboutUs,
-        profilePicture: dataAccountDetails.profilePicture,
-        referralCode: dataAccountDetails.referralCode,
         racerName: dataAccountDetails.racerName,
-        rulesAndRegulation: dataAccountDetails.rulesAndRegulation,
-        firstResponderActiveYearsInTotal: dataAccountDetails.firstResponderActiveYearsInTotal,
-        militaryActiveYears: dataAccountDetails.militaryActiveYears,
-        signPicture: dataAccountDetails.signPicture,
         state: dataAccountDetails.state,
-        validDoumentId: dataAccountDetails.validDoumentId,
-        validDoumentImage: dataAccountDetails.validDoumentImage,
         zipcode: dataAccountDetails.zipcode
       });
     } else {
@@ -269,19 +259,42 @@ export class NewUserRegistrationComponent implements OnInit {
       element?.scrollIntoView();
       if (!this.registrationForm.value.profilePicture || this.registrationForm.value.profilePicture === '') {
         this.profilePictureRequired = true;
+        this.error ='Please select profile picture';
+        setTimeout(() => {
+          this.error = '';
+        }, 5000);
       }
       this.markFormGroupTouched(this.registrationForm);
     }
   }
 
   private markFormGroupTouched(formGroup: FormGroup) {
-    Object.values(formGroup.controls).forEach(control => {
-      control.markAsTouched();
+    let firstInvalidControl: AbstractControl | null = null;
+  
+    const recursiveMark = (control: AbstractControl) => {
       if (control instanceof FormGroup) {
-        this.markFormGroupTouched(control);
+        Object.values(control.controls).forEach((c) => recursiveMark(c));
+      } else if (control instanceof FormArray) {
+        control.controls.forEach((c) => recursiveMark(c));
+      } else {
+        control.markAsTouched();
+  
+        if (
+          control.invalid &&
+          (firstInvalidControl === null || firstInvalidControl === undefined)
+        ) {
+          firstInvalidControl = control;
+        }
       }
-    });
+    };
+  
+    recursiveMark(formGroup);
+  
+    if (firstInvalidControl) {
+      (firstInvalidControl as any).focus();
+    }
   }
+  
 
   endDateChanged(event: any) {
     if (event.targetElement.id === 'birthDate') {

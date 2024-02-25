@@ -130,7 +130,7 @@
                                 <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example"
                                     [id]="field.controlName" [formControlName]="field.controlName" #mySelect
                                     (ngModelChange)='onOptionsSelected(field.controlName, $event, $event !== null)'>
-                                    <option selected [ngValue]="null" disabled>{{field.placeHolder}}</option>
+                                    <!--<option selected [ngValue]="null" disabled>{{field.placeHolder}}</option>-->
                                     <option *ngFor="let value of field.dropdownvalues" value="{{value.value}}">
                                         {{value.label}}</option>
                                 </select>

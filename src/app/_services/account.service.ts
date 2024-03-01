@@ -128,4 +128,12 @@ export class AccountService {
   setAccountDetails(accountDetails:any) {
     this.accountDetailsSubject.next(accountDetails)
   }
+
+  generateOtp(mobileNumber: string): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/generate-otp`, { mobileNumber });
+  }
+
+  verifyOtp(mobileNumber: string, otp: string): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/verify-otp`, { mobileNumber, otp });
+  }
 }

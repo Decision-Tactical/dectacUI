@@ -86,7 +86,7 @@ export class FetchExistingAccountComponent implements OnInit {
     let message: boolean = false;
     if (!!this.mobileNumber && this.mobileNumber.trim() !== '' && this.mobileNumber.length === 10) {
       message = true;
-    } else if (!!this.mobileNumber && this.mobileNumber.trim() === '') {
+    } else if (!this.mobileNumber || this.mobileNumber.trim() === '') {
       this.error = 'Mobile Number is required';
       message = false;
     } else if (!!this.mobileNumber && this.mobileNumber.length < 10) {

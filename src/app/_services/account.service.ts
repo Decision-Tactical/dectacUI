@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 import { environment } from 'environments/environment';
 import { User, Login, Reset } from '../_models';
@@ -17,7 +18,8 @@ export class AccountService {
 
   constructor(
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    private deviceService: DeviceDetectorService
   ) {
     this.userSubject = new BehaviorSubject(JSON.parse(sessionStorage.getItem('user')!));
     this.user = this.userSubject.asObservable();
@@ -130,7 +132,8 @@ export class AccountService {
   }
 
   generateOtp(mobileNumber: string): Observable<any> {
-    return this.http.post(`${environment.apiUrl}/generate-otp`, { mobileNumber });
+    const deviceInfo = this.deviceService.getDeviceInfo();
+    return this.http.post(`${environment.apiUrl}/generate-otp`, { mobileNumber, deviceInfo });
   }
 
   verifyOtp(mobileNumber: string, otp: string): Observable<any> {

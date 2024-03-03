@@ -19,7 +19,7 @@ export class FetchExistingAccountComponent implements OnInit {
   success?: string;
   minDate: any = moment('1950-1-1', 'YYYY-MM-DD').local();
   maxDate: any = moment().local();
-  mobileNumber!: string;
+  phoneNumber!: string;
   otp!: string;
   constructor(
     private formBuilder: FormBuilder,
@@ -84,12 +84,12 @@ export class FetchExistingAccountComponent implements OnInit {
   }
   validateMobileNum(): boolean {
     let message: boolean = false;
-    if (!!this.mobileNumber && this.mobileNumber.trim() !== '' && this.mobileNumber.length === 10) {
+    if (!!this.phoneNumber && this.phoneNumber.trim() !== '' && this.phoneNumber.length === 10) {
       message = true;
-    } else if (!this.mobileNumber || this.mobileNumber.trim() === '') {
+    } else if (!this.phoneNumber || this.phoneNumber.trim() === '') {
       this.error = 'Mobile Number is required';
       message = false;
-    } else if (!!this.mobileNumber && this.mobileNumber.length < 10) {
+    } else if (!!this.phoneNumber && this.phoneNumber.length < 10) {
       this.error = 'Mobile Number should be 10 digits';
       message = false;
     }
@@ -106,7 +106,8 @@ export class FetchExistingAccountComponent implements OnInit {
 
   sendOtp() {
     if (this.validateMobileNum()) {
-      this.accountService.generateOtp(this.mobileNumber).subscribe({
+      this.otp = '';
+      this.accountService.generateOtp(this.phoneNumber).subscribe({
         next: (response: any) => {
           if (response.generateotpdvocollection.length > 0) {
             this.success = response.generateotpdvocollection[0].success;
@@ -130,7 +131,7 @@ export class FetchExistingAccountComponent implements OnInit {
 
   verifyOtp() {
     if (this.validateMobileNum() && !!this.otp && this.otp.trim() !== '') {
-    this.accountService.verifyOtp(this.mobileNumber, this.otp).subscribe({
+    this.accountService.verifyOtp(this.phoneNumber, this.otp).subscribe({
       next: (response: any) => {
         if (response.verifyotpdvocollection.length > 0) {
           this.success = response.verifyotpdvocollection[0].success;
@@ -156,6 +157,7 @@ export class FetchExistingAccountComponent implements OnInit {
     }, 5000);
   }
   }
+  
   changeMobileNumber(){
     console.log('change');
     this.otpinitiated = false;

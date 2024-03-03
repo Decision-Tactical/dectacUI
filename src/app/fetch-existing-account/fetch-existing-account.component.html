@@ -5,10 +5,10 @@
         <h4 class="card-header">Check in with an existing account</h4>
         <div class="card-body">
             <div class="mb-3 form-group">
-                <label for="mobileNumber" class="form-label">Mobile Number: <span class="requiredAsterisk">*</span></label>
-                <input class="form-control" minlength="10" maxlength="10" type="text" id="mobileNumber" [(ngModel)]="mobileNumber" numbersOnly [disabled]="otpinitiated"/>              
+                <label for="phoneNumber" class="form-label">Phone Number: <span class="requiredAsterisk">*</span></label>
+                <input class="form-control" minlength="10" maxlength="10" type="text" id="phoneNumber" [(ngModel)]="phoneNumber" numbersOnly [disabled]="otpinitiated"/>              
                 <button class="btn btn--secondary btn--general-cta" (click)="sendOtp()" [disabled]="otpinitiated">Send Verification Code</button>
-                <p (click)="changeMobileNumber()" *ngIf="otpinitiated">Edit</p>
+                <p (click)="changeMobileNumber()" *ngIf="otpinitiated" class="btn btn-link">Edit Phone Number </p>
               </div>
               <div class="mb-3 form-group" *ngIf="otpinitiated">
                 <label for="otp" class="form-label">Enter Verification Code:<span class="requiredAsterisk">*</span></label>

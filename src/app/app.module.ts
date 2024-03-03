@@ -18,6 +18,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
 import { AngularSignaturePadModule } from '@almothafar/angular-signature-pad';
 import { WebcamModule } from 'ngx-webcam';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 // user created
 import { AppComponent } from './app.component';
@@ -98,7 +99,8 @@ import { NumberDirective } from './_utils/numbers-only.directive';
     MdbModalService,
     // provider used to create fake backend
     // fakeBackendProvider,
-    MatNativeDateModule, MatMomentDateModule
+    MatNativeDateModule, MatMomentDateModule,
+    DeviceDetectorService
   ],
   bootstrap: [AppComponent]
 })

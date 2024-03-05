@@ -4,7 +4,19 @@
     <div class="card">
         <h4 class="card-header">Check in with an existing account</h4>
         <div class="card-body">
-            <form [formGroup]="retriveForm" (ngSubmit)="onRetriveFormSubmit()">
+            <div class="mb-3 form-group">
+                <label for="phoneNumber" class="form-label">Phone Number: <span class="requiredAsterisk">*</span></label>
+                <input class="form-control" minlength="10" maxlength="10" type="text" id="phoneNumber" [(ngModel)]="phoneNumber" numbersOnly [disabled]="otpinitiated"/>              
+                <button class="btn btn--secondary btn--general-cta" (click)="sendOtp()" [disabled]="otpinitiated">Send Verification Code</button>
+                <p (click)="changeMobileNumber()" *ngIf="otpinitiated" class="btn btn-link">Edit Phone Number </p>
+              </div>
+              <div class="mb-3 form-group" *ngIf="otpinitiated">
+                <label for="otp" class="form-label">Enter Verification Code:<span class="requiredAsterisk">*</span></label>
+                <input class="form-control" type="text" id="otp" [(ngModel)]="otp" />              
+                <button class="btn btn--secondary btn--general-cta" (click)="verifyOtp()">Verify Verification Code</button>
+              </div>
+              
+            <!--<form [formGroup]="retriveForm" (ngSubmit)="onRetriveFormSubmit()">
                 <div class="mb-3">
                     <label class="form-label">First Name</label>
                     <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
@@ -57,7 +69,7 @@
                         Submit
                     </button>
                 </div>
-            </form>
+            </form>-->
         </div>
     </div>
   </div>

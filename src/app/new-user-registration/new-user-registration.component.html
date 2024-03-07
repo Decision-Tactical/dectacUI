@@ -52,7 +52,7 @@
                                         <input class="form-check-input" type="radio" [name]="field.controlName"
                                             [id]="buttonitem.id" [formControlName]="field.controlName"
                                             [value]="buttonitem.value" [checked]="buttonitem.checked"
-                                            (change)="radioChecked(buttonitem.id, i)" />
+                                            (change)="radioChecked(buttonitem.id)" />
                                         <label class="form-check-label"
                                             [for]="buttonitem.id">{{buttonitem.label}}</label>
                                     </div>

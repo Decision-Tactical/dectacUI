@@ -26,10 +26,8 @@ export class FetchExistingAccountComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private accountService: AccountService
-  ) {
-
-  }
-
+  ) {}
+  
   ngOnInit() {
     this.retriveForm = this.formBuilder.group({
       firstName: ['', Validators.required],

@@ -45,5 +45,7 @@ export class NewUserRegistartionFormData {
     state?: string;
     validDoumentId?: string;
     validDoumentImage?: string;
-    zipcode?: number;
+    zipcode?: number;    
+    newPassword?:string;
+    confirmPassword?:string;
 }

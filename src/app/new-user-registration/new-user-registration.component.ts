@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation} from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import { AccountService } from '../_services';
@@ -8,8 +8,9 @@ import { ImageWebcamComponent } from '@app/image-webcam/image-webcam.component';
 import { ImageUtilService } from '@app/_utils/image-util.service';
 import { NewUserRegistartionFormData } from '@app/_models/newUserRegistrationFormData';
 import { SpinnerService } from '@app/_services/spinner.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
+import { browserRefresh } from '../app.component';
 
 
 @Component({
@@ -19,6 +20,7 @@ import { switchMap } from 'rxjs/operators';
   encapsulation: ViewEncapsulation.None,
 })
 export class NewUserRegistrationComponent implements OnInit {
+  public showPassword: boolean = false;
   registrationForm!: FormGroup;
   registrationFormData!: NewUserRegistartionFormData;
   formFields?: any[];
@@ -28,8 +30,9 @@ export class NewUserRegistrationComponent implements OnInit {
   successHide?: boolean = true;
   minDate: any = moment('1920-1-1', 'YYYY-MM-DD').local();
   maxDate: any = moment().local();
-  maxDatelegal: any = moment().subtract(18, "years"); profilePictureRequired: any;
-  ;
+  maxDatelegal: any = moment().subtract(18, "years"); 
+  profilePictureRequired: any;
+  public browserRefresh: boolean = false;
   dob: any;
   isYesRadioSelected: boolean = false;
   pageLoaded: boolean = false;
@@ -55,7 +58,8 @@ export class NewUserRegistrationComponent implements OnInit {
     private accountService: AccountService,
     private imageUtilService: ImageUtilService,
     private spinnerService: SpinnerService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router,
   ) {
     this.registrationForm = this.formBuilder.group({
       address1: [''],
@@ -92,23 +96,31 @@ export class NewUserRegistrationComponent implements OnInit {
       state: [''],
       validDoumentId: [''],
       validDoumentImage: [''],
-      zipcode: ['']
+      zipcode: [''],
+      newPassword:[''],
+      confirmPassword:['']
     });
   }
 
   ngOnInit() {
     this.spinnerService.startSpinner();
     const accountDetails: any = this.accountService.accountDetails$;
-    if (this.route.snapshot.queryParams.updatemode === 'true') {
-      this.pageLoaded = true;
-      this.success = accountDetails.source._value.success;
-    } if (this.route.snapshot.queryParams.updatemode === 'false') {
-      this.error = accountDetails.error; //'System does not have your account. Kindly fill the fresh form or contact customer care'
+    this.browserRefresh = browserRefresh;
+    if (!this.browserRefresh) {
+      if (this.route.snapshot.queryParams.updatemode === 'true') {
+        this.pageLoaded = true;
+        this.success = accountDetails.source._value.success;
+      } if (this.route.snapshot.queryParams.updatemode === 'false') {
+        this.error = accountDetails.error; //'System does not have your account. Kindly fill the fresh form or contact customer care'
+      }
+      setTimeout(() => {
+        this.success = '';
+        this.error = '';
+      }, 20000);
+    } else {
+      this.router.navigate(['/new-user']);
     }
-    setTimeout(() => {
-      this.success = '';
-      this.error = '';
-    }, 20000);
+    
 
     this.accountService.getUserRegistrationPage().pipe(
       switchMap((data: any) => {
@@ -150,6 +162,10 @@ export class NewUserRegistrationComponent implements OnInit {
     // }
   }
 
+  getControlNames(formGroup: FormGroup): string[] {
+    return Object.keys(formGroup.controls);
+  }
+
   patchAccountDetails(dataAccountDetails:any) {
     if (this.pageLoaded) {
       this.registrationFormData = {...this.registrationFormData, ...{'formMode':'update'}};
@@ -171,6 +187,15 @@ export class NewUserRegistrationComponent implements OnInit {
         state: dataAccountDetails.state,
         zipcode: dataAccountDetails.zipcode
       });
+
+      const controlNames = this.getControlNames(this.registrationForm);
+      controlNames.forEach((controlName: any) => {
+        if (this.registrationForm.get(controlName)?.value !== 'no' && this.registrationForm.get(controlName)?.value !== '' && this.pageLoaded) {
+          this.registrationForm.get(controlName)?.disable();
+        } else {
+          this.registrationForm.get(controlName)?.enable();
+        }
+      })
     } else {
       this.registrationFormData = {...this.registrationFormData, ...{'formMode':'add'}};
     }
@@ -226,7 +251,9 @@ export class NewUserRegistrationComponent implements OnInit {
     if (this.registrationForm.valid &&
       this.registrationForm.value.rulesAndRegulation !== false &&
       (this.registrationFormData.profilePicture !== undefined) &&
-      this.registrationFormData.profilePicture !== '') {
+      this.registrationFormData.profilePicture !== '' && 
+      (this.registrationForm.value.newPassword === this.registrationForm.value.confirmPassword)) {
+        this.profilePictureRequired = false;
       this.spinnerService.startSpinner();
       this.registrationFormData = { ...this.registrationFormData, ...this.registrationForm.value };
       this.registrationFormData.screenName = 'userRegistration';
@@ -257,12 +284,19 @@ export class NewUserRegistrationComponent implements OnInit {
     } else {
       const element = document.getElementById('createNewAccountFormHeader');
       element?.scrollIntoView();
-      if (!this.registrationForm.value.profilePicture || this.registrationForm.value.profilePicture === '') {
+      if (!this.registrationFormData.profilePicture || this.registrationFormData.profilePicture === '') {
         this.profilePictureRequired = true;
         this.error ='Please select profile picture';
         setTimeout(() => {
           this.error = '';
         }, 5000);
+      }
+      if (this.registrationForm.value.newPassword !== this.registrationForm.value.confirmPassword) {
+        // Passwords match, proceed with changing the password
+        this.error = 'New password and confirm password do not match.'
+        setTimeout(() => {
+          this.error = '';
+        }, 3000);
       }
       this.markFormGroupTouched(this.registrationForm);
     }
@@ -365,7 +399,7 @@ export class NewUserRegistrationComponent implements OnInit {
     }
   }
 
-  radioChecked(id: any, i: any) {
+  radioChecked(id: any) {
     if (!!this.registrationForm.value) {
       let controlName: String[] = [];
       if (id === 'milatoryJobYes') {
@@ -537,4 +571,8 @@ export class NewUserRegistrationComponent implements OnInit {
       }
     });
   }
+
+  public togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+}
 }

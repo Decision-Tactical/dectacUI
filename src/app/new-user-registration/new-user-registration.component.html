@@ -52,7 +52,7 @@
                                         <input class="form-check-input" type="radio" [name]="field.controlName"
                                             [id]="buttonitem.id" [formControlName]="field.controlName"
                                             [value]="buttonitem.value" [checked]="buttonitem.checked"
-                                            (change)="radioChecked(buttonitem.id, i)" />
+                                            (change)="radioChecked(buttonitem.id)" />
                                         <label class="form-check-label"
                                             [for]="buttonitem.id">{{buttonitem.label}}</label>
                                     </div>
@@ -68,7 +68,23 @@
                                 *ngIf="field.inputType==='text' && !field.hide">
                                 <input type="text" [id]="field.controlName" [formControlName]="field.controlName"
                                     class="form-control" placeholder="{{field.placeHolder}}"
+                                    [maxlength]="field.maxLength" [minlength]="field.minLength"/>
+                                <div *ngIf="f[field.controlName].touched && f[field.controlName].invalid"
+                                    class="error-message">
+                                    <div *ngFor="let error of f[field.controlName].errors | keyvalue">
+                                        {{ error.key === 'required' ? field.label + ' is required' : 'Invalid ' +
+                                        field.label + ' format' }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12"
+                                *ngIf="field.inputType==='password' && !field.hide">
+                                <input matInput [type]="showPassword ? 'text' : 'password'" [id]="field.controlName" [formControlName]="field.controlName"
+                                    class="form-control" placeholder="{{field.placeHolder}}"
                                     [maxlength]="field.maxLength" [minlength]="field.minLength" />
+                                    <mat-icon matSuffix (click)="togglePasswordVisibility()" style="position: absolute; margin-top: -25px; margin-right: 20px; right: 0;">
+                                        {{showPassword?'visibility_off':'visibility'}}
+                                    </mat-icon>
                                 <div *ngIf="f[field.controlName].touched && f[field.controlName].invalid"
                                     class="error-message">
                                     <div *ngFor="let error of f[field.controlName].errors | keyvalue">

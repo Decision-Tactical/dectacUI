@@ -188,7 +188,7 @@ export class NewUserRegistrationComponent implements OnInit {
         zipcode: dataAccountDetails.zipcode
       });
 
-      const controlNames = this.getControlNames(this.registrationForm);
+      const controlNames = ['firstName', 'lastName', 'mobilePhoneNumber', 'email', 'birthDate']; //this.getControlNames(this.registrationForm);
       controlNames.forEach((controlName: any) => {
         if (this.registrationForm.get(controlName)?.value !== 'no' && this.registrationForm.get(controlName)?.value !== '' && this.pageLoaded) {
           this.registrationForm.get(controlName)?.disable();

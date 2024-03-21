@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
 import { environment } from 'environments/environment';
 import { AccountService } from "./account.service";
 
@@ -19,6 +18,16 @@ export class DashboardService {
   getColumnData(data:any): Observable<any> {
     const screenName = data;
     return this.http.post(`${environment.apiUrl}/dashboard/getDashboardColumnData`, {screenName});
+  }
+
+  getUserListColumnData(data:any): Observable<any> {
+    const screenName = data;
+    return this.http.post(`${environment.apiUrl}/userlist/getUserListColumnData`, {screenName});
+  }
+
+  getUserListTableData() {
+    const email = this.user.email;
+    return this.http.post(`${environment.apiUrl}/userlist/getUserListTableData`, { email });
   }
 
   getDataForCredit(): Observable<any> {

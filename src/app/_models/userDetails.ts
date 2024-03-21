@@ -15,4 +15,5 @@ export class UserDetails {
     tel?: string;
     tel2?: string;
     email?: string;
+    role?:string;
 }

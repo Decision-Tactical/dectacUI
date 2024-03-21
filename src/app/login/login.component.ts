@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 // import { first } from 'rxjs/operators';
 import { AccountService } from '../_services';
+import { SpinnerService } from '@app/_services/spinner.service';
 
 @Component({
     selector: 'app-login',
@@ -21,6 +22,7 @@ export class LoginComponent implements OnInit {
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
+        private spinnerService:SpinnerService,
         private accountService: AccountService
     ) {
         // redirect to home if already logged in
@@ -66,8 +68,10 @@ export class LoginComponent implements OnInit {
         }
 
         this.loading = true;
+        this.spinnerService.startSpinner();
         this.accountService.login(this.f.username.value, this.f.password.value).subscribe({
             next: (response: any) => {
+                this.spinnerService.stopSpinner();
                 if (!!response.error) {
                     this.error = response.error;
                     this.loading = false;

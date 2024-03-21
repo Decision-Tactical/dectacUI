@@ -1,24 +1,38 @@
 <div class="sidebarmenu row">
     <div class="col-12">
-        <p class="menuitem_red" routerLink="/">DASHBOARD</p>
+        <p class="menuitem_red" routerLink="/"><mat-icon aria-hidden="false" aria-label="Dashboard" fontIcon="dashboard"></mat-icon>
+            DASHBOARD</p>
     </div>
     <div class="col-12">
-        <p class="menuitem_red" routerLink="/video">VIDEOS</p>
+        <p class="menuitem_red" routerLink="/video"><mat-icon aria-hidden="false" aria-label="Videos" fontIcon="video_label"></mat-icon> VIDEOS</p>
     </div>
     <div class="col-12">
-        <p class="menuitem_red" routerLink="/getcredits">CREDITS</p>
+        <p class="menuitem_red" routerLink="/getcredits"><mat-icon aria-hidden="false" aria-label="Credits" fontIcon="credit_card"></mat-icon> CREDITS</p>
         <!--<p class="menuitem_red" (click)="openModal()">CREDITS</p>-->
     </div>
     <div class="col-12">
-        <p class="menuitem_red"  routerLink="/resetpassword">PASSWORD MANAGEMENT</p>
+        <p class="menuitem_red"  routerLink="/resetpassword"><mat-icon aria-hidden="false" aria-label="Password" fontIcon="settings"></mat-icon> PASSWORD MANAGEMENT</p>
     </div>
     <div class="col-12">
-        <p class="menuitem_red" routerLink="/getprofile">PROFILE MANAGEMENT</p>
+        <p class="menuitem_red" routerLink="/getprofile"><mat-icon aria-hidden="false" aria-label="Profile"
+                fontIcon="person"></mat-icon> PROFILE MANAGEMENT</p>
     </div>
-    <!--<div class="col-12">
-    <p class="menuitem_red">TBD1</p>
-</div>
-<div class="col-12">
+    <div class="col-12 accordion-item" *ngIf="accountService.userValue?.role === 'Admin'">
+        <p class="menuitem_red accordion-header" id="headingTwo" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+            aria-expanded="false" aria-controls="collapseTwo"><mat-icon aria-hidden="false" aria-label="Admin"
+                fontIcon="group"></mat-icon> Admin <mat-icon aria-hidden="false" aria-label="Admin"
+                fontIcon="arrow_drop_down"></mat-icon></p>
+        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+            data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <div class="col-12">
+                    <p class="menuitem_red" routerLink="/getUserList"><mat-icon aria-hidden="false" aria-label="User List"
+                            fontIcon="people_outline"></mat-icon> User List</p>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--<div class="col-12">
     <p class="menuitem_red">TBD2</p>
 </div>
 <div class="col-12">
@@ -31,7 +45,7 @@
     <p class="menuitem_red">TBD5</p>
 </div>-->
     <div class="col-12">
-        <p class="menuitem_red" (click)="logout()">LOGOUT</p>
+        <p class="menuitem_red" (click)="logout()"><mat-icon aria-hidden="false" aria-label="Logout" fontIcon="logout"></mat-icon> LOGOUT</p>
     </div>
 </div>
 <nav class="offset-menu offset-menu--offset js-offset-menu" aria-hidden="true" id="myLinks">

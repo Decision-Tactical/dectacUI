@@ -13,7 +13,7 @@ export class RightNavbarComponent implements OnInit{
   // modalRef: MdbModalRef<ModalComponent> | null = null;
   constructor(
     // private modalService: MdbModalService,
-    private accountService: AccountService,
+    public accountService: AccountService,
     private router: Router) {
   
   }

@@ -1,14 +1,17 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {NgFor} from '@angular/common';
-import {MatButtonModule} from '@angular/material/button';
-import {MatSelectModule} from '@angular/material/select';
-import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MatTableDataSource, MatTableModule} from '@angular/material/table';
+import { NgFor } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { DashboardService } from '@app/_services/dashboard.service';
 import { switchMap } from 'rxjs/operators';
-import { UserListData  } from '@app/_models/userListData';
+import { UserListData } from '@app/_models/userListData';
 import { MatSort } from '@angular/material/sort';
-import {MatPaginator} from '@angular/material/paginator';
+import { MatPaginator } from '@angular/material/paginator';
+import * as moment from 'moment';
+import { Router } from '@angular/router';
+import { AccountService } from '@app/_services';
 
 @Component({
   selector: 'app-userlist',
@@ -18,23 +21,45 @@ import {MatPaginator} from '@angular/material/paginator';
 export class UserlistComponent implements OnInit {
   success?: string;
   error?: string;
-  displayedColumns:  any[] = [];
-  columns:  any[] = [];
-  columnsToDisplay:  any[] = [];
-  data = new MatTableDataSource<UserListData >();
+  displayedColumns: any[] = [];
+  columns: any[] = [];
+  columnsToDisplay: any[] = [];
+  data = new MatTableDataSource<UserListData>();
+  firstName:string = '';
   toppings = new FormControl('');
+  lastName:string = '';
   sortBySelected = new FormControl('');
+  pickerFrom: any;
+  pickerTo: any;
+  minDate: any = moment('2020=1-1', 'YYYY-MM-DD').local();
+  maxDate: any = moment().local();
+  dateControl = new FormControl();
   selectedSortValue!: string; // To store the selected sort value
   toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
   constructor(
-    private userlistService: DashboardService) {
-      this.data.sort = this.sort;
-      this.data.paginator = this.paginator;
+    private userlistService: DashboardService, private router: Router, private accountService: AccountService,) {
+    this.data.sort = this.sort;
+    this.data.paginator = this.paginator;
   }
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  ngOnInit() {  
+  ngOnInit() {
+    this.callAPIToGetData();
+  }
+
+  ngAfterViewInit() {
+    this.data.sort = this.sort;
+    this.data.paginator = this.paginator;
+  }
+  onDateClick() {
+    this.callAPIToGetData();
+  }
+
+  callAPIToGetData() {
+    this.columns = [];
+    this.data.data = [];
+    // API call for json data
     const screeName = 'userlist';
     this.userlistService.getColumnData(screeName)
       .pipe(
@@ -43,7 +68,12 @@ export class UserlistComponent implements OnInit {
             this.columns = data.tableColumnNameSetting[0];
             this.displayedColumns = this.columns.map(c => c.field);
             this.columnsToDisplay = this.displayedColumns.slice();
-            return this.userlistService.getUserListTableData();
+            if (!(this.pickerFrom && this.pickerTo)) {
+              this.pickerTo = '';
+              this.pickerFrom = '';
+            }
+            const dateobject = { 'toDate': this.pickerTo, 'fromDate': this.pickerFrom, 'firstName': this.firstName, 'lastName': this.lastName };
+            return this.userlistService.getUserListTableData(dateobject);
           } else {
             return this.error = 'No Data Found';
           }
@@ -56,7 +86,7 @@ export class UserlistComponent implements OnInit {
         }
         else {
           if (response.userdetailscollection.length > 0) {
-            this.data = new MatTableDataSource<UserListData >(response.userdetailscollection[0]);
+            this.data = new MatTableDataSource<UserListData>(response.userdetailscollection[0]);
             this.data.paginator = this.paginator;
           } else {
             this.error = 'No Data Found';
@@ -69,29 +99,39 @@ export class UserlistComponent implements OnInit {
       });
   }
 
-  ngAfterViewInit() {
-    this.data.sort = this.sort;
-    this.data.paginator = this.paginator;
-  }
-
   updateColumn(data: any) {
     const selectedOptions = data.value;
     // Filter or modify MatTable data based on selected options
     const filteredData = this.displayedColumns.filter(element =>
       selectedOptions.includes(element)
     );
-    console.log(filteredData )
+    console.log(filteredData)
     // Update MatTable with filtered data
     this.columnsToDisplay = filteredData;
   }
 
   sortByColumn(sort: MatSort) {
     const data = this.data.data.slice(); // Get a copy of data
-    if (this.selectedSortValue === 'firstName') {
-      data.sort((a:any, b:any) => a.firstName.localeCompare(b.firstName));
-    } else if (this.selectedSortValue === 'lastName') {
-      data.sort((a:any, b:any) => a.lastName.localeCompare(b.lastName));
-    } 
+    let sortProperty = ''; // Variable to hold the sort property dynamically
+
+    // Set the sort property based on the selected value
+    if (typeof this.selectedSortValue === 'string') {
+        sortProperty = this.selectedSortValue;
+    }
+
+    // Sort the data based on the dynamically specified property
+    data.sort((a: any, b: any) => {
+        // Ensure both objects have the property to compare
+        if (a.hasOwnProperty(sortProperty) && b.hasOwnProperty(sortProperty)) {
+            return a[sortProperty].localeCompare(b[sortProperty]);
+        } else {
+            return 0; // If the property is missing, consider them equal
+        }
+    });
+    // const data = this.data.data.slice(); // Get a copy of data
+    // if (typeof(this.selectedSortValue) === 'string') {
+    //   data.sort((a: any, b: any) => a.sort.localeCompare(b.sort));
+    // } 
     this.data.data = data;
 
     // const data = this.data.slice(); // Make a copy of the original data
@@ -139,8 +179,21 @@ export class UserlistComponent implements OnInit {
     this.data.filter = filterValue.trim().toLowerCase();
   }
 
-  isSelected(element:any){
-    console.log('element-->', element);
+  isSelected(element: any) {
+    this.accountService.setUserDetails(element);
+    const url = this.router.serializeUrl(
+      this.router.createUrlTree(['/getprofile'], { queryParams: { fetchAcount: true}})
+    );  
+    window.open(url);
+    // this.router.navigate(['/getprofile'], { queryParams: { fetchAcount: true} });
+  }
+
+  startDateChanged(event: any) {
+    this.pickerFrom = moment(event.value).local();
+  }
+
+  endDateChanged(event: any) {
+    this.pickerTo = moment(event.value).local();
   }
 
   // shuffle() {

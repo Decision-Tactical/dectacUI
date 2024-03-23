@@ -15,6 +15,7 @@ table {
 .mat-mdc-row .mat-mdc-cell {
     border-bottom: 1px solid transparent;
     border-top: 1px solid transparent;
+    cursor: pointer;
 }
 
 .mat-mdc-row:hover .mat-mdc-cell {
@@ -35,3 +36,13 @@ table {
      max-width: 125px !important;
      min-width: 125px !important;
  }
+ input {
+    background-color: var(--mdc-filled-text-field-container-color);
+    height: 9vh;
+}
+.btn--general-cta:first-child {
+    margin-top: 22px !important;
+}
+.card {
+    margin-bottom: 5px;
+}

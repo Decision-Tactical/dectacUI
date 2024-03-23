@@ -2,6 +2,45 @@
   <div class="card h-100">
     <div class="card-body">
       <div class="row gutters">
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+          <label>Select Date Range: </label>
+          <div class="row">
+            <div class="col-6">
+              <mat-form-field>
+                <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="pickerFrom" [formControl]="dateControl"
+                  placeholder="Choose Start Date" (dateChange)="startDateChanged($event)">
+                <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+                <mat-datepicker #pickerFrom></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="col-6">
+              <mat-form-field>
+                <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="pickerTo" [formControl]="dateControl"
+                  placeholder="Choose End Date" (dateChange)="endDateChanged($event)">
+                <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+                <mat-datepicker #pickerTo></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12">
+          <label>First Name: </label>
+          <input type="text" id="firstName" class="form-control" placeholder="Enter First Name"
+            [(ngModel)]="firstName" />
+        </div>
+        <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12">
+          <label>Last Name: </label>
+          <input type="text" id="lastName" class="form-control" placeholder="Enter Last Name" [(ngModel)]="lastName" />
+        </div>
+        <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12">
+          <button class="btn btn--secondary btn--general-cta" (click)="onDateClick()"> <span>GO</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card h-100">
+    <div class="card-body">
+      <div class="row gutters">
         <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
           <mat-form-field mat-raised-button>
             <mat-label>Column Setting</mat-label>
@@ -45,39 +84,30 @@
             </button>
           </mat-menu>
         </div>
-        <!--<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-          
-          <mat-form-field mat-raised-button>
-            <mat-label>Export</mat-label>
-            <mat-select [formControl]="toppings" multiple>
-              <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-      </div>-->
-        <div class="row gutters">
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-            <table matTableExporter mat-table [dataSource]="data" class="mat-elevation-z8" matSort
-              matSortActive="created" matSortDisableClear matSortDirection="desc" #exporter="matTableExporter">
-              <ng-container [matColumnDef]="column.field" *ngFor="let column of columns">
-                <th mat-header-cell *matHeaderCellDef> {{column.header}} </th>
-                <td mat-cell *matCellDef="let element">
-                  <span *ngIf="column.field === 'email'"><a href="mailto:{{element[column.field]}}">
-                      {{element[column.field]}}<mat-icon>email</mat-icon></a></span>
-                  <span *ngIf="column.field !== 'email'"> {{element[column.field]}}</span>
-                  <span *ngIf="column.field === 'check'"> <mat-checkbox (click)="isSelected(element)">
-      </mat-checkbox></span>
-      
-                </td>
-                </ng-container>
-              <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-              <tr mat-row *matRowDef="let row; columns: columnsToDisplay;" mat-row></tr>
-            </table>
-            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
-              aria-label="Select page of UserListData">
-            </mat-paginator>
-          </div>
+      </div>
+    </div>
+  </div>
+  <div class="card h-100">
+    <div class="card-body">
+      <div class="row gutters">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+          <table matTableExporter mat-table [dataSource]="data" class="mat-elevation-z8" matSort matSortActive="created"
+            matSortDisableClear matSortDirection="desc" #exporter="matTableExporter">
+            <ng-container [matColumnDef]="column.field" *ngFor="let column of columns">
+              <th mat-header-cell *matHeaderCellDef> {{column.header}} </th>
+              <td mat-cell *matCellDef="let element">
+                <span *ngIf="column.field === 'email'"><a href="mailto:{{element[column.field]}}">
+                    {{element[column.field]}}<mat-icon>email</mat-icon></a></span>
+                <span *ngIf="column.field !== 'email'"> {{element[column.field]}}</span>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnsToDisplay;" mat-row (click)="isSelected(row)"></tr>
+          </table>
+          <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of UserListData">
+          </mat-paginator>
         </div>
       </div>
     </div>
   </div>
+</div>

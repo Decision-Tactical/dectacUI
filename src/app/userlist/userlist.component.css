@@ -11,6 +11,9 @@ table {
 .mat-header-row {
     min-width: 800px;
 }
+.mat-mdc-header-cell {
+    font-weight: bold;
+  }
 
 .mat-mdc-row .mat-mdc-cell {
     border-bottom: 1px solid transparent;

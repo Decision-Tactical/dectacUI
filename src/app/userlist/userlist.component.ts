@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgFor } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
-import { MatSelectModule } from '@angular/material/select';
+import { MatSelect, MatSelectModule } from '@angular/material/select';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { DashboardService } from '@app/_services/dashboard.service';
@@ -12,6 +12,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import * as moment from 'moment';
 import { Router } from '@angular/router';
 import { AccountService } from '@app/_services';
+import * as e from 'cors';
 
 @Component({
   selector: 'app-userlist',
@@ -25,9 +26,8 @@ export class UserlistComponent implements OnInit {
   columns: any[] = [];
   columnsToDisplay: any[] = [];
   data = new MatTableDataSource<UserListData>();
-  firstName:string = '';
+  generalFilter:string = '';
   toppings = new FormControl('');
-  lastName:string = '';
   sortBySelected = new FormControl('');
   pickerFrom: any;
   pickerTo: any;
@@ -43,6 +43,8 @@ export class UserlistComponent implements OnInit {
   }
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSelect)
+  select!: MatSelect;
 
   ngOnInit() {
     this.callAPIToGetData();
@@ -72,7 +74,7 @@ export class UserlistComponent implements OnInit {
               this.pickerTo = '';
               this.pickerFrom = '';
             }
-            const dateobject = { 'toDate': this.pickerTo, 'fromDate': this.pickerFrom, 'firstName': this.firstName, 'lastName': this.lastName };
+            const dateobject = { 'toDate': this.pickerTo, 'fromDate': this.pickerFrom, 'generalFilter': this.generalFilter };
             return this.userlistService.getUserListTableData(dateobject);
           } else {
             return this.error = 'No Data Found';
@@ -101,13 +103,26 @@ export class UserlistComponent implements OnInit {
 
   updateColumn(data: any) {
     const selectedOptions = data.value;
+    const notSelectedColumns = this.displayedColumns.filter(element => !selectedOptions.includes(element));
+    if (selectedOptions.length > 0 && notSelectedColumns.length === 1 && notSelectedColumns[0] === 'selectall') {
+      this.columnsToDisplay = [];
+    } else if (selectedOptions.length === 0 && notSelectedColumns[0] === 'selectall') {
+      this.columnsToDisplay = [...this.displayedColumns];
+    } else if (selectedOptions.length === 1 && selectedOptions[0] === 'selectall') {
+      this.columnsToDisplay = [...this.displayedColumns];
+    } else {
+      const filteredData = this.displayedColumns.filter(element =>
+        selectedOptions.includes(element)
+      );
+      // Update MatTable with filtered data
+      this.columnsToDisplay = filteredData;
+    }
     // Filter or modify MatTable data based on selected options
-    const filteredData = this.displayedColumns.filter(element =>
-      selectedOptions.includes(element)
-    );
-    console.log(filteredData)
-    // Update MatTable with filtered data
-    this.columnsToDisplay = filteredData;
+    this.select.close();
+  }
+  selectAllCheckbox(topping: any) {
+    this.columnsToDisplay = [...this.displayedColumns]; // Select all options
+    // this.toppings.setValue(this.columnsToDisplay); // Update form control value
   }
 
   sortByColumn(sort: MatSort) {

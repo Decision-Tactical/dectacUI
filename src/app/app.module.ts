@@ -53,6 +53,7 @@ import { ImageWebcamComponent } from './image-webcam/image-webcam.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { FetchExistingAccountComponent } from './fetch-existing-account/fetch-existing-account.component';
 import { NumberDirective } from './_utils/numbers-only.directive';
+import { NoSpecialCharactersDirective } from './_utils/no-special-characters';
 import { UserlistComponent } from './userlist/userlist.component';
 
 
@@ -106,6 +107,7 @@ import { UserlistComponent } from './userlist/userlist.component';
     FetchExistingAccountComponent,
     UserlistComponent,
     NumberDirective,
+    NoSpecialCharactersDirective
     
   ],
   providers: [

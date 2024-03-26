@@ -52,7 +52,7 @@
           <ng-template pTemplate="body" let-people let-columns="columns">
             <tr>
               <td *ngFor="let col of columns">
-                 {{ (col.field === 'DATE') ? (people[col.field]| dateFormat : 'dd/MMM/yyyy hh:mm a') : people[col.field] }}
+                 {{ ((col.field | lowercase) === 'date') ? (people[col.field]| dateFormat : 'dd/MMM/yyyy hh:mm a') : people[col.field] }}
               </td>
             </tr>
           </ng-template>

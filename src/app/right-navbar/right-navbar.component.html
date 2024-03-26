@@ -17,7 +17,7 @@
         <p class="menuitem_red" routerLink="/getprofile"><mat-icon aria-hidden="false" aria-label="Profile"
                 fontIcon="person"></mat-icon> PROFILE MANAGEMENT</p>
     </div>
-    <div class="col-12 accordion-item" *ngIf="accountService.userValue?.role === 'Admin'">
+    <div class="col-12 accordion-item" *ngIf="(accountService.userValue?.role | lowercase) === 'admin'">
         <p class="menuitem_red accordion-header" id="headingTwo" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
             aria-expanded="false" aria-controls="collapseTwo"><mat-icon aria-hidden="false" aria-label="Admin"
                 fontIcon="group"></mat-icon> Admin <mat-icon aria-hidden="false" aria-label="Admin"
@@ -63,7 +63,7 @@
             <li id="menu-item-787" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-787"><span routerLink="/resetpassword">PASSWORD MANAGEMENT</span></li>
             <li id="menu-item-792" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-792"><span routerLink="/getprofile">PROFILE MANAGEMENT</span></li>
             
-                <li *ngIf="accountService.userValue?.role === 'Admin'" class="accordion-item menu-item menu-item-type-post_type menu-item-object-page menu-item-793" id="headingThree" data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                <li *ngIf="(accountService.userValue?.role | lowercase)=== 'admin'" class="accordion-item menu-item menu-item-type-post_type menu-item-object-page menu-item-793" id="headingThree" data-bs-toggle="collapse" data-bs-target="#collapseThree"
                     aria-expanded="true" aria-controls="collapseThree"><span class=" accordion-header"> Admin <mat-icon aria-hidden="false" aria-label="Admin"
                         fontIcon="arrow_drop_down"></mat-icon></span></li>
                 <div id="collapseThree" class="accordion-collapse show" aria-labelledby="headingThree"

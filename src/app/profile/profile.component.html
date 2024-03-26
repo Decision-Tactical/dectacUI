@@ -17,7 +17,7 @@
                             <h5 class="user-name">Name: {{ userDetails.first_name }} {{ userDetails.last_name }}</h5>
                             <h6 class="user-email">E-Mail: <a href="mailto:'{{ userDetails.email }}'">{{
                                     userDetails.email }}</a> </h6>
-                            <h6 class="user-serial_number">D-TAC ID: {{ userDetails.serial_number }} </h6>
+                            <!--<h6 class="user-serial_number">D-TAC ID: {{ userDetails.serial_number }} </h6>-->
                         </div>
                     </div>
                 </div>
@@ -35,42 +35,49 @@
                                 <label for="racername">Racer Name</label>
                                 <input type="text" class="form-control" id="racername"
                                     placeholder="Enter racername name" [(ngModel)]="userDetails.racer_name"
-                                    name="racer_name" [disabled]="disName">
+                                    name="racer_name" [disabled]="disName"/>
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <label for="firstname">First Name</label>
                                 <input type="text" class="form-control" id="firstname" placeholder="Enter first name"
-                                    [(ngModel)]="userDetails.first_name" name="first_name" [disabled]="disName">
+                                    [(ngModel)]="userDetails.first_name" name="first_name" [disabled]="disName"/>
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <label for="lastname">Last Name</label>
                                 <input type="url" class="form-control" id="lastname" placeholder="Enter last name"
-                                    [(ngModel)]="userDetails.last_name" name="last_name" [disabled]="disName">
+                                    [(ngModel)]="userDetails.last_name" name="last_name" [disabled]="disName"/>
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <label for="email">Email</label>
                                 <input type="email" class="form-control" id="email" placeholder="Enter email ID"
-                                    [(ngModel)]="userDetails.email" name="email" [disabled]="disName">
+                                    [(ngModel)]="userDetails.email" name="email" [disabled]="disName"/>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label for="serial_number">D-TAC ID</label>
+                                <input type="text" class="form-control" id="serial_number" placeholder="Enter D-TAC ID"
+                                    [(ngModel)]="userDetails.serial_number" name="serial_number" [disabled]="disName"/>
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <label for="tel">Tel 1</label>
                                 <input type="text" class="form-control" id="tel" placeholder="Enter phone number"
-                                    [(ngModel)]="userDetails.tel" name="tel" [disabled]="disName">
+                                    [(ngModel)]="userDetails.tel" name="tel" [disabled]="disName"/>
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <label for="tel2">Tel 2</label>
                                 <input type="text" class="form-control" id="tel2" placeholder="Enter phone number"
-                                    [(ngModel)]="userDetails.tel2" name="tel2" [disabled]="disName">
+                                    [(ngModel)]="userDetails.tel2" name="tel2" [disabled]="disName" />
                             </div>
                         </div>
                     </div>
@@ -82,7 +89,7 @@
                             <div class="form-group">
                                 <label for="address1">Address1</label>
                                 <input type="text" class="form-control" id="address1" placeholder="Enter Address 1"
-                                    [(ngModel)]="userDetails.address1" name="address1" (change)="enableButton()">
+                                    [(ngModel)]="userDetails.address1" name="address1" (change)="enableButton()"/>
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
@@ -96,21 +103,21 @@
                             <div class="form-group">
                                 <label for="city">City</label>
                                 <input type="text" class="form-control" id="city" placeholder="Enter City"
-                                    [(ngModel)]="userDetails.city" name="city" (change)="enableButton()">
+                                    [(ngModel)]="userDetails.city" name="city" (change)="enableButton()"/>
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <label for="state">State</label>
                                 <input type="text" class="form-control" id="state" placeholder="Enter State"
-                                    [(ngModel)]="userDetails.state" name="state" (change)="enableButton()">
+                                    [(ngModel)]="userDetails.state" name="state" (change)="enableButton()"/>
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <label for="zipcode">Zip Code</label>
                                 <input type="text" class="form-control" id="zipcode" placeholder="Zip Code"
-                                    [(ngModel)]="userDetails.zipcode" name="zipcode" (change)="enableButton()">
+                                    [(ngModel)]="userDetails.zipcode" name="zipcode" (change)="enableButton()"/>
                             </div>
                         </div>
                     </div>

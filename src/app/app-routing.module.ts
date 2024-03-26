@@ -14,6 +14,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { ModalComponent } from './modal/modal.component';
 import { NewUserRegistrationComponent } from './new-user-registration/new-user-registration.component';
 import { FetchExistingAccountComponent } from './fetch-existing-account/fetch-existing-account.component';
+import { UserlistComponent } from './userlist/userlist.component';
 
 
 const routes: Routes = [
@@ -28,6 +29,7 @@ const routes: Routes = [
   { path: 'video', component: VideoDashboardComponent, canActivate: [AuthGuard], data: { breadcrumb: 'Videos' } },
   { path: 'video/:id', component: VideoPopupComponent, canActivate: [AuthGuard] },
   { path: 'getprofile', component: ProfileComponent, canActivate: [AuthGuard], data: { breadcrumb: 'Profile' } },
+  { path: 'getUserList', component: UserlistComponent, canActivate: [AuthGuard], data: { breadcrumb: 'Userlist' } },
   { path: '**', component: NotFoundComponent } // Catch-all route should be the last
 ];
 

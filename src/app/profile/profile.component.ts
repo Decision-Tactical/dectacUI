@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { UserDetails } from '@app/_models/userDetails';
 import { AccountService } from '@app/_services';
 import { switchMap } from 'rxjs/operators';
@@ -36,14 +37,25 @@ export class ProfileComponent implements OnInit {
   profileImage: any;
   initialAddress = {};
 
-  constructor(private userService: AccountService) { }
+  constructor(private userService: AccountService,  private route: ActivatedRoute,) {
+    if (userService.userValue?.role === 'Admin') {
+      this.disName = false;
+      this.disEnableButton = false;
+    }
+   }
 
-  ngOnInit(): void {
-    this.getUser();
+  ngOnInit(): void { 
+    let fetchUserDetails:boolean = false;  
+    if(this.route.snapshot.queryParams.fetchAcount) {
+      fetchUserDetails = true;
+    } else {
+      fetchUserDetails = false;
+    }
+    this.getUser(fetchUserDetails);
   }
 
-  getUser(): void {
-    this.userService.getUser().pipe(
+  getUser(data:boolean): void {
+    this.userService.getUser(data).pipe(
       switchMap((data: any) => {
         this.userDetails = data.profiledetaildvocollection[0];
         this.initialAddress = {
@@ -100,6 +112,7 @@ export class ProfileComponent implements OnInit {
   }
 
   updateProfile() {
+    const fetchUserDetails = false;
     this.user = {
       'address1': this.userDetails.address1,
       'address2': this.userDetails.address2,
@@ -109,7 +122,7 @@ export class ProfileComponent implements OnInit {
     };
     this.userService.updateUser(this.user).subscribe({
         next: (data: any) => {
-          this.getUser();
+          this.getUser(fetchUserDetails);
           this.success = data.message;
           setTimeout(() => {
             this.success = '';

@@ -16,10 +16,16 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatTableModule } from '@angular/material/table'
 import { AngularSignaturePadModule } from '@almothafar/angular-signature-pad';
 import { WebcamModule } from 'ngx-webcam';
 import { DeviceDetectorService } from 'ngx-device-detector';
-
+import {MatSelectModule} from '@angular/material/select';
+import { MatSortModule } from '@angular/material/sort';
+import {MatMenuModule} from '@angular/material/menu';
+import { MatTableExporterModule } from 'mat-table-exporter';
+import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 // user created
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -47,6 +53,8 @@ import { ImageWebcamComponent } from './image-webcam/image-webcam.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { FetchExistingAccountComponent } from './fetch-existing-account/fetch-existing-account.component';
 import { NumberDirective } from './_utils/numbers-only.directive';
+import { NoSpecialCharactersDirective } from './_utils/no-special-characters';
+import { UserlistComponent } from './userlist/userlist.component';
 
 
 @NgModule({
@@ -66,7 +74,13 @@ import { NumberDirective } from './_utils/numbers-only.directive';
     MatNativeDateModule,
     MatMomentDateModule, MatButtonModule, MatDividerModule, MatIconModule, MatTabsModule, 
     AngularSignaturePadModule,
-    WebcamModule
+    WebcamModule,
+    MatTableModule,
+    MatSelectModule,
+    MatSortModule,
+    MatMenuModule,
+    MatTableExporterModule,
+    MatPaginatorModule, MatCheckboxModule 
   ],
   declarations: [
     AppComponent,
@@ -91,7 +105,10 @@ import { NumberDirective } from './_utils/numbers-only.directive';
     ImageWebcamComponent,
     SpinnerComponent,
     FetchExistingAccountComponent,
-    NumberDirective
+    UserlistComponent,
+    NumberDirective,
+    NoSpecialCharactersDirective
+    
   ],
   providers: [
     // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

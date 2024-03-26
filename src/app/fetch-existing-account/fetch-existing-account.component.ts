@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 // import { first } from 'rxjs/operators';
 import { AccountService } from '../_services';
 import * as moment from 'moment';
+import { SpinnerService } from '@app/_services/spinner.service';
 
 @Component({
   selector: 'app-fetch-existing-account',
@@ -24,10 +25,11 @@ export class FetchExistingAccountComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
+    private spinnerService: SpinnerService,
     private router: Router,
     private accountService: AccountService
-  ) {}
-  
+  ) { }
+
   ngOnInit() {
     this.retriveForm = this.formBuilder.group({
       firstName: ['', Validators.required],
@@ -105,6 +107,7 @@ export class FetchExistingAccountComponent implements OnInit {
   sendOtp() {
     if (this.validateMobileNum()) {
       this.otp = '';
+      this.spinnerService.startSpinner();
       this.accountService.generateOtp(this.phoneNumber).subscribe({
         next: (response: any) => {
           if (response.generateotpdvocollection.length > 0) {
@@ -112,6 +115,33 @@ export class FetchExistingAccountComponent implements OnInit {
             this.otpinitiated = true;
           } else {
             this.otpinitiated = false;
+            this.error = response.errorinfodvocollection[0].error;
+          }
+          this.spinnerService.stopSpinner();
+          setTimeout(() => {
+            this.success = '';
+            this.error = '';
+          }, 5000);
+        },
+        error: error => {
+          this.error = error;
+          this.loading = false;
+        }
+      });
+    }
+  }
+
+  verifyOtp() {
+    if (this.validateMobileNum() && !!this.otp && this.otp.trim() !== '') {
+      this.spinnerService.startSpinner();
+      this.accountService.verifyOtp(this.phoneNumber, this.otp).subscribe({
+        next: (response: any) => {
+          this.spinnerService.stopSpinner();
+          if (response.verifyotpdvocollection.length > 0) {
+            this.success = response.verifyotpdvocollection[0].success;
+            this.accountService.setAccountDetails(response.verifyotpdvocollection[0]);
+            this.router.navigate(['/new-user'], { queryParams: { updatemode: true } });
+          } else {
             this.error = response.errorinfodvocollection[0].error;
           }
           setTimeout(() => {
@@ -124,39 +154,15 @@ export class FetchExistingAccountComponent implements OnInit {
           this.loading = false;
         }
       });
-    }   
+    } else {
+      this.error = 'OTP is required';
+      setTimeout(() => {
+        this.error = '';
+      }, 5000);
+    }
   }
 
-  verifyOtp() {
-    if (this.validateMobileNum() && !!this.otp && this.otp.trim() !== '') {
-    this.accountService.verifyOtp(this.phoneNumber, this.otp).subscribe({
-      next: (response: any) => {
-        if (response.verifyotpdvocollection.length > 0) {
-          this.success = response.verifyotpdvocollection[0].success;
-          this.accountService.setAccountDetails(response.verifyotpdvocollection[0]);
-          this.router.navigate(['/new-user'], { queryParams: { updatemode: true } });
-        } else {
-          this.error = response.errorinfodvocollection[0].error;
-        }
-        setTimeout(() => {
-          this.success = '';
-          this.error = '';
-        }, 5000);
-      },
-      error: error => {
-        this.error = error;
-        this.loading = false;
-      }
-    });
-  } else {
-    this.error = 'OTP is required';
-    setTimeout(() => {
-      this.error = '';
-    }, 5000);
-  }
-  }
-  
-  changeMobileNumber(){
+  changeMobileNumber() {
     console.log('change');
     this.otpinitiated = false;
   }

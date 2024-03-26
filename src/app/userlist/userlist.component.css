@@ -1,0 +1,55 @@
+.card-body {
+    max-width: 100%;
+    overflow: auto;
+}
+
+table {
+    width: 800px;
+  }
+
+.mat-row,
+.mat-header-row {
+    min-width: 800px;
+}
+.mat-mdc-header-cell {
+    font-weight: bold;
+  }
+
+.mat-mdc-row .mat-mdc-cell {
+    border-bottom: 1px solid transparent;
+    border-top: 1px solid transparent;
+    /*cursor: pointer; */
+}
+.serialNumber {
+   cursor: pointer;
+   text-decoration: underline;
+}
+
+.mat-mdc-row:hover .mat-mdc-cell {
+    border-color: red;
+}
+
+.demo-row-is-clicked {
+    font-weight: bold;
+}
+.mat-column-email {
+    max-width: 240px !important;
+    min-width: 240px !important;
+ }
+ .mat-column-mobilePhoneNumber,
+ .mat-column-address1,
+ .mat-column-birthDate,
+ .mat-column-legalGardianBirthDate {
+     max-width: 125px !important;
+     min-width: 125px !important;
+ }
+ input {
+    background-color: var(--mdc-filled-text-field-container-color);
+    height: 9vh;
+}
+.btn--general-cta:first-child {
+    margin-top: 22px !important;
+}
+.card {
+    margin-bottom: 5px;
+}

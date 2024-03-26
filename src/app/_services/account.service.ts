@@ -90,9 +90,29 @@ export class AccountService {
     return this.http.post(apiUrl, payload);
   }
 
-  getUser() {
-    const email = this.userValue?.email;
-    const dtacid = this.userValue?.serial_number;
+  setUserDetails(data: any) {
+    localStorage.removeItem('userListDetails');
+    const stringifiedObj = JSON.stringify(data);
+    localStorage.setItem('userListDetails', stringifiedObj);
+    // this.useretails = data;
+  }
+
+  getUser(data: boolean) {
+    let email: any
+    let dtacid: any;
+    let userListDetails:any;
+    const userListDetailsString = localStorage.getItem("userListDetails");
+    if (userListDetailsString !== null) {
+      userListDetails = JSON.parse(userListDetailsString);
+      // Now you can use userListDetails
+    }
+    if (data) {
+      email = userListDetails.email;
+      dtacid = userListDetails?.serial_number;
+    } else {
+      email = this.userValue?.email;
+      dtacid = this.userValue?.serial_number;
+    }
     // return this.http.get<any>(`${environment.apiUrl}/getProfileDetails/${email}`);
     return this.http.post(`${environment.apiUrl}/getProfileDetails`, { email, dtacid });
   }
@@ -125,9 +145,9 @@ export class AccountService {
 
   retriveAccount(formData: FormData): Observable<any> {
     // Replace the following URL with your backend registration endpoint
-    return this.http.post(`${environment.apiUrl}/retriveAccount` , formData);
+    return this.http.post(`${environment.apiUrl}/retriveAccount`, formData);
   }
-  setAccountDetails(accountDetails:any) {
+  setAccountDetails(accountDetails: any) {
     this.accountDetailsSubject.next(accountDetails)
   }
 

@@ -1,0 +1,39 @@
+export class UserListData {
+    firstName?: string;
+    lastName?: string;
+    racerName?: string;
+    gender?: string;
+    birthDate?: string;
+    legalGardianFirstName?: string;
+    legalGardianLastName?: string;
+    legalGardianBirthDate?: string;
+    address1?: string;
+    address2?: string;
+    city?: string;
+    state?: string;
+    country?: string;
+    zipcode?: string;
+    email?: string;
+    mobilePhoneNumber?: string;
+    milatoryJobChoice?: string;
+    militaryActiveBranch?: string;
+    militaryOtherActiveBranch?: string;
+    militaryActiveYears?: string;
+    militaryActiveRank?: string;
+    militaryRetiredBranch?: string;
+    militaryOtherRetiredBranch?: string;
+    militaryRetiredYears?: string;
+    militaryRetiredRank?: string;
+    firstResponderJobChoice?: string;
+    firstResponderActiveBranch?: string;
+    firstResponderOtherActiveBranch?: string;
+    firstResponderActiveYearsInSwat?: string;
+    firstResponderActiveYearsInTotal?: string;
+    firstResponderActiveRank?: string;
+    firstResponderRetiredBranch?: string;
+    firstResponderOtherRetiredBranch?: string;
+    firstResponderRetiredYearsInSwat?: string;
+    firstResponderRetiredYearsInTotal?: string;
+    firstResponderRetiredRank?: string;
+
+}
